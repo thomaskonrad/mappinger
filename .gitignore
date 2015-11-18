@@ -4,7 +4,7 @@
 .idea/
 
 # Ignore config file
-js/config.js
+app/config.js
 
 # Packages
 # it's better to unpack these files and commit the raw source
