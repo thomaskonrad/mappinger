@@ -10,8 +10,8 @@ mapControllers.controller('MapCtrl',['$scope',
             var map = new mapboxgl.Map({
                 container: 'map', // container id
                 style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-                center: [-74.50, 40], // starting position
-                zoom: 9 // starting zoom
+                center: [16.37186, 48.20797], // starting position
+                zoom: 5 // starting zoom
             });
 
             map.addControl(new mapboxgl.Navigation());
