@@ -1,0 +1,16 @@
+{
+  "name": "mappinger",
+  "description": "An open map with the end-user in mind",
+  "version": "0.0.0",
+  "homepage": "https://github.com/thomaskonrad/mappinger",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-route": "1.4.x",
+    "jquery": "2.1.x",
+    "bootstrap": "3.3.x",
+
+    "mapbox-gl-js": "0.11.x"
+  }
+}

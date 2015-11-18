@@ -1,0 +1,3 @@
+var config = {
+    mapboxAccessToken: 'paste-your-access-token-here'
+};
