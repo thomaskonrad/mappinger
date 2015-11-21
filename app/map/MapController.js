@@ -14,7 +14,7 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
 
             map = new mapboxgl.Map({
                 container: 'map', // container id
-                style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
+                style: '/map-styles/streets-v8.json', //stylesheet location
                 center: [16.37186, 48.20797], // starting position
                 zoom: 5, // starting zoom,
                 interactive: true
@@ -25,6 +25,10 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
             map.on('click', function(e) {
                 map.featuresAt(e.point, {radius: 30}, function(err, features) {
                     if (err) throw err;
+
+                    if (features.length > 0) {
+                        $scope.showDetails(features[0]);
+                    }
                 });
             });
         });
@@ -56,5 +60,9 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
                 speed: 3
             });
         };
+
+        $scope.showDetails = function(feature) {
+            console.log(feature);
+        }
     }
 ]);
