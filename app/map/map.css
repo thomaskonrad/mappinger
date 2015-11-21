@@ -5,3 +5,11 @@
     top: 20px;
     z-index: 100;
 }
+
+#search-results {
+    position: absolute;
+    width: 400px;
+    top: 55px;
+    left: 20px;
+    display: block;
+}

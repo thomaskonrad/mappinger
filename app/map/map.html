@@ -1,10 +1,19 @@
 <div id="map-wrapper">
     <div id="map"></div>
 
-    <div id="search-box" class="input-group">
-        <input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-    </div><!-- /input-group -->
+    <div id="search-box">
+        <input type="text"
+               ng-model="searchTerm"
+               placeholder="Search the Map"
+               uib-typeahead="result.properties.name for result in search($viewValue)"
+               typeahead-on-select="onSelect($item)"
+               typeahead-wait-ms="500"
+               typeahead-template-url="popup-template.html"
+               class="form-control" />
+
+        <script type="text/ng-template" id="popup-template.html">
+            <a><span ng-bind-html="match.model.properties.name | uibTypeaheadHighlight:query"></span></a>
+        </script>
+
+    </div>
 </div>

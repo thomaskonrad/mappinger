@@ -2,7 +2,8 @@
 
 var mappingerApp = angular.module('mappingerApp', [
     'ngRoute',
-    'mapControllers'
+    'mapControllers',
+    'ui.bootstrap'
 ]);
 
 mappingerApp.config(['$routeProvider',
