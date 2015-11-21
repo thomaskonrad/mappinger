@@ -2,6 +2,8 @@
 
 var mapControllers = angular.module('mapControllers', []);
 
+var map = null;
+
 mapControllers.controller('MapCtrl',['$scope', '$http',
     function($scope, $http) {
         $scope.searchTerm = null;
@@ -10,7 +12,7 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
         $scope.$on('$viewContentLoaded', function() {
             mapboxgl.accessToken = config.mapboxAccessToken;
 
-            $scope.map = new mapboxgl.Map({
+            map = new mapboxgl.Map({
                 container: 'map', // container id
                 style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
                 center: [16.37186, 48.20797], // starting position
@@ -18,17 +20,17 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
                 interactive: true
             });
 
-            $scope.map.addControl(new mapboxgl.Navigation());
+            map.addControl(new mapboxgl.Navigation());
 
-            $scope.map.on('click', function(e) {
-                $scope.map.featuresAt(e.point, {radius: 30}, function(err, features) {
+            map.on('click', function(e) {
+                map.featuresAt(e.point, {radius: 30}, function(err, features) {
                     if (err) throw err;
                 });
             });
         });
 
         $scope.search = function(query) {
-            var mapCenter = $scope.map.getCenter();
+            var mapCenter = map.getCenter();
 
             return $http({
                 method: 'GET',
@@ -48,11 +50,9 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
         };
 
         $scope.onSelect = function($item) {
-            var latLng = [$item.geometry.coordinates[1], $item.geometry.coordinates[0]];
-
-            $scope.map.flyTo({
-                center: latLng,
-                zoom: 15,
+            map.flyTo({
+                center: $item.geometry.coordinates,
+                zoom: 14,
                 speed: 3
             });
         };
