@@ -5814,6 +5814,7 @@
     },
     {
       "id": "poi-scalerank4-l15",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -5898,6 +5899,7 @@
     },
     {
       "id": "poi-scalerank4-l1",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -5982,6 +5984,7 @@
     },
     {
       "id": "poi-parks_scalerank4",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6052,6 +6055,7 @@
     },
     {
       "id": "poi-scalerank3",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6131,6 +6135,7 @@
     },
     {
       "id": "poi-parks-scalerank3",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6571,6 +6576,7 @@
     },
     {
       "id": "poi-scalerank2",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6661,6 +6667,7 @@
     },
     {
       "id": "poi-parks-scalerank2",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6744,6 +6751,7 @@
     },
     {
       "id": "rail-label",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6910,6 +6918,7 @@
     },
     {
       "id": "poi-parks-scalerank1",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -6993,6 +7002,7 @@
     },
     {
       "id": "poi-scalerank1",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
@@ -7087,6 +7097,7 @@
     },
     {
       "id": "airport-label",
+      "interactive": true,
       "type": "symbol",
       "source": "composite",
       "source-layer": "poi_label",
