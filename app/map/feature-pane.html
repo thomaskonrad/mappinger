@@ -1,1 +1,8 @@
-<h1>{{selectedFeature.properties.name}}</h1>
+<h1>{{selectedFeature.tags.name}}</h1>
+
+<ul class="feature-tags">
+    <li ng-if="selectedFeature.tags.website">Website: <a href="{{selectedFeature.tags.website}}" target="_blank">{{selectedFeature.tags.website}}</a></li>
+    <li ng-if="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
+    <li ng-if="selectedFeature.tags.phone">Phone: <a href="tel:{{selectedFeature.tags.phone}}" target="_blank">{{selectedFeature.tags.phone}}</a></li>
+    <li ng-if="selectedFeature.tags.opening_hours">Opening Hours: {{selectedFeature.tags.opening_hours}}</li>
+</ul>

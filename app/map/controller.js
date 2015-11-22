@@ -4,8 +4,8 @@ var mapControllers = angular.module('mapControllers', []);
 
 var map = null;
 
-mapControllers.controller('MapCtrl',['$scope', '$http',
-    function($scope, $http) {
+mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
+    function($scope, $http, mapService) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
         $scope.featurePaneVisible = false;
@@ -53,17 +53,13 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
             });
         };
 
-
         $scope.mapClicked = function($event) {
             if (!drag) {
                 map.featuresAt($event, {radius: 30}, function(err, features) {
                     if (err) throw err;
 
                     if (features.length > 0) {
-                        $scope.$apply(function() {
-                            $scope.selectedFeature = features[0];
-                            $scope.featurePaneVisible = true;
-                        });
+                        $scope.showFeatureDetails(features[0]);
                     } else {
                         $scope.$apply(function() {
                             $scope.featurePaneVisible = false;
@@ -71,6 +67,22 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
                     }
                 });
             }
+        }
+
+        $scope.showFeatureDetails = function(feature) {
+            console.log(feature);
+            var osmIdentifier = mapService.getFeatureTypeAndRealId(feature.properties.osm_id);
+
+            mapService.fetchFeatureFromOsm(osmIdentifier.type, osmIdentifier.id)
+                .then(function(data) {
+                    console.log(data);
+                    $scope.selectedFeature = data;
+                });
+
+            $scope.$apply(function() {
+                $scope.selectedFeature = feature;
+                $scope.featurePaneVisible = true;
+            });
         }
     }
 ]);
