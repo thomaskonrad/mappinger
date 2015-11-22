@@ -1,5 +1,5 @@
 <div id="map-wrapper">
-    <div id="map"></div>
+    <div id="map" ng-click="mapClicked($event)"></div>
 
     <div id="search-box">
         <input type="text"
@@ -15,5 +15,9 @@
             <a><span ng-bind-html="match.model.properties.name | uibTypeaheadHighlight:query"></span></a>
         </script>
 
+    </div>
+
+    <div id="feature-pane" ng-show="featurePaneVisible">
+        <ng-include src="'/map/feature-pane.html'"></ng-include>
     </div>
 </div>

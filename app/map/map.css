@@ -13,3 +13,17 @@
     left: 20px;
     display: block;
 }
+
+#feature-pane {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 440px;
+    background-color: white;
+    border-right: 1px solid #ccc;
+    box-shadow: 0 0 20px rgba(0,0,0,0.33);
+    padding: 50px 20px 20px 20px;
+    transition: opacity 1s ease-out;
+}

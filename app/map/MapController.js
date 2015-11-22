@@ -8,6 +8,8 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
     function($scope, $http) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
+        $scope.featurePaneVisible = false;
+        $scope.selectedFeature = null;
 
         $scope.$on('$viewContentLoaded', function() {
             mapboxgl.accessToken = config.mapboxAccessToken;
@@ -16,21 +18,11 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
                 container: 'map', // container id
                 style: '/map-styles/streets-v8.json', //stylesheet location
                 center: [16.37186, 48.20797], // starting position
-                zoom: 5, // starting zoom,
+                zoom: 15, // starting zoom,
                 interactive: true
             });
 
             map.addControl(new mapboxgl.Navigation());
-
-            map.on('click', function(e) {
-                map.featuresAt(e.point, {radius: 30}, function(err, features) {
-                    if (err) throw err;
-
-                    if (features.length > 0) {
-                        $scope.showDetails(features[0]);
-                    }
-                });
-            });
         });
 
         $scope.search = function(query) {
@@ -61,8 +53,24 @@ mapControllers.controller('MapCtrl',['$scope', '$http',
             });
         };
 
-        $scope.showDetails = function(feature) {
-            console.log(feature);
+
+        $scope.mapClicked = function($event) {
+            if (!drag) {
+                map.featuresAt($event, {radius: 30}, function(err, features) {
+                    if (err) throw err;
+
+                    if (features.length > 0) {
+                        $scope.$apply(function() {
+                            $scope.selectedFeature = features[0];
+                            $scope.featurePaneVisible = true;
+                        });
+                    } else {
+                        $scope.$apply(function() {
+                            $scope.featurePaneVisible = false;
+                        });
+                    }
+                });
+            }
         }
     }
 ]);

@@ -50,3 +50,20 @@ mappingerApp.directive('head', ['$rootScope','$compile',
         };
     }
 ]);
+
+// Detect dragging. We need to do this in order to distinguish between click and drag events on the map.
+var drag = false;
+angular.element(document).bind('mousedown', function(e) {
+    drag = false;
+    var x = e.clientX;
+    var y = e.clientY;
+
+    angular.element(document).bind('mousemove', function(e) {
+        if (Math.abs(e.clientX - x) || Math.abs(e.clientY - y) > 1)
+            drag = true;
+    });
+});
+angular.element(document).bind('mouseup', function() {
+    angular.element(document).unbind('mousemove');
+    angular.element('body').removeClass('disableSelect');
+});
