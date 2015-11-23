@@ -1,5 +1,3 @@
-var mappingerApp = angular.module('mappingerApp');
-
 mappingerApp.service('mapService', ['$http', function($http) {
     // TODO: Write a test for this!
     this.getFeatureTypeAndRealId = function(mapboxId) {
