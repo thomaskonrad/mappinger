@@ -11,31 +11,13 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
         $scope.featurePaneVisible = false;
         $scope.selectedFeature = null;
 
-        $scope.$on('$viewContentLoaded', function() {
-            mapboxgl.accessToken = config.mapboxAccessToken;
-
-            map = new mapboxgl.Map({
-                container: 'map', // container id
-                style: '/map-styles/streets-v8.json', //stylesheet location
-                center: [16.37186, 48.20797], // starting position
-                zoom: 15, // starting zoom,
-                interactive: true
-            });
-
-            map.addControl(new mapboxgl.Navigation());
-        });
-
         $scope.search = function(query) {
-            var mapCenter = map.getCenter();
-
             return $http({
                 method: 'GET',
                 url: 'http://photon.komoot.de/api/',
                 params: {
                     q: query,
-                    limit: 10,
-                    lon: mapCenter.lng,
-                    lat: mapCenter.lat
+                    limit: 10
                 }
             }).then(function successCallback(response) {
                 console.log(response);
@@ -46,28 +28,15 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
         };
 
         $scope.onSelect = function($item) {
-            map.flyTo({
+            $scope.$broadcast('setMapCenter', {
                 center: $item.geometry.coordinates,
-                zoom: 14,
-                speed: 3
-            });
+                zoom: 15
+            })
         };
 
-        $scope.mapClicked = function($event) {
-            if (!drag) {
-                map.featuresAt($event, {radius: 30}, function(err, features) {
-                    if (err) throw err;
-
-                    if (features.length > 0) {
-                        $scope.showFeatureDetails(features[0]);
-                    } else {
-                        $scope.$apply(function() {
-                            $scope.featurePaneVisible = false;
-                        });
-                    }
-                });
-            }
-        }
+        $scope.$on('featureSelected', function(event, feature) {
+            $scope.showFeatureDetails(feature);
+        });
 
         $scope.showFeatureDetails = function(feature) {
             console.log(feature);
