@@ -30,18 +30,23 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
         $scope.onSelect = function($item) {
             $scope.$broadcast('setMapCenter', {
                 center: $item.geometry.coordinates,
-                zoom: 15
-            })
+                zoom: 16
+            });
+
+            $scope.showFeatureDetails({
+                type: mapService.getFeatureTypeByPhotonType($item.properties.osm_type),
+                id: $item.properties.osm_id
+            });
         };
 
         $scope.$on('featureSelected', function(event, feature) {
-            $scope.showFeatureDetails(feature);
+            console.log(feature);
+
+            var osmIdentifier = mapService.getFeatureTypeAndRealId(feature.properties.osm_id);
+            $scope.showFeatureDetails(osmIdentifier);
         });
 
-        $scope.showFeatureDetails = function(feature) {
-            console.log(feature);
-            var osmIdentifier = mapService.getFeatureTypeAndRealId(feature.properties.osm_id);
-
+        $scope.showFeatureDetails = function(osmIdentifier) {
             mapService.fetchFeatureFromOsm(osmIdentifier.type, osmIdentifier.id)
                 .then(function(data) {
                     console.log(data);
@@ -63,12 +68,8 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
                     }
 
                     $scope.selectedFeature = data;
+                    $scope.featurePaneVisible = true;
                 });
-
-            $scope.$apply(function() {
-                $scope.selectedFeature = feature;
-                $scope.featurePaneVisible = true;
-            });
         }
     }
 ]);

@@ -26,6 +26,18 @@ mappingerApp.service('mapService', ['$http', function($http) {
         return osmIdentifier;
     };
 
+    this.getFeatureTypeByPhotonType = function(photonType) {
+        if (photonType == 'N') {
+            return 'node';
+        } else if (photonType == 'W') {
+            return 'way';
+        } else if (photonType == 'R') {
+            return 'relation';
+        } else {
+            return 'postcode'; //?
+        }
+    }
+
     this.fetchFeatureFromOsm = function(featureType, osmId) {
         var query = '[out:json][timeout:10];' + featureType + '(' + osmId + ');out;';
 
