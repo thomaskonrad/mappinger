@@ -45,6 +45,11 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
             mapService.fetchFeatureFromOsm(osmIdentifier.type, osmIdentifier.id)
                 .then(function(data) {
                     console.log(data);
+                    data.geometry = function() {
+                        return "point";
+                    };
+
+                    data.type = presetLocales.en[idPresets.match(data).id].name;
                     $scope.selectedFeature = data;
                 });
 
