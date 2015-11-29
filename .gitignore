@@ -34,4 +34,4 @@ Thumbs.db
 
 # Components
 bower-components/
-node-modules/
+node_modules/

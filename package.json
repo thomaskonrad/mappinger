@@ -1,0 +1,20 @@
+{
+  "name": "Mappinger",
+  "version": "0.0.0",
+  "description": "An open map with the end-user in mind",
+  "main": "app/index.html",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "npm install -g grunt-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thomaskonrad/mappinger.git"
+  },
+  "dependencies": {
+    "id-core": "1.0.0-alpha1",
+    "opening_hours": "https://github.com/ypid/opening_hours.js/tarball/master",
+    "grunt-submake": "0.2.x",
+    "grunt-run": "0.5.x"
+  }
+}
