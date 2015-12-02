@@ -4,8 +4,8 @@ var mapControllers = angular.module('mapControllers', []);
 
 var map = null;
 
-mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
-    function($scope, $http, mapService) {
+mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService',
+    function($scope, $http, mapService, wikipediaService) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
         $scope.featurePaneVisible = false;
@@ -60,9 +60,16 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
                         data.type = preset.name();
                     }
 
+                    if (data.tags.wikipedia) {
+                        var parts = data.tags.wikipedia.split(':');
+                        wikipediaService.getMainImageUrl(parts[0], parts[1]).then(function(result) {
+                            data.wikipediaImageUrl = result;
+                        });
+                    }
+
                     $scope.selectedFeature = data;
                     $scope.featurePaneVisible = true;
                 });
-        }
+        };
     }
 ]);

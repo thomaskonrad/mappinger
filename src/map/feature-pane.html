@@ -1,6 +1,10 @@
 <h1>{{selectedFeature.tags.name}}</h1>
 <p ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</p>
 
+<div class="feature-image" ng-if="selectedFeature.wikipediaImageUrl">
+    <img src="{{selectedFeature.wikipediaImageUrl}}" width="400"/>
+</div>
+
 <ul class="feature-tags">
     <li ng-if="selectedFeature.tags.website">Website: <a href="{{selectedFeature.tags.website}}" target="_blank">{{selectedFeature.tags.website}}</a></li>
     <li ng-if="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
