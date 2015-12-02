@@ -1,1 +1,0 @@
-var idPresets = iD.presets().load(iD.data.presets);

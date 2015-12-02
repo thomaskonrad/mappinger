@@ -1,26 +1,61 @@
 module.exports = function(grunt) {
+    var idPath = 'node_modules/iD/';
+
     grunt.initConfig({
         run: {
-            opening_hours_npm_install: {
+            'opening-hours-npm-install': {
                 exec: 'cd node_modules/opening_hours/ && npm install'
             }
         },
         submake: {
-            opening_hours_clean: {
-                'node_modules/opening_hours/': 'clean'
-            },
-            opening_hours_browserify: {
+            'opening-hours-make': {
                 'node_modules/opening_hours/': 'opening_hours+deps.js'
+            },
+            'id': {
+                'node_modules/iD/': 'all'
+            }
+        },
+        concat: {
+            'id': {
+                options: {
+                    banner: 'var iD = { data: {} };',
+                    footer: 'var idPresets = iD.presets().load(iD.data.presets);'
+                },
+                files: {
+                    'app/components/id-core/presets.js': [
+                        idPath + 'dist/presets.js',
+                        idPath + 'js/id/presets.js',
+                        idPath + 'js/id/presets/*.js'
+                    ]
+                }
+            }
+        },
+        copy: {
+            'opening-hours': {
+                files: [
+                    {
+                        expand: false,
+                        src: ['node_modules/opening_hours/opening_hours+deps.js'],
+                        dest: 'app/components/opening-hours.js'
+                    }
+                ]
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-submake');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('opening_hours', [
-        'run:opening_hours_npm_install',
-        'submake:opening_hours_clean',
-        'submake:opening_hours_browserify'
+    grunt.registerTask('opening-hours', [
+        'run:opening-hours-npm-install',
+        'submake:opening-hours-clean',
+        'submake:opening-hours-make',
+        'copy:opening-hours'
     ]);
-}
+
+    grunt.registerTask('id-core', [
+        'submake:id',
+    ]);
+};
