@@ -57,14 +57,7 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService',
                     var preset = idPresets.match(data);
 
                     if (preset !== undefined) {
-                        var id = preset.id;
-
-                        if (preset.suggestion) {
-                            id = id.split('/');
-                            id = id[0] + '/' + id[1];
-                        }
-
-                        data.type = presetLocales.en[id].name;
+                        data.type = preset.name();
                     }
 
                     $scope.selectedFeature = data;

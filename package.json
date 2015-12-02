@@ -15,11 +15,12 @@
     "grunt-run": "0.5.x",
     "grunt-submake": "0.2.x",
     "grunt-contrib-concat": "0.5.x",
-
+    "grunt-contrib-watch": "0.6.x",
     "iD": "git://github.com/openstreetmap/id#v1.8.0",
     "opening_hours": "https://github.com/ypid/opening_hours.js/tarball/master",
     "grunt-contrib-copy": "^0.8.2"
   },
   "devDependencies": {
+    "grunt-contrib-watch": "^0.6.1"
   }
 }

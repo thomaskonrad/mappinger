@@ -37,8 +37,8 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src',
                         src: [
-                            'components/*',
-                            'map/*',
+                            'components/**',
+                            'map/**',
                             'map-styles/*',
                             'app.*',
                             'config.js',
@@ -57,14 +57,31 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            'id-locale': {
+            'id-locales': {
                 files: [
                     {
                         expand: false,
                         src: idPath + 'js/lib/locale.js',
                         dest: 'app/components/id-core/locale.js'
+                    },
+                    {
+                        expand: true,
+                        cwd: idPath + 'dist/locales/',
+                        src: '*.json',
+                        dest: 'app/components/id-core/locales/'
+                    },
+                    {
+                        expand: false,
+                        src: idPath + 'data/locales.json',
+                        dest: 'app/components/id-core/locales.json'
                     }
                 ]
+            }
+        },
+        watch: {
+            app: {
+                files: 'src/**',
+                tasks: ['app']
             }
         }
     });
@@ -73,6 +90,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-submake');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('opening-hours', [
         'run:opening-hours-npm-install',
@@ -82,7 +100,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('id-core', [
         'submake:id',
-        'concat:id-presets'
+        'concat:id-presets',
+        'copy:id-locales'
     ]);
 
     grunt.registerTask('app', [
