@@ -10,7 +10,6 @@
 
     "angular": "1.4.x",
     "angular-route": "1.4.x",
-    "jquery": "2.1.x",
     "bootstrap": "3.3.x",
     "angular-bootstrap": "0.14.x",
 

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            'id': {
+            'id-presets': {
                 options: {
                     banner: 'var iD = { data: {} };',
                     footer: 'var idPresets = iD.presets().load(iD.data.presets);'
@@ -39,6 +39,15 @@ module.exports = function(grunt) {
                         dest: 'app/components/opening-hours.js'
                     }
                 ]
+            },
+            'id-locale': {
+                files: [
+                    {
+                        expand: false,
+                        src: idPath + 'js/lib/locale.js',
+                        dest: 'app/components/id-core/locale.js'
+                    }
+                ]
             }
         }
     });
@@ -57,5 +66,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('id-core', [
         'submake:id',
+        'concat:id-presets'
     ]);
 };
