@@ -3,6 +3,9 @@
 *.sublime-workspace
 .idea/
 
+# app/ directory
+app/
+
 # Ignore config file
 src/config.js
 

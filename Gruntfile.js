@@ -31,6 +31,23 @@ module.exports = function(grunt) {
             }
         },
         copy: {
+            'app': {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src',
+                        src: [
+                            'components/*',
+                            'map/*',
+                            'map-styles/*',
+                            'app.*',
+                            'config.js',
+                            'index.html'
+                        ],
+                        dest: 'app/'
+                    }
+                ]
+            },
             'opening-hours': {
                 files: [
                     {
@@ -59,7 +76,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('opening-hours', [
         'run:opening-hours-npm-install',
-        'submake:opening-hours-clean',
         'submake:opening-hours-make',
         'copy:opening-hours'
     ]);
@@ -68,4 +84,14 @@ module.exports = function(grunt) {
         'submake:id',
         'concat:id-presets'
     ]);
+
+    grunt.registerTask('app', [
+        'copy:app'
+    ]);
+
+    grunt.registerTask('build', [
+        'opening-hours',
+        'id-core',
+        'app'
+    ])
 };
