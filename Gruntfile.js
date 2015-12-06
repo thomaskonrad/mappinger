@@ -37,8 +37,8 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src',
                         src: [
-                            'components/**',
-                            'map/**',
+                            'components/**/*',
+                            'map/**/*',
                             'map-styles/*',
                             'app.*',
                             'config.js',
