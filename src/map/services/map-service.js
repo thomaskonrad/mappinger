@@ -43,7 +43,7 @@ mappingerApp.service('mapService', ['$http', function($http) {
 
         return $http({
             method: 'GET',
-            url: 'http://overpass-api.de/api/interpreter',
+            url: 'https://overpass-api.de/api/interpreter',
             params: {
                 data: query
             }
