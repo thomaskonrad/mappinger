@@ -14,7 +14,7 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
         $scope.search = function(query) {
             return $http({
                 method: 'GET',
-                url: 'http://photon.komoot.de/api/',
+                url: 'https://photon.komoot.de/api/',
                 params: {
                     q: query,
                     limit: 10
