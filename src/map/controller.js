@@ -4,8 +4,8 @@ var mapControllers = angular.module('mapControllers', []);
 
 var map = null;
 
-mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService',
-    function($scope, $http, mapService, wikipediaService) {
+mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService', 'nominatimService',
+    function($scope, $http, mapService, wikipediaService, nominatimService) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
         $scope.featurePaneVisible = false;
@@ -64,6 +64,14 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
                         var parts = data.tags.wikipedia.split(':');
                         wikipediaService.getMainImageUrl(parts[0], parts[1]).then(function(result) {
                             data.wikipediaImageUrl = result;
+                        });
+                    }
+
+                    if (data.tags.opening_hours) {
+                        nominatimService.reverseGeocode(data.lat, data.lon).then(function(result) {
+                            var oh = new opening_hours(data.tags.opening_hours, result);
+                            data.opening_hours = {};
+                            data.opening_hours.state = oh.getState();
                         });
                     }
 

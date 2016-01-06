@@ -21,12 +21,17 @@
         <script src="components/id-core/presets.js"></script>
         <script src="components/id-core/locale.js"></script>
         <script src="components/id-core/init-locales.js"></script>
+        <script src="components/opening-hours.js"></script>
+        <script type="application/javascript">
+            var opening_hours = require('opening_hours');
+        </script>
 
         <script src="app.js"></script>
         <script src="config.js"></script>
         <script src="map/controller.js"></script>
         <script src="map/services/map-service.js"></script>
         <script src="map/services/wikipedia-service.js"></script>
+        <script src="map/services/nominatim-service.js"></script>
         <script src="map/directives.js"></script>
     </head>
     <body ng-controller="MapCtrl" ng-init="init()">
