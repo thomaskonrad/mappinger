@@ -7,10 +7,10 @@
 
 <div ng-switch on="selectedFeature.opening_hours.state" class="opening-hours">
     <div ng-switch-when="true" class="text-success">
-        Open
+        Now Open (Closing {{selectedFeature.opening_hours.next_change}} at {{selectedFeature.opening_hours.next_change_date|date : 'shortTime'}})
     </div>
     <div ng-switch-when="false" class="text-danger">
-        Closed
+        Now Closed (Opening {{selectedFeature.opening_hours.next_change}} at {{selectedFeature.opening_hours.next_change_date|date : 'shortTime'}})
     </div>
 </div>
 

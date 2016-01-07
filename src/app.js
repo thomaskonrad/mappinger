@@ -2,6 +2,7 @@
 
 var mappingerApp = angular.module('mappingerApp', [
     'ngRoute',
+    'angular-moment',
     'mapControllers',
     'ui.bootstrap'
 ]);

@@ -4,8 +4,8 @@ var mapControllers = angular.module('mapControllers', []);
 
 var map = null;
 
-mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService', 'nominatimService',
-    function($scope, $http, mapService, wikipediaService, nominatimService) {
+mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService', 'nominatimService', '$moment',
+    function($scope, $http, mapService, wikipediaService, nominatimService, $moment) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
         $scope.featurePaneVisible = false;
@@ -72,6 +72,11 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
                             var oh = new opening_hours(data.tags.opening_hours, result);
                             data.opening_hours = {};
                             data.opening_hours.state = oh.getState();
+
+                            var nextChangeIn = $moment(oh.getNextChange()).fromNow();
+                            data.opening_hours.next_change = nextChangeIn;
+
+                            data.opening_hours.next_change_date = oh.getNextChange();
                         });
                     }
 
