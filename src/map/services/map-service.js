@@ -38,8 +38,16 @@ mappingerApp.service('mapService', ['$http', function($http) {
         }
     }
 
+    this.getCenterCoordinates = function(data) {
+        if ("center" in data) {
+            return [data.center.lon, data.center.lat];
+        } else if ("lat" in data && "lon" in data) {
+            return [data.lon, data.lat]
+        }
+    };
+
     this.fetchFeatureFromOsm = function(featureType, osmId) {
-        var query = '[out:json][timeout:10];' + featureType + '(' + osmId + ');out;';
+        var query = '[out:json][timeout:10];' + featureType + '(' + osmId + ');out center;';
 
         return $http({
             method: 'GET',

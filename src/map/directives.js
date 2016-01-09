@@ -15,6 +15,26 @@ mappingerApp.directive('mapboxGlMap', function(){
                 interactive: true
             });
 
+            $scope.marker = {
+                "type": "geojson",
+                "data": {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": null
+                    }
+                }
+            };
+
+            $scope.markerLayer = {
+                "id": "markers",
+                "type": "symbol",
+                "source": "markers",
+                "layout": {
+                    "icon-image": "marker-15"
+                }
+            };
+
             $scope.map.addControl(new mapboxgl.Navigation());
 
             $scope.mapClicked = function($event) {
@@ -24,8 +44,6 @@ mappingerApp.directive('mapboxGlMap', function(){
 
                         if (features.length > 0) {
                             var feature = features[0];
-
-                            console.log(features[0]);
 
                             $scope.$emit('featureSelected', feature);
                         } else {
@@ -41,7 +59,26 @@ mappingerApp.directive('mapboxGlMap', function(){
                     zoom: position.zoom,
                     speed: 3
                 });
-            })
+            });
+
+            $scope.$on('setMarker', function(event, coordinates) {
+                try {
+                    $scope.map.removeSource("markers");
+                } catch (e) {
+                    // Fail silently.
+                }
+
+                try {
+                    $scope.map.removeLayer("markers");
+                } catch (e) {
+                    // Fail silently.
+                }
+
+                $scope.marker.data.geometry.coordinates = coordinates;
+                $scope.map.addSource("markers", $scope.marker);
+                $scope.map.addLayer($scope.markerLayer);
+
+            });
         }
     };
 });

@@ -54,6 +54,8 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
                         return "point";
                     };
 
+                    $scope.$broadcast('setMarker', mapService.getCenterCoordinates(data));
+
                     var preset = idPresets.match(data);
 
                     if (preset !== undefined) {
