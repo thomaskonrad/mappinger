@@ -15,8 +15,8 @@
 
         <script src="bower-components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
-        <script src="bower-components/mapbox-gl-js/mapbox-gl.js"></script>
-        <link href="bower-components/mapbox-gl-js/mapbox-gl.css" rel="stylesheet" />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css' rel='stylesheet' />
 
         <script src="bower-components/moment/moment.js"></script>
         <script src="bower-components/angular-momentjs/angular-momentjs.js"></script>
@@ -37,7 +37,7 @@
         <script src="map/services/nominatim-service.js"></script>
         <script src="map/directives.js"></script>
     </head>
-    <body ng-controller="MapCtrl" ng-init="init()">
+    <body ng-init="init()">
         <div ng-view></div>
     </body>
 </html>

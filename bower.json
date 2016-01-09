@@ -11,7 +11,6 @@
     "angular-route": "1.4.x",
     "bootstrap": "3.3.x",
     "angular-bootstrap": "0.14.x",
-    "mapbox-gl-js": "0.11.x",
     "moment": "~2.11.0",
     "angular-momentjs": "~0.2.2"
   }
