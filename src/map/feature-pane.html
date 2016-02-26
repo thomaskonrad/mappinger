@@ -1,8 +1,14 @@
-<h1>{{selectedFeature.tags.name}}</h1>
-<p ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</p>
 
-<div class="feature-image" ng-show="selectedFeature.wikipediaImageUrl">
-    <img src="{{selectedFeature.wikipediaImageUrl}}" width="400"/>
+<div class="feature-head">
+    <div class="feature-title-wrapper" >
+        <h1>{{selectedFeature.tags.name}}</h1>
+        <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
+    </div>
+
+    <div class="feature-image" ng-show="selectedFeature.wikipediaImageUrl">
+        <div class="feature-image-inner" style="background-image: url('{{selectedFeature.wikipediaImageUrl}}');"></div>
+    </div>
+
 </div>
 
 <div ng-switch on="selectedFeature.opening_hours.state" class="opening-hours">
