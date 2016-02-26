@@ -13,3 +13,9 @@ npm install
 bower install
 grunt build
 ```
+
+## Run
+with change-detection:
+```
+grunt watch app
+```
