@@ -10,8 +10,8 @@ mappingerApp.directive('mapboxGlMap', function(){
             $scope.map = new mapboxgl.Map({
                 container: 'map', // container id
                 style: $attrs.style, //stylesheet location
-                center: [16.37186, 48.20797], // starting position
-                zoom: 15, // starting zoom,
+                center: [0, 30], // starting position
+                zoom: 2, // starting zoom,
                 interactive: true
             });
 
