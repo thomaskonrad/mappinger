@@ -7,7 +7,7 @@ mappingerApp.service('ipGeolocationService', ['$http', function($http) {
 
         return $http({
             method: 'GET',
-            url: 'http://myexternalip.com/json',
+            url: 'https://myexternalip.com/json',
             timeout: timeout
         }).then(
             function(response) {
