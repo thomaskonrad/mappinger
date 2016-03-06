@@ -4,12 +4,21 @@ var mapControllers = angular.module('mapControllers', []);
 
 var map = null;
 
-mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService', 'nominatimService', '$moment',
-    function($scope, $http, mapService, wikipediaService, nominatimService, $moment) {
+mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikipediaService', 'nominatimService', 'ipGeolocationService', '$moment',
+    function($scope, $http, mapService, wikipediaService, nominatimService, ipGeolocationService, $moment) {
         $scope.searchTerm = null;
         $scope.searchResults = [];
         $scope.featurePaneVisible = false;
         $scope.selectedFeature = null;
+
+        $scope.init = function() {
+            ipGeolocationService.getIpGeolocation(1000).then(function(result) {
+                $scope.$broadcast('setMapCenter', {
+                    center: result,
+                    zoom: 10
+                });
+            });
+        };
 
         $scope.search = function(query) {
             return $http({
@@ -86,5 +95,8 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
                     $scope.featurePaneVisible = true;
                 });
         };
+
+
+        $scope.init();
     }
 ]);
