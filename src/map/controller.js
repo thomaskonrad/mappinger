@@ -15,7 +15,7 @@ mapControllers.controller('MapCtrl',  ['$scope', '$http', 'mapService', 'wikiped
             ipGeolocationService.getIpGeolocation(1000).then(function(result) {
                 $scope.$broadcast('setMapCenter', {
                     center: result,
-                    zoom: 10
+                    zoom: 11
                 });
             });
         };
