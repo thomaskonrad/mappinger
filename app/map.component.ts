@@ -6,7 +6,7 @@ declare var mapboxgl:any; // Magic
 @Component({
     selector: 'my-map',
     template: `
-            <mapbox-gl-map id="map" style="map-styles/streets-v8.json"></mapbox-gl-map>
+            <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
             `
 })
