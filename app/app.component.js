@@ -1,4 +1,4 @@
-System.register(['angular2/core', './map.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './map.component', './map.service', './nominatim.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './map.component'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, map_component_1;
+    var core_1, map_component_1, map_service_1, nominatim_service_1;
     var AppComponent;
     return {
         setters:[
@@ -19,6 +19,12 @@ System.register(['angular2/core', './map.component'], function(exports_1, contex
             },
             function (map_component_1_1) {
                 map_component_1 = map_component_1_1;
+            },
+            function (map_service_1_1) {
+                map_service_1 = map_service_1_1;
+            },
+            function (nominatim_service_1_1) {
+                nominatim_service_1 = nominatim_service_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -28,7 +34,8 @@ System.register(['angular2/core', './map.component'], function(exports_1, contex
                     core_1.Component({
                         selector: 'my-app',
                         template: "\n        <h1>Mappinger, bitches!</h1>\n        <my-map></my-map>\n    ",
-                        directives: [map_component_1.MapComponent]
+                        directives: [map_component_1.MapComponent],
+                        providers: [map_service_1.MapService, nominatim_service_1.NominatimService]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

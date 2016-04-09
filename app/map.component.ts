@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
+import {FeaturePaneComponent} from './featurepane.component';
 
 declare var mapboxgl:any; // Magic
 
@@ -8,7 +9,9 @@ declare var mapboxgl:any; // Magic
     template: `
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
-            `
+            <feature-pane></feature-pane>
+            `,
+    directives: [FeaturePaneComponent]
 })
 export class MapComponent implements OnInit {
     public map;

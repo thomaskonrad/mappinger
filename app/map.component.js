@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', './featurepane.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, featurepane_component_1;
     var MapComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (featurepane_component_1_1) {
+                featurepane_component_1 = featurepane_component_1_1;
             }],
         execute: function() {
             MapComponent = (function () {
@@ -35,7 +38,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     // Magic
                     core_1.Component({
                         selector: 'my-map',
-                        template: "\n            <mapbox-gl-map style=\"map-styles/streets-v8.json\"></mapbox-gl-map>\n            <div id=\"map\"></div>\n            "
+                        template: "\n            <mapbox-gl-map style=\"map-styles/streets-v8.json\"></mapbox-gl-map>\n            <div id=\"map\"></div>\n            <feature-pane></feature-pane>\n            ",
+                        directives: [featurepane_component_1.FeaturePaneComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], MapComponent);
