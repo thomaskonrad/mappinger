@@ -4,7 +4,6 @@ import {MapComponent} from './map.component';
 @Component({
     selector: 'my-app',
     template: `
-        <h1>Mappinger, bitches!</h1>
         <my-map></my-map>
     `,
     directives: [MapComponent]

@@ -8,7 +8,16 @@ declare var mapboxgl:any; // Magic
     template: `
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
-            `
+            `,
+    styles: [`
+        #map {
+            position:absolute;
+            top:0;
+            bottom:0;
+            left: 0;
+            right: 0;
+        }
+        `]
 })
 export class MapComponent implements OnInit {
     public map;

@@ -35,7 +35,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     // Magic
                     core_1.Component({
                         selector: 'my-map',
-                        template: "\n            <mapbox-gl-map style=\"map-styles/streets-v8.json\"></mapbox-gl-map>\n            <div id=\"map\"></div>\n            "
+                        template: "\n            <mapbox-gl-map style=\"map-styles/streets-v8.json\"></mapbox-gl-map>\n            <div id=\"map\"></div>\n            ",
+                        styles: ["\n        #map {\n            position:absolute;\n            top:0;\n            bottom:0;\n            left: 0;\n            right: 0;\n        }\n        "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], MapComponent);
