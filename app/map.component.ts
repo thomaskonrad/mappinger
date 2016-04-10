@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
+import {SearchComponent} from './search.component';
 
 declare var mapboxgl:any; // Magic
 
@@ -8,6 +9,7 @@ declare var mapboxgl:any; // Magic
     template: `
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
+            <search></search>
             `,
     styles: [`
         #map {
@@ -17,7 +19,8 @@ declare var mapboxgl:any; // Magic
             left: 0;
             right: 0;
         }
-        `]
+        `],
+    directives: [SearchComponent]
 })
 export class MapComponent implements OnInit {
     public map;
