@@ -2,8 +2,6 @@ import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {SearchService} from './search.service';
-import {Http,URLSearchParams,Headers,Response} from 'angular2/http';
-import 'rxjs/Rx';
 
 
 @Component({
@@ -20,7 +18,8 @@ import 'rxjs/Rx';
               (typeaheadNoResults)="changeTypeaheadNoResults($event)"
               (typeaheadOnSelect)="typeaheadOnSelect($event)"
               [typeaheadOptionsLimit]="7"
-              placeholder="Locations loaded with timeout"
+              [typeaheadWaitMs]="100"
+              placeholder="Search..."
               class="form-control">
 
                <div *ngIf="typeaheadLoading===true">
@@ -57,9 +56,6 @@ import 'rxjs/Rx';
 })
 export class SearchComponent {
 
-    constructor(private _http:Http, private _searchService:SearchService) {
-    }
-
     public autoCompleteRef = this.autoComplete.bind(this);
     public autoCompleteSearchTerm:string;
 
@@ -68,11 +64,12 @@ export class SearchComponent {
 
     public searchResults:any;
 
+    constructor(private _searchService:SearchService) {
+    }
 
 
     public autoComplete() {
-        return this._searchService.search(this.autoCompleteSearchTerm).toPromise();
-
+        return this.searchResults = this._searchService.search(this.autoCompleteSearchTerm).toPromise();
     }
 
     public changeTypeaheadLoading(e:boolean):void {
@@ -84,7 +81,7 @@ export class SearchComponent {
     }
 
     public typeaheadOnSelect(e:any):void {
-        console.log(`Selected value: ${e.item}`);
+        console.log(`Selected value: ${e.item.name}`);
     }
 
 }

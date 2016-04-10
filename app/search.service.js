@@ -27,22 +27,19 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     this._http = _http;
                 }
                 SearchService.prototype.search = function (searchTerm) {
-                    if (searchTerm == "")
-                        return;
                     var params = new http_1.URLSearchParams();
                     params.set('q', searchTerm);
-                    params.set('lat', '48.209');
+                    params.set('lat', '48.209'); // TODO: get lat/long dynamically
                     params.set('lon', '16.372');
-                    params.set('lang', 'de');
+                    params.set('lang', 'de'); // TODO: get lang dynamically
+                    // call komoot api
                     return this._http.get('https://photon.komoot.de/api/', { search: params })
                         .map(function (res) { return res.json(); })
                         .map(function (el) {
-                        console.log(el.features);
                         return el.features.map(function (feature) {
-                            return ({ name: feature.properties.name });
+                            return ({ name: feature.properties.name, osm_id: feature.properties.osm_id });
                         });
                     });
-                    // .toPromise();
                 };
                 SearchService.prototype.logError = function (err) {
                     console.error('There was an error: ' + err);

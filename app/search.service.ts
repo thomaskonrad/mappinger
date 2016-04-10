@@ -8,27 +8,22 @@ export class SearchService {
     constructor(private _http: Http) {
     }
 
-    public searchResults:any;
-
     search(searchTerm:string) {
-        if(searchTerm == "") return;
-        
+
         let params:URLSearchParams = new URLSearchParams();
         params.set('q', searchTerm);
-        params.set('lat', '48.209');
+        params.set('lat', '48.209');    // TODO: get lat/long dynamically
         params.set('lon', '16.372');
-        params.set('lang', 'de');
+        params.set('lang', 'de');       // TODO: get lang dynamically
 
-
+        // call komoot api
         return this._http.get('https://photon.komoot.de/api/', {search: params})
             .map(res => res.json())
             .map((el) => {
-                console.log(el.features);
                 return el.features.map((feature) => {
-                    return ({name: feature.properties.name});
+                    return ({name: feature.properties.name, osm_id: feature.properties.osm_id});
                 });
             });
-            // .toPromise();
     }
 
     logError(err) {
