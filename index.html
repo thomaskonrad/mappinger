@@ -7,6 +7,8 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css' rel='stylesheet' />
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
@@ -16,17 +18,9 @@
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/http.js"></script>
+    <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-
-
-    <style>
-    #map {
-        width: 300px;
-        height: 300px;
-    }
-
-    </style>
+    <script src="node_modules/angular2/bundles/http.min.js"></script>
 
     <!-- 2. Configure SystemJS -->
     <script>
@@ -36,6 +30,9 @@
             format: 'register',
             defaultExtension: 'js'
           }
+        },
+        map: {
+            moment: 'node_modules/moment/moment.js'
         }
       });
       System.import('app/main')

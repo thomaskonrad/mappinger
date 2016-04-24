@@ -33,7 +33,7 @@ System.register(['angular2/core', './map.component', './map.service', './nominat
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <h1>Mappinger, bitches!</h1>\n        <my-map></my-map>\n    ",
+                        template: "\n        <my-map></my-map>\n    ",
                         directives: [map_component_1.MapComponent],
                         providers: [map_service_1.MapService, nominatim_service_1.NominatimService]
                     }), 

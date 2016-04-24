@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {FeaturePaneComponent} from './featurepane.component';
+import {SearchComponent} from './search.component';
 
 declare var mapboxgl:any; // Magic
 
@@ -9,9 +9,18 @@ declare var mapboxgl:any; // Magic
     template: `
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
-            <feature-pane></feature-pane>
+            <search></search>
             `,
-    directives: [FeaturePaneComponent]
+    styles: [`
+        #map {
+            position:absolute;
+            top:0;
+            bottom:0;
+            left: 0;
+            right: 0;
+        }
+        `],
+    directives: [SearchComponent]
 })
 export class MapComponent implements OnInit {
     public map;
