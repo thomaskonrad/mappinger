@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" ng-app="mappingerApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Mappinger</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="bower-components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="app.css">
+
+        <script src="bower-components/lodash/lodash.js"></script>
+
+        <script src="bower-components/angular/angular.js"></script>
+        <script src="bower-components/angular-route/angular-route.js"></script>
+        <script src="bower-components/angular-animate/angular-animate.js"></script>
+
+        <script src="bower-components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css' rel='stylesheet' />
+
+        <script src="bower-components/moment/moment.js"></script>
+        <script src="bower-components/angular-momentjs/angular-momentjs.js"></script>
+
+        <script src="components/id-core/presets.js"></script>
+        <script src="components/id-core/locale.js"></script>
+        <script src="components/id-core/init-locales.js"></script>
+        <script src="components/opening-hours.js"></script>
+        <script type="application/javascript">
+            var opening_hours = require('opening_hours');
+        </script>
+
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+        <script src="map/controller.js"></script>
+        <script src="map/services/map-service.js"></script>
+        <script src="map/services/wikipedia-service.js"></script>
+        <script src="map/services/nominatim-service.js"></script>
+        <script src="map/services/ip-geolocation-service.js"></script>
+        <script src="map/directives.js"></script>
+    </head>
+    <body ng-init="init()">
+        <div ng-view></div>
+    </body>
+</html>
