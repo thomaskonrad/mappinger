@@ -1,13 +1,12 @@
 import {Component} from 'angular2/core';
 import {Control} from 'angular2/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
-import {SearchService, SearchResult} from './search.service';
+import {SearchService, SearchResult, SearchParameters} from './search.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
-
 
 
 @Component({
@@ -28,37 +27,7 @@ import 'rxjs/add/operator/switchMap';
                 </ul>
             </div>
             `,
-    styles: [`
-        #search-box {
-            width: 340px;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            z-index: 100;
-
-        }
-        #search-box > input {
-            font-size: 18px;
-            padding: 6px 10px;
-            font-weight: 300;
-            width: 100%;
-        }
-        #search-results {
-            display: block;
-            background-color: #fff;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            list-style: none;
-        }
-        #search-results li {
-            padding: 6 10px;
-            border-bottom: 1px solid #dedede;
-        }
-        #search-results li.selected {
-            font-weight: bold;
-        }
-        `]
+    styleUrls: ['./app/search.component.css']
 })
 export class SearchComponent {
 
@@ -72,8 +41,14 @@ export class SearchComponent {
         this.items = this.searchControl.valueChanges
              .debounceTime(400)
              .distinctUntilChanged()
-             .switchMap(searchTerm =>
-                  this.currentSearchItems = this._searchService.search(searchTerm));
+             .switchMap(searchTerm => {
+                 let searchParams = new SearchParameters();
+                 searchParams.provider = "komoot";
+                 searchParams.lat = '48.209';
+                 searchParams.lon = '16.372';
+                 return this.currentSearchItems = this._searchService.search(searchTerm, searchParams);
+                }
+             );
      }
 
      onSelect(selectedItem:SearchResult) {
