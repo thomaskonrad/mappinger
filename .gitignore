@@ -35,3 +35,6 @@ Thumbs.db
 # Components
 bower-components/
 node_modules/
+
+# Build
+build/
