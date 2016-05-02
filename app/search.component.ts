@@ -1,34 +1,31 @@
 import {Component} from 'angular2/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
-import {SearchService} from './search.service';
+import {Control} from 'angular2/common';
+import {HTTP_PROVIDERS} from 'angular2/http';
+import {SearchService, SearchResult} from './search.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 
 
 @Component({
     selector: 'search',
-    directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [],
     providers: [SearchService],
     template: `
-            <div id="search-box">
-
-            <input [(ngModel)]="autoCompleteSearchTerm"
-              [typeahead]="autoCompleteRef"
-              [typeaheadOptionField]="'name'"
-              (typeaheadLoading)="changeTypeaheadLoading($event)"
-              (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-              (typeaheadOnSelect)="typeaheadOnSelect($event)"
-              [typeaheadOptionsLimit]="7"
-              [typeaheadWaitMs]="100"
-              placeholder="Search..."
-              class="form-control">
-
-               <div *ngIf="typeaheadLoading===true">
-                   <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
-               </div>
-               <div *ngIf="typeaheadNoResults===true" class="" style="">
-                   <i class="glyphicon glyphicon-remove"></i> No Results Found
-               </div>
-
+            <div id="search-box" (keyup)="onKeyPress($event)">
+            <input type="text"
+             [ngFormControl]="searchControl" [(ngModel)]='searchTerm'/>
+                <ul id="search-results">
+                    <li
+                        *ngFor="#item of items | async"
+                        [class.selected]="item === selectedSearchResult"
+                        (click)="onSelect(item)">
+                        {{item.name}}
+                    </li>
+                </ul>
             </div>
             `,
     styles: [`
@@ -47,41 +44,59 @@ import {SearchService} from './search.service';
             width: 100%;
         }
         #search-results {
-            position: absolute;
-            top: 55px;
-            left: 20px;
             display: block;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            list-style: none;
+        }
+        #search-results li {
+            padding: 6 10px;
+            border-bottom: 1px solid #dedede;
+        }
+        #search-results li.selected {
+            font-weight: bold;
         }
         `]
 })
 export class SearchComponent {
 
-    public autoCompleteRef = this.autoComplete.bind(this);
-    public autoCompleteSearchTerm:string;
+    items: Observable<Array<string>>;
+    public currentSearchItems:any;
+    searchControl = new Control();
+    searchTerm:string;
+    selectedSearchResult:SearchResult;
 
-    public typeaheadLoading:boolean = false;
-    public typeaheadNoResults:boolean = false;
+    constructor(private _searchService: SearchService) {
+        this.items = this.searchControl.valueChanges
+             .debounceTime(400)
+             .distinctUntilChanged()
+             .switchMap(searchTerm =>
+                  this.currentSearchItems = this._searchService.search(searchTerm));
+     }
 
-    public searchResults:any;
+     onSelect(selectedItem:SearchResult) {
+         console.log(selectedItem);
+         this.selectedSearchResult = selectedItem;
+     }
 
-    constructor(private _searchService:SearchService) {
-    }
+     onKeyPress(event:any) {
+         if(event.keyCode == 40) {
+             // down arrow pressed -> select first/next item
+             if(!this.selectedSearchResult) {
+                 console.log("no result selected yet");
+                 this.selectedSearchResult = this.items[0];
+                 console.log(this.currentSearchItems);
+             }
+             else {
+                 console.log("already selected");
+             }
+         }
+         if(event.keyCode == 38) {
+             // up arrow pressed --> select previous item or focus on input-box
+         }
+     }
 
-
-    public autoComplete() {
-        return this.searchResults = this._searchService.search(this.autoCompleteSearchTerm).toPromise();
-    }
-
-    public changeTypeaheadLoading(e:boolean):void {
-        this.typeaheadLoading = e;
-    }
-
-    public changeTypeaheadNoResults(e:boolean):void {
-        this.typeaheadNoResults = e;
-    }
-
-    public typeaheadOnSelect(e:any):void {
-        console.log(`Selected value: ${e.item.name}`);
-    }
 
 }
