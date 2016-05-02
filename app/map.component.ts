@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
 import {SearchComponent} from './search.component';
 import {FeaturePaneComponent} from './featurepane.component';
+import {Config} from './config';
 
 declare var mapboxgl:any; // Magic
 
@@ -33,8 +34,7 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit() {
-        mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFza29ucmFkIiwiYSI6ImNpaDVjYWh0ZTAwMDZ2OG0zdDBpbnlscGEifQ.QpmEYQHokgr9m8N2c77s7w';
-
+        mapboxgl.accessToken = Config.mapboxAccessToken;
         this.map = new mapboxgl.Map({
             container: 'map', // container id
             style: "/src/map-styles/streets-v8.json", //stylesheet location

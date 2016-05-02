@@ -1,0 +1,4 @@
+export class Config {
+    public static title:string = "Mappinger";
+    public static mapboxAccessToken:string = "YOUR-TOKEN-GOES-HERE";
+}
