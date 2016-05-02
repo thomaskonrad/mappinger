@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {Control} from 'angular2/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {SearchService, SearchResult, SearchParameters} from './search.service';
@@ -17,7 +17,7 @@ import 'rxjs/add/operator/switchMap';
             <div id="search-box" (keyup)="onKeyPress($event)">
             <input type="text"
              [ngFormControl]="searchControl" [(ngModel)]='searchTerm'/>
-                <ul id="search-results">
+                <ul id="search-results" *ngIf="showResults">
                     <li
                         *ngFor="#item of items | async"
                         [class.selected]="item === selectedSearchResult"
@@ -31,21 +31,27 @@ import 'rxjs/add/operator/switchMap';
 })
 export class SearchComponent {
 
+    @Output() onSelected = new EventEmitter<SearchResult>();
+
     items: Observable<Array<string>>;
     public currentSearchItems:any;
     searchControl = new Control();
     searchTerm:string;
     selectedSearchResult:SearchResult;
+    showResults:boolean = true;
 
     constructor(private _searchService: SearchService) {
         this.items = this.searchControl.valueChanges
              .debounceTime(400)
              .distinctUntilChanged()
              .switchMap(searchTerm => {
+                 this.showResults = true;
+                 // prepare search params
                  let searchParams = new SearchParameters();
                  searchParams.provider = "komoot";
                  searchParams.lat = '48.209';
                  searchParams.lon = '16.372';
+                 // kick off search
                  return this.currentSearchItems = this._searchService.search(searchTerm, searchParams);
                 }
              );
@@ -54,9 +60,13 @@ export class SearchComponent {
      onSelect(selectedItem:SearchResult) {
          console.log(selectedItem);
          this.selectedSearchResult = selectedItem;
+         this.onSelected.emit(this.selectedSearchResult);
+         this.searchTerm = selectedItem.name;
+         this.showResults = false;
      }
 
      onKeyPress(event:any) {
+         this.showResults = true;
          if(event.keyCode == 40) {
              // down arrow pressed -> select first/next item
              if(!this.selectedSearchResult) {

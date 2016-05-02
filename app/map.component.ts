@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
 import {SearchComponent} from './search.component';
+import {SearchResult} from './search.service';
 import {FeaturePaneComponent} from './featurepane.component';
 import {Config} from './config';
 
@@ -11,8 +12,12 @@ declare var mapboxgl:any; // Magic
     template: `
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
-            <feature-pane></feature-pane>
-            <search></search>
+            <feature-pane
+                [osm_id]="_osm_id">
+            </feature-pane>
+            <search
+                (onSelected)="onSelected($event)">
+            </search>
             `,
     styles: [`
         #map {
@@ -27,6 +32,7 @@ declare var mapboxgl:any; // Magic
 })
 export class MapComponent implements OnInit {
     public map;
+    _osm_id:number;
 
 
     constructor() {
@@ -42,7 +48,11 @@ export class MapComponent implements OnInit {
             zoom: 2, // starting zoom,
             interactive: true
         });
-
     }
+
+    onSelected(eventData: SearchResult) {
+        console.log("event received: " + eventData);
+        this._osm_id = eventData.osm_id;
+      }
 
 }
