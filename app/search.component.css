@@ -1,0 +1,32 @@
+/**
+ * Search Component Styles
+ */
+#search-box {
+    width: 340px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 100;
+
+}
+#search-box > input {
+    font-size: 18px;
+    padding: 6px 10px;
+    font-weight: 300;
+    width: 100%;
+}
+#search-results {
+    display: block;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+#search-results li {
+    padding: 6 10px;
+    border-bottom: 1px solid #dedede;
+}
+#search-results li.selected {
+    font-weight: bold;
+}
