@@ -48,6 +48,8 @@ export class MapComponent implements OnInit {
             zoom: 2, // starting zoom,
             interactive: true
         });
+        // Add Controls
+        this.map.addControl(new mapboxgl.Navigation({position: 'top-right'}));
         this.map.addControl(new mapboxgl.Geolocate({position: 'top-right'}));
     }
 
