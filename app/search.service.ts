@@ -2,11 +2,37 @@ import {Injectable} from 'angular2/core';
 import {Http, URLSearchParams, HTTP_PROVIDERS} from 'angular2/http';
 import 'rxjs/Rx';
 import {Config} from './config';
-
+import {FeatureType} from './feature';
 
 export class SearchResult {
-  osm_id: number;
-  name: string;
+    osm_type: FeatureType;
+    osm_id: number;
+    name: string;
+
+    setFeatureType(featureType: string, provider: string = 'photon') {
+        if (provider == 'photon') {
+            if (featureType == 'N') {
+                this.osm_type = FeatureType.Node;
+            } else if (featureType == 'W') {
+                this.osm_type = FeatureType.Way;
+            } else if (featureType == 'R') {
+                this.osm_type = FeatureType.Relation;
+            } else {
+                this.osm_type = FeatureType.Unknown;
+            }
+        } else {
+            if (featureType == 'node') {
+                this.osm_type = FeatureType.Node;
+            } else if (featureType == 'way') {
+                this.osm_type = FeatureType.Way;
+            } else if (featureType == 'relation') {
+                this.osm_type = FeatureType.Relation;
+            } else {
+                this.osm_type = FeatureType.Unknown;
+            }
+        }
+
+    }
 }
 export class SearchParameters {
     provider:string;
@@ -39,6 +65,7 @@ export class SearchService {
                             .map((feature) => {
                                 let result = new SearchResult();
                                 result.name = feature.properties.name;
+                                result.setFeatureType(feature.properties.osm_type);
                                 result.osm_id = feature.properties.osm_id;
                                 return result;
                         });

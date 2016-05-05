@@ -11,7 +11,7 @@ import {Response} from 'angular2/http';
 <div *ngIf="selectedFeature" id="feature-pane">
     <div class="feature-head">
         <div class="feature-title-wrapper" >
-            <h1>{{selectedFeature.tags.name}}</h1>
+            <h1>{{selectedFeature.name}}</h1>
             <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
         </div>
 
@@ -30,7 +30,7 @@ import {Response} from 'angular2/http';
         </div>
     </div>
 
-    <ul class="feature-tags">
+    <ul *ngIf="selectedFeature && selectedFeature.tags" class="feature-tags">
         <li *ngIf="selectedFeature.tags.website">Website: <a href="{{selectedFeature.tags.website}}" target="_blank">{{selectedFeature.tags.website}}</a></li>
         <li *ngIf="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
         <li *ngIf="selectedFeature.tags.phone">Phone: <a href="tel:{{selectedFeature.tags.phone}}" target="_blank">{{selectedFeature.tags.phone}}</a></li>
@@ -43,26 +43,23 @@ export class FeaturePaneComponent implements OnInit {
     selectedFeature: Feature;
 
     @Input()
-      set osm_id(osm_id: number) {
-          if(osm_id) this.fetchFeatureByOsmId(osm_id);
-      }
+        set feature(feature: Feature) {
+            if (feature) {
+                this.selectedFeature = feature;
+                this.fetchFeatureInfo();
+            }
+        }
 
     constructor(private _mapService: MapService, private _nominatimService: NominatimService) {
-
     }
 
     ngOnInit() {
-        // show Santos Wieden
-        this.fetchFeatureByOsmId(2512621735);
     }
 
-    fetchFeatureByOsmId(osm_id:number) {
-        let feature = new Feature();
-        this._mapService.fetchFeatureFromOsm('node', osm_id).subscribe((response) => {
-            feature.tags = response.elements[0].tags;
-
-            this.selectedFeature = feature;
-            console.log(feature);
+    fetchFeatureInfo() {
+        this._mapService.fetchFeatureFromOsm(this.selectedFeature.feature_type, this.selectedFeature.osm_id).subscribe((response) => {
+            this.selectedFeature.tags = response.elements[0].tags;
+            console.log(this.selectedFeature);
         });
     }
 

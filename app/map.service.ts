@@ -35,18 +35,6 @@ export class MapService {
         return osmIdentifier;
     };
 
-    getFeatureTypeByPhotonType(photonType: string) {
-        if (photonType == 'N') {
-            return 'node';
-        } else if (photonType == 'W') {
-            return 'way';
-        } else if (photonType == 'R') {
-            return 'relation';
-        } else {
-            return 'postcode'; //?
-        }
-    }
-
     getCenterCoordinates(data: any) {
         if ("center" in data) {
             return [data.center.lon, data.center.lat];

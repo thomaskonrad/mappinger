@@ -4,6 +4,7 @@ import {SearchComponent} from './search.component';
 import {SearchResult} from './search.service';
 import {FeaturePaneComponent} from './featurepane.component';
 import {Config} from './config';
+import {Feature} from './feature';
 
 declare var mapboxgl:any; // Magic
 
@@ -13,7 +14,7 @@ declare var mapboxgl:any; // Magic
             <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
             <div id="map"></div>
             <feature-pane
-                [osm_id]="_osm_id">
+                [feature]="selectedFeature">
             </feature-pane>
             <search
                 (onSelected)="onSelected($event)">
@@ -32,11 +33,9 @@ declare var mapboxgl:any; // Magic
 })
 export class MapComponent implements OnInit {
     public map;
-    _osm_id:number;
-
+    selectedFeature:Feature;
 
     constructor() {
-
     }
 
     ngOnInit() {
@@ -50,9 +49,16 @@ export class MapComponent implements OnInit {
         });
     }
 
-    onSelected(eventData: SearchResult) {
-        console.log("event received: " + eventData);
-        this._osm_id = eventData.osm_id;
+    onSelected(searchResult: SearchResult) {
+        console.log("event received: " + searchResult);
+
+        let feature = new Feature();
+
+        feature.feature_type = searchResult.osm_type;
+        feature.osm_id = searchResult.osm_id;
+        feature.name = searchResult.name;
+
+        this.selectedFeature = feature;
       }
 
 }
