@@ -7,6 +7,7 @@ import {Config} from './config';
 import {Feature} from './feature';
 
 declare var mapboxgl:any; // Magic
+// declare mapboxgl.Geolocate:any; // Magic
 
 @Component({
     selector: 'my-map',
@@ -47,10 +48,10 @@ export class MapComponent implements OnInit {
             zoom: 2, // starting zoom,
             interactive: true
         });
+        this.map.addControl(new mapboxgl.Geolocate({position: 'top-right'}));
     }
 
     onSelected(searchResult: SearchResult) {
-        console.log("event received: " + searchResult);
 
         let feature = new Feature();
 
@@ -59,6 +60,9 @@ export class MapComponent implements OnInit {
         feature.name = searchResult.name;
 
         this.selectedFeature = feature;
+
+        // set map center
+        this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
       }
 
 }

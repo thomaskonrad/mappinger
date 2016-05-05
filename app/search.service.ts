@@ -8,6 +8,7 @@ export class SearchResult {
     osm_type: FeatureType;
     osm_id: number;
     name: string;
+    coordinates: Coordinates;
 
     setFeatureType(featureType: string, provider: string = 'photon') {
         if (provider == 'photon') {
@@ -39,7 +40,14 @@ export class SearchParameters {
     lat:string;
     lon:string;
 }
-
+export class Coordinates {
+    lat:Number;
+    lon:Number;
+    constructor(lat:Number, lon:Number) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+}
 
 @Injectable()
 export class SearchService {
@@ -67,6 +75,7 @@ export class SearchService {
                                 result.name = feature.properties.name;
                                 result.setFeatureType(feature.properties.osm_type);
                                 result.osm_id = feature.properties.osm_id;
+                                result.coordinates = new Coordinates(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
                                 return result;
                         });
         });
