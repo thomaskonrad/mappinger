@@ -5,6 +5,7 @@ import {SearchResult} from './search.service';
 import {FeaturePaneComponent} from './featurepane.component';
 import {Config} from './config';
 import {Feature} from './feature';
+import {IpGeolocationService} from './ip-geolocation.service';
 
 declare var mapboxgl:any; // Magic
 
@@ -35,7 +36,7 @@ export class MapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
 
-    constructor() {
+    constructor(private _ipGeolocationService:IpGeolocationService) {
     }
 
     ngOnInit() {
@@ -46,6 +47,14 @@ export class MapComponent implements OnInit {
             center: [0, 30], // starting position
             zoom: 2, // starting zoom,
             interactive: true
+        });
+
+        this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
+            this.map.flyTo({
+                center: result,
+                zoom: 11,
+                speed: 3
+            });
         });
     }
 

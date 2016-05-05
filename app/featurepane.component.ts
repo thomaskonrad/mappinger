@@ -3,7 +3,6 @@ import {OnInit} from 'angular2/core';
 import {Feature} from './feature';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
-import {Response} from 'angular2/http';
 
 @Component({
     selector: 'feature-pane',
