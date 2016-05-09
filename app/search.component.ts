@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
 import {Control} from 'angular2/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
-import {SearchService, SearchResult, SearchParameters} from './search.service';
+import {SearchService, SearchParameters} from './search.service';
+import {SearchResult} from './searchResult';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
