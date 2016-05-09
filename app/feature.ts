@@ -12,4 +12,5 @@ export class Feature {
     public name: string;
     public tags: any;
     public opening_hours: any;
+    public wikipedia_image_url: string;
 }

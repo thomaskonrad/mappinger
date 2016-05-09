@@ -3,6 +3,7 @@ import {OnInit} from 'angular2/core';
 import {Feature} from './feature';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
+import {WikipediaService} from "./wikipedia.service";
 
 @Component({
     selector: 'feature-pane',
@@ -49,7 +50,7 @@ export class FeaturePaneComponent implements OnInit {
             }
         }
 
-    constructor(private _mapService: MapService, private _nominatimService: NominatimService) {
+    constructor(private _mapService: MapService, private _nominatimService: NominatimService, private _wikipediaService: WikipediaService) {
     }
 
     ngOnInit() {
@@ -60,6 +61,13 @@ export class FeaturePaneComponent implements OnInit {
             this.selectedFeature.tags = response.elements[0].tags;
             console.log(this.selectedFeature);
         });
+
+        if ('wikipedia' in this.selectedFeature.tags) {
+            var parts = this.selectedFeature.tags.wikipedia.split(':');
+            this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
+                this.selectedFeature.wikipedia_image_url = response;
+            });
+        }
     }
 
 }
