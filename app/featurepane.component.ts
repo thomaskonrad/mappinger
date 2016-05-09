@@ -16,8 +16,8 @@ import {WikipediaService} from "./wikipedia.service";
             <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
         </div>
 
-        <div class="feature-image" ng-show="selectedFeature.wikipediaImageUrl">
-            <div class="feature-image-inner"></div>
+        <div class="feature-image" ng-show="selectedFeature.wikipedia_image_url">
+            <div class="feature-image-inner" style="background-image: url('{{selectedFeature.wikipedia_image_url}}');"></div>
         </div>
 
     </div>
@@ -62,14 +62,14 @@ export class FeaturePaneComponent implements OnInit {
         this._mapService.fetchFeatureFromOsm(this.selectedFeature.feature_type, this.selectedFeature.osm_id).subscribe((response) => {
             this.selectedFeature.tags = response.elements[0].tags;
             console.log(this.selectedFeature);
-        });
 
-        if ('wikipedia' in this.selectedFeature.tags) {
-            var parts = this.selectedFeature.tags.wikipedia.split(':');
-            this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
-                this.selectedFeature.wikipedia_image_url = response;
-            });
-        }
+            if ('wikipedia' in this.selectedFeature.tags) {
+                var parts = this.selectedFeature.tags.wikipedia.split(':');
+                this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
+                    this.selectedFeature.wikipedia_image_url = response;
+                });
+            }
+        });
     }
 
 }
