@@ -1,5 +1,6 @@
 import {Component, Input} from 'angular2/core';
 import {OnInit} from 'angular2/core';
+import { JSONP_PROVIDERS }  from 'angular2/http';
 import {Feature} from './feature';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
@@ -37,7 +38,8 @@ import {WikipediaService} from "./wikipedia.service";
     </ul>
 </div>
 `,
-    styleUrls: ['./app/featurepane.component.css']
+    styleUrls: ['./app/featurepane.component.css'],
+    providers:[JSONP_PROVIDERS, WikipediaService]
 })
 export class FeaturePaneComponent implements OnInit {
     selectedFeature: Feature;
