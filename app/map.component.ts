@@ -1,13 +1,14 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
 import {SearchComponent} from './search.component';
-import {SearchResult} from './search.service';
+import {SearchResult} from './searchResult';
 import {FeaturePaneComponent} from './featurepane.component';
 import {Config} from './config';
 import {Feature} from './feature';
 import {IpGeolocationService} from './ip-geolocation.service';
 
 declare var mapboxgl:any; // Magic
+// declare mapboxgl.Geolocate:any; // Magic
 
 @Component({
     selector: 'my-map',
@@ -49,6 +50,10 @@ export class MapComponent implements OnInit {
             interactive: true
         });
 
+        // Add Controls
+        this.map.addControl(new mapboxgl.Navigation({position: 'top-right'}));
+        this.map.addControl(new mapboxgl.Geolocate({position: 'top-right'}));
+
         this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
             this.map.flyTo({
                 center: result,
@@ -59,7 +64,6 @@ export class MapComponent implements OnInit {
     }
 
     onSelected(searchResult: SearchResult) {
-        console.log("event received: " + searchResult);
 
         let feature = new Feature();
 
@@ -68,6 +72,9 @@ export class MapComponent implements OnInit {
         feature.name = searchResult.name;
 
         this.selectedFeature = feature;
+
+        // set map center
+        this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
       }
 
 }

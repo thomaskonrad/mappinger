@@ -3,37 +3,9 @@ import {Http, URLSearchParams, HTTP_PROVIDERS} from 'angular2/http';
 import 'rxjs/Rx';
 import {Config} from './config';
 import {FeatureType} from './feature';
+import {SearchResult} from './searchResult';
+import {Coordinates} from './commons';
 
-export class SearchResult {
-    osm_type: FeatureType;
-    osm_id: number;
-    name: string;
-
-    setFeatureType(featureType: string, provider: string = 'photon') {
-        if (provider == 'photon') {
-            if (featureType == 'N') {
-                this.osm_type = FeatureType.Node;
-            } else if (featureType == 'W') {
-                this.osm_type = FeatureType.Way;
-            } else if (featureType == 'R') {
-                this.osm_type = FeatureType.Relation;
-            } else {
-                this.osm_type = FeatureType.Unknown;
-            }
-        } else {
-            if (featureType == 'node') {
-                this.osm_type = FeatureType.Node;
-            } else if (featureType == 'way') {
-                this.osm_type = FeatureType.Way;
-            } else if (featureType == 'relation') {
-                this.osm_type = FeatureType.Relation;
-            } else {
-                this.osm_type = FeatureType.Unknown;
-            }
-        }
-
-    }
-}
 export class SearchParameters {
     provider:string;
     lat:string;
@@ -49,12 +21,13 @@ export class SearchService {
     // define URLSearchParams
     let params:URLSearchParams = new URLSearchParams();
 
+    // Komoot Search Provider
     if(searchParameters.provider === "komoot") {
 
         params.set('q', term);
         params.set('lat', searchParameters.lat);    // TODO: get lat/long dynamically
         params.set('lon', searchParameters.lon);
-        params.set('lang', 'de');       // TODO: get lang dynamically
+        params.set('lang', 'de');                   // TODO: get lang dynamically
         params.set('limit', '7');
 
         return this._http
@@ -67,11 +40,14 @@ export class SearchService {
                                 result.name = feature.properties.name;
                                 result.setFeatureType(feature.properties.osm_type);
                                 result.osm_id = feature.properties.osm_id;
+                                result.coordinates = new Coordinates(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
                                 return result;
                         });
         });
 
     }
+
+    // Mapzen Search Provider
     else if(searchParameters.provider === "mapzen") {
 
         // https://search.mapzen.com/v1/autocomplete?api_key=search-XXXXXXX&focus.point.lat=37.7&focus.point.lon=-122.4&text=union square
