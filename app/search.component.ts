@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from 'angular2/core';
-import {Control} from 'angular2/common';
+import {Control, OnInit} from 'angular2/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {SearchService, SearchParameters} from './search.service';
 import {SearchResult} from './searchResult';
@@ -16,7 +16,7 @@ import 'rxjs/add/operator/switchMap';
     providers: [SearchService],
     template: `
             <div id="search-box" (keyup)="onKeyPress($event)">
-            <input type="text"
+            <input type="text" class="search-component-input"
              [ngFormControl]="searchControl" [(ngModel)]='searchTerm'/>
                 <ul id="search-results" *ngIf="showResults">
                     <li
@@ -30,7 +30,7 @@ import 'rxjs/add/operator/switchMap';
             `,
     styleUrls: ['./app/search.component.css']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
     @Output() onSelected = new EventEmitter<SearchResult>();
 
@@ -40,13 +40,19 @@ export class SearchComponent {
     searchTerm:string;
     selectedSearchResult:SearchResult;
     showResults:boolean = true;
+    searchResultsArray:Array<SearchResults>;
+    selectedIndex:Number = 0;
 
     constructor(private _searchService: SearchService) {
         this.items = this.searchControl.valueChanges
              .debounceTime(400)
              .distinctUntilChanged()
              .switchMap(searchTerm => {
+                 // show results
                  this.showResults = true;
+                 // reset some vars
+                 this.selectedIndex = 0;
+                 this.selectedSearchResult = null;
                  // prepare search params
                  let searchParams = new SearchParameters();
                  searchParams.provider = "komoot";
@@ -55,34 +61,53 @@ export class SearchComponent {
                  // kick off search
                  return this.currentSearchItems = this._searchService.search(searchTerm, searchParams);
                 }
-             );
+            )
+            .do( list => this.searchResultsArray = list) );
      }
+
+     ngOnInit() {
+         // FIXME
+         document.querySelector('.search-component-input').focus();
+     }
+
 
      onSelect(selectedItem:SearchResult) {
          console.log(selectedItem);
-         this.selectedSearchResult = selectedItem;
-         this.onSelected.emit(this.selectedSearchResult);
-         this.searchTerm = selectedItem.name;
-         this.showResults = false;
+         if(selectedItem) {
+             this.selectedSearchResult = selectedItem;
+             this.onSelected.emit(this.selectedSearchResult);
+             this.searchTerm = selectedItem.name;
+             this.showResults = false;
+        }
      }
+
 
      onKeyPress(event:any) {
          this.showResults = true;
+
+         // return if no results yet
+         if(!this.searchResultsArray && [40, 38, 13].indexOf(event.keyCode) != -1) return;
+
          if(event.keyCode == 40) {
              // down arrow pressed -> select first/next item
              if(!this.selectedSearchResult) {
-                 console.log("no result selected yet");
-                 this.selectedSearchResult = this.items[0];
-                 console.log(this.currentSearchItems);
+                 this.selectedSearchResult = this.searchResultsArray[this.selectedIndex];
              }
-             else {
-                 console.log("already selected");
+             else if(this.selectedIndex < this.searchResultsArray.length-1){
+                 this.selectedIndex++;
+                 this.selectedSearchResult = this.searchResultsArray[this.selectedIndex];
              }
          }
          if(event.keyCode == 38) {
              // up arrow pressed --> select previous item or focus on input-box
+             this.selectedIndex--;
+             if(this.selectedIndex>=0) this.selectedSearchResult = this.searchResultsArray[this.selectedIndex];
+             else this.selectedSearchResult = null;
+         }
+         if(event.keyCode == 13) {
+             // enter pressed -> select search result
+             this.onSelect(this.selectedSearchResult);
          }
      }
-
 
 }
