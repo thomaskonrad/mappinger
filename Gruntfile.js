@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                     footer: 'var idPresets = iD.presets().load(iD.data.presets);'
                 },
                 files: {
-                    'app/components/id-core/presets.js': [
+                    'build/lib/id-core/presets.js': [
                         idPath + 'dist/presets.js',
                         idPath + 'js/id/presets.js',
                         idPath + 'js/id/presets/*.js'
@@ -37,14 +37,28 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src',
                         src: [
-                            'components/**/*',
-                            'map/**/*',
                             'map-styles/*',
-                            'app.*',
-                            'config.js',
-                            'index.html'
+                            'index.html',
+                            '**/*.css'
                         ],
-                        dest: 'app/'
+                        dest: 'build/'
+                    }
+                ]
+            },
+            'node-modules': {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'node_modules',
+                        src: [
+                            'angular2/**',
+                            'rxjs/**',
+                            'es6-shim/es6-shim.min.js',
+                            'systemjs/dist/system-polyfills.js',
+                            'systemjs/dist/system.src.js',
+                            'moment/moment.js'
+                        ],
+                        dest: 'build/lib/'
                     }
                 ]
             },
@@ -53,7 +67,7 @@ module.exports = function(grunt) {
                     {
                         expand: false,
                         src: ['node_modules/opening_hours/opening_hours+deps.js'],
-                        dest: 'app/components/opening-hours.js'
+                        dest: 'build/lib/opening-hours.js'
                     }
                 ]
             },
@@ -62,18 +76,18 @@ module.exports = function(grunt) {
                     {
                         expand: false,
                         src: idPath + 'js/lib/locale.js',
-                        dest: 'app/components/id-core/locale.js'
+                        dest: 'build/lib/id-core/locale.js'
                     },
                     {
                         expand: true,
                         cwd: idPath + 'dist/locales/',
                         src: '*.json',
-                        dest: 'app/components/id-core/locales/'
+                        dest: 'build/lib/id-core/locales/'
                     },
                     {
                         expand: false,
                         src: idPath + 'data/locales.json',
-                        dest: 'app/components/id-core/locales.json'
+                        dest: 'build/lib/id-core/locales.json'
                     }
                 ]
             }
@@ -105,7 +119,8 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('app', [
-        'copy:app'
+        'copy:app',
+        'copy:node-modules'
     ]);
 
     grunt.registerTask('build', [

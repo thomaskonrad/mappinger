@@ -12,6 +12,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'search',
+    moduleId: __moduleName,
     directives: [],
     providers: [SearchService],
     template: `
@@ -28,7 +29,7 @@ import 'rxjs/add/operator/switchMap';
                 </ul>
             </div>
             `,
-    styleUrls: ['./app/search.component.css']
+    styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
 
@@ -62,7 +63,7 @@ export class SearchComponent implements OnInit {
                  return this.currentSearchItems = this._searchService.search(searchTerm, searchParams);
                 }
             )
-            .do( list => this.searchResultsArray = list) );
+            .do( list => this.searchResultsArray = list);
      }
 
      ngOnInit() {

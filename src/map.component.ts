@@ -44,7 +44,7 @@ export class MapComponent implements OnInit {
         mapboxgl.accessToken = Config.mapboxAccessToken;
         this.map = new mapboxgl.Map({
             container: 'map', // container id
-            style: "/src/map-styles/streets-v8.json", //stylesheet location
+            style: "map-styles/streets-v8.json", //stylesheet location
             center: [0, 30], // starting position
             zoom: 2, // starting zoom,
             interactive: true

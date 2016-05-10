@@ -8,6 +8,7 @@ import {WikipediaService} from "./wikipedia.service";
 
 @Component({
     selector: 'feature-pane',
+    moduleId: __moduleName,
     template: `
 <div *ngIf="selectedFeature" id="feature-pane">
     <div class="feature-head">
@@ -38,7 +39,7 @@ import {WikipediaService} from "./wikipedia.service";
     </ul>
 </div>
 `,
-    styleUrls: ['./app/featurepane.component.css'],
+    styleUrls: ['./featurepane.component.css'],
     providers:[JSONP_PROVIDERS, WikipediaService]
 })
 export class FeaturePaneComponent implements OnInit {
