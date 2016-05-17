@@ -64,7 +64,6 @@ export class SearchComponent {
                     searchParams.lat = '48.209';
                     searchParams.lon = '16.372';
                     if(this.center) {
-                        console.log(this.center)
                         searchParams.lat = this.center.lat;
                         searchParams.lon = this.center.lon;
                     }
