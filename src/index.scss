@@ -1,2 +1,6 @@
 $app-background-color: white !default;
 @import '~bootstrap/scss/bootstrap.scss';
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}

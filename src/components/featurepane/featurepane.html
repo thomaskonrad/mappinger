@@ -1,6 +1,7 @@
 <div *ngIf="selectedFeature" id="feature-pane">
+
     <div class="feature-head">
-        <div class="feature-title-wrapper" >
+        <div class="feature-title-wrapper" [ngClass]="{'has-image': selectedFeature.wikipedia_image_url}" >
             <h1>{{selectedFeature.name}}</h1>
             <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
         </div>
