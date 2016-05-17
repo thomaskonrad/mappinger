@@ -9,7 +9,7 @@ export class IpGeolocationService {
     getIpGeolocation(timeout:number = 10000) {
         return this._http.get("https://myexternalip.com/json", { timeout: timeout })
             .map(res => res.json())
-            .switchMap(res => this._http.get("https://geoip.thomaskonrad.at/json/" + encodeURIComponent(res.ip), { timeout: timeout }))
+            .switchMap(res => this._http.get("https://geoip.thomaskonrad.at/json/" + encodeURIComponent(res['ip']), { timeout: timeout }))
             .map(res => res.json())
             .map(res => {
                 return [res.longitude, res.latitude];

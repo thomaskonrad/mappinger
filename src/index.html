@@ -1,48 +1,28 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Mappinger</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>{%=o.htmlWebpackPlugin.options.pkg.title %}</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
 
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="lib/es6-shim/es6-shim.min.js"></script>
-    <script src="lib/systemjs/dist/system-polyfills.js"></script>
-    <script src="lib/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+        <script>
+            window.mappinger = {};
+            mappinger.name = "{%= o.htmlWebpackPlugin.options.pkg.name %}";
+            mappinger.version = "{%= o.htmlWebpackPlugin.options.pkg.version %}";
+        </script>
 
-    <script src="lib/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="lib/systemjs/dist/system.src.js"></script>
-    <script src="lib/rxjs/bundles/Rx.js"></script>
-    <script src="lib/angular2/bundles/angular2.dev.js"></script>
-    <script src="lib/angular2/bundles/http.min.js"></script>
+    </head>
+    <body>
+        <app>
+            Loading...
+        </app>
 
-    <!-- 2. Configure SystemJS -->
-    <script>
-      System.config({
-        packages: {
-          build: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        },
-        map: {
-            moment: 'lib/moment',
-            angular2: 'lib/angular2',
-            rxjs: 'lib/rxjs'
-        }
-      });
-      System.defaultJSExtensions = true;
-      System.import('main.js')
-            .then(null, console.error.bind(console));
-    </script>
-  </head>
-
-  <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+        {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+        <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
+        {% } %}
+    </body>
 </html>

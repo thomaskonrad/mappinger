@@ -1,37 +1,48 @@
 {
-  "name": "Mappinger",
-  "version": "0.0.0",
-  "description": "An open map with the end-user in mind",
-  "main": "app/index.html",
-  "license": "ISC",
+  "name": "angular2-nobullshit-boilerplate",
+  "version": "0.0.1",
+  "description": "Angular2, TypeScript and Webpack no bullshit!",
+  "main": "lib/index.ts",
   "scripts": {
-    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
-    "typings": "typings",
-    "postinstall": "typings install"
+    "devserver": "webpack-dev-server --json --progress",
+    "dumpdev": "rm -rf build/* && webpack --progress --colors -d",
+    "dumpprod": "rm -rf build/* && webpack --progress --colors --config webpack.config.prod.js -p"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thomaskonrad/mappinger.git"
+    "url": "git+https://github.com/shprink/angular2-nobullshit-boilerplate.git"
   },
+  "author": "shprink <contact@julienrenaux.fr> (http://julienrenaux.fr/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shprink/angular2-nobullshit-boilerplate/issues"
+  },
+  "homepage": "https://github.com/shprink/angular2-nobullshit-boilerplate#readme",
   "dependencies": {
-    "angular2": "2.0.0-beta.14",
-    "es6-promise": "^3.0.2",
-    "es6-shim": "^0.35.0",
-    "iD": "git://github.com/openstreetmap/id#v1.8.0",
-    "ng2-bootstrap": "^1.0.11",
-    "opening_hours": "https://github.com/ypid/opening_hours.js/tarball/master",
+    "angular2": "2.0.0-beta.0",
+    "angular2-google-maps": "^0.5.0",
+    "bootstrap": "github:twbs/bootstrap#v4.0.0-alpha",
+    "es6-shim": "^0.33.13",
+    "node-sass": "^3.4.1",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "systemjs": "0.19.24",
-    "zone.js": "0.6.6"
+    "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
-    "concurrently": "^2.0.0",
-    "lite-server": "^2.1.0",
     "typescript": "^1.8.7",
-    "typings": "^0.7.5"
+    "autoprefixer-loader": "^3.1.0",
+    "copy-webpack-plugin": "^3.0.0",
+    "css-loader": "^0.21.0",
+    "file-loader": "^0.8.4",
+    "html-loader": "^0.3.0",
+    "html-webpack-plugin": "^1.6.1",
+    "json-loader": "^0.5.3",
+    "path": "^0.4.9",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^3.1.1",
+    "style-loader": "^0.13.0",
+    "ts-loader": "^0.6.0",
+    "util": "^0.10.3",
+    "webpack": "~1.12.6",
+    "webpack-dev-server": "~1.10.0"
   }
 }

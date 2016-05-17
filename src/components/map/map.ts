@@ -1,36 +1,19 @@
-import {Component} from 'angular2/core';
-import {OnInit} from 'angular2/core';
-import {SearchComponent} from './search.component';
-import {SearchResult} from './searchResult';
-import {FeaturePaneComponent} from './featurepane.component';
-import {Config} from './config';
-import {Feature} from './feature';
-import {IpGeolocationService} from './ip-geolocation.service';
+import {Component, OnInit} from 'angular2/core';
+import {SearchComponent} from '../search/search';
+import {SearchResult} from '../commons';
+import {FeaturePaneComponent} from '../featurepane/featurepane';
+import {Config} from '../../config';
+import {Feature} from '../commons';
+import {IpGeolocationService} from './ipgeolocation.service';
 
 declare var mapboxgl:any; // Magic
 // declare mapboxgl.Geolocate:any; // Magic
 
 @Component({
     selector: 'my-map',
-    template: `
-            <mapbox-gl-map style="map-styles/streets-v8.json"></mapbox-gl-map>
-            <div id="map"></div>
-            <feature-pane
-                [feature]="selectedFeature">
-            </feature-pane>
-            <search
-                (onSelected)="onSelected($event)">
-            </search>
-            `,
-    styles: [`
-        #map {
-            position:absolute;
-            top:0;
-            bottom:0;
-            left: 0;
-            right: 0;
-        }
-        `],
+    providers: [IpGeolocationService],
+    template: require('./map.html'),
+    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./map.scss')],
     directives: [SearchComponent, FeaturePaneComponent]
 })
 export class MapComponent implements OnInit {
@@ -44,7 +27,7 @@ export class MapComponent implements OnInit {
         mapboxgl.accessToken = Config.mapboxAccessToken;
         this.map = new mapboxgl.Map({
             container: 'map', // container id
-            style: "map-styles/streets-v8.json", //stylesheet location
+            style: "/static/map-styles/streets-v8.json", //stylesheet location
             center: [0, 30], // starting position
             zoom: 2, // starting zoom,
             interactive: true
@@ -75,6 +58,6 @@ export class MapComponent implements OnInit {
 
         // set map center
         this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
-      }
+    }
 
 }
