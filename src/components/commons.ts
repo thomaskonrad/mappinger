@@ -7,6 +7,7 @@ export class Coordinates {
         this.lon = lon;
     }
 }
+
 export enum FeatureType
 {
     Node = "node",

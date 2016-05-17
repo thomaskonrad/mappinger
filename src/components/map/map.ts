@@ -1,6 +1,6 @@
 import {Component, OnInit} from 'angular2/core';
 import {SearchComponent} from '../search/search';
-import {SearchResult} from '../commons';
+import {SearchResult, Coordinates} from '../commons';
 import {FeaturePaneComponent} from '../featurepane/featurepane';
 import {Config} from '../../config';
 import {Feature} from '../commons';
@@ -19,6 +19,7 @@ declare var mapboxgl:any; // Magic
 export class MapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
+    ipGeolocation:Coordinates;
 
     constructor(private _ipGeolocationService:IpGeolocationService) {
     }
@@ -43,13 +44,14 @@ export class MapComponent implements OnInit {
                 zoom: 11,
                 speed: 3
             });
+
+            this.ipGeolocation = new Coordinates(result[1], result[0]);
         });
     }
 
     onSelected(searchResult: SearchResult) {
 
         let feature = new Feature();
-
         feature.feature_type = searchResult.osm_type;
         feature.osm_id = searchResult.osm_id;
         feature.name = searchResult.name;
