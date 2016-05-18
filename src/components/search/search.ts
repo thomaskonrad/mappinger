@@ -61,8 +61,8 @@ export class SearchComponent {
                     // prepare search params
                     let searchParams = new SearchParameters();
                     searchParams.provider = "komoot";
-                    searchParams.lat = '48.209';
-                    searchParams.lon = '16.372';
+                    searchParams.lat = 48.209;
+                    searchParams.lon = 16.37;
                     if(this.center) {
                         searchParams.lat = this.center.lat;
                         searchParams.lon = this.center.lon;
