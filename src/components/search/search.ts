@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from 'angular2/core';
+import {Component, EventEmitter, Input, Output, OnInit} from 'angular2/core';
 import {Control} from 'angular2/common';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {SearchService, SearchParameters} from './search.service';
@@ -16,21 +16,28 @@ import 'rxjs/add/operator/switchMap';
     providers: [SearchService],
     template: `
             <div id="search-box" (keyup)="onKeyPress($event)">
-            <input type="text" class="search-component-input"
-             [ngFormControl]="searchControl" [(ngModel)]='searchTerm'/>
-                <ul id="search-results" *ngIf="showResults">
+                <input
+                    type="text"
+                    class="search-component-input shadow"
+                    [ngFormControl]="searchControl"
+                    [(ngModel)]='searchTerm'
+                    placeholder="Search"/>
+                <ul
+                    id="search-results"
+                    class="shadow"
+                    *ngIf="showResults">
                     <li
                         *ngFor="#item of items | async"
                         [class.selected]="item === selectedSearchResult"
-                        (click)="onSelect(item)">
-                        {{item.name}}
+                        (click)="onSelect(item)"
+                        [innerHTML]=item.stringify()><small></small>
                     </li>
                 </ul>
             </div>
             `,
     styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./search.scss')],
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
 
     @Output() onSelected = new EventEmitter<SearchResult>();
     @Input()
@@ -49,6 +56,14 @@ export class SearchComponent {
     center:Coordinates;
 
     constructor(private _searchService: SearchService) {
+
+    }
+
+    ngOnInit() {
+        // auto-focus the search-input
+        document.querySelector('.search-component-input').focus();
+
+        // subscribe to changes in the search-input
         this.items = this.searchControl.valueChanges
             .debounceTime(400)
             .distinctUntilChanged()
@@ -72,11 +87,6 @@ export class SearchComponent {
                 }
             )
             .do( list => this.searchResultsArray = list);
-    }
-
-    ngOnInit() {
-        // FIXME
-        //document.querySelector('.search-component-input').focus();
     }
 
 

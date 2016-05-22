@@ -35,10 +35,12 @@ export class SearchService {
                     return el.features
                         .map((feature) => {
                             let result = new SearchResult();
-                            result.name = feature.properties.name;
+                            result.name = feature.properties.name || feature.properties.city;
                             result.setFeatureType(feature.properties.osm_type);
                             result.osm_id = feature.properties.osm_id;
                             result.coordinates = new Coordinates(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
+                            result.city = feature.properties.city || "";
+                            result.country = feature.properties.country || "";
                             return result;
                         });
                 });

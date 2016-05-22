@@ -4,3 +4,13 @@ $app-background-color: white !default;
 body {
     font-family: 'Source Sans Pro', sans-serif;
 }
+
+
+.shadow {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+small {
+    color: #666;
+    margin-left: 2px;
+}

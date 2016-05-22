@@ -30,6 +30,8 @@ export class SearchResult {
     osm_id: number;
     name: string;
     coordinates: Coordinates;
+    city: string;
+    country: string;
 
     setFeatureType(featureType: string, provider: string = 'photon') {
         if (provider == 'photon') {
@@ -54,4 +56,14 @@ export class SearchResult {
             }
         }
     }
+
+    stringify() {
+        let outputFragments:Array<string> = [];
+        let outputHtml:string;
+        if(this.city) outputFragments.push(this.city);
+        if(this.country) outputFragments.push(this.country);
+
+        return this.name + " <small>" + outputFragments.join(', ') + "</small>";
+    }
+
 }
