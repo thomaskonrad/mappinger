@@ -33,14 +33,17 @@ export class FeaturePaneComponent implements OnInit {
 
     fetchFeatureInfo() {
         this._mapService.fetchFeatureFromOsm(this.selectedFeature.feature_type, this.selectedFeature.osm_id).subscribe((response) => {
-            this.selectedFeature.tags = response.elements[0].tags;
-            console.log(this.selectedFeature);
+            console.log(response);
+            if(response.elements.length > 0) {
+                this.selectedFeature.tags = response.elements[0].tags;
+                console.log(this.selectedFeature);
 
-            if ('wikipedia' in this.selectedFeature.tags) {
-                var parts = this.selectedFeature.tags.wikipedia.split(':');
-                this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
-                    this.selectedFeature.wikipedia_image_url = response;
-                });
+                if ('wikipedia' in this.selectedFeature.tags) {
+                    var parts = this.selectedFeature.tags.wikipedia.split(':');
+                    this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
+                        this.selectedFeature.wikipedia_image_url = response;
+                    });
+                }
             }
         });
     }
