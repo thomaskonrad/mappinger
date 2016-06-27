@@ -1,5 +1,5 @@
 import {Component, Input} from 'angular2/core';
-import {OnInit} from 'angular2/core';
+import {ngOnInit} from 'angular2/core';
 import {NgClass} from 'angular2/common';
 import { JSONP_PROVIDERS }  from 'angular2/http';
 import {Feature} from '../commons';
@@ -14,7 +14,7 @@ import {WikipediaService} from "./wikipedia.service";
     providers:[JSONP_PROVIDERS, MapService, NominatimService, WikipediaService],
     directives: [NgClass]
 })
-export class FeaturePaneComponent implements OnInit {
+export class FeaturePaneComponent implements AfterViewChecked {
     selectedFeature: Feature;
 
     @Input()
@@ -28,8 +28,8 @@ export class FeaturePaneComponent implements OnInit {
     constructor(private _mapService: MapService, private _nominatimService: NominatimService, private _wikipediaService: WikipediaService) {
     }
 
-    ngOnInit() {
-    }
+    // ngOnInit() {
+    // }
 
     fetchFeatureInfo() {
         this._mapService.fetchFeatureFromOsm(this.selectedFeature.feature_type, this.selectedFeature.osm_id).subscribe((response) => {
@@ -47,5 +47,7 @@ export class FeaturePaneComponent implements OnInit {
             }
         });
     }
+
+
 
 }

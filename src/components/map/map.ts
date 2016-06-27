@@ -67,7 +67,20 @@ export class MapComponent implements OnInit {
 
         // set map center
         // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
-        if(jumpto) this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
+        if(jumpto) {
+            this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
+
+            // move the map half the width of the featurepane to center the marker (we need to wait a bit to do that though)
+            window.setTimeout(function() {
+                try {
+                    let feature_pane_width = document.querySelector('#feature-pane').offsetWidth;
+                    window.MapComponentRef.map.panBy([-feature_pane_width/2,0], {duration: 0});
+                }  catch (e) {
+                    // catch me if you can
+                }
+            }, 10);
+        }
+
 
         // remove 'markers' layer and source if they have been added before
         if(typeof this.map.getLayer('markers') !== 'undefined') this.map.removeLayer("markers");
@@ -99,7 +112,7 @@ export class MapComponent implements OnInit {
             "source": "markers",
             "layout": {
                 "icon-image": "marker-1",
-                "icon-offset": [0,-14]
+                "icon-offset": [0,-20]
                 //"text-field": "{title}",
                 "text-font": ["Source Sans Pro Regular", "Arial Unicode MS Bold"],
                 "text-offset": [0, 0.8],
