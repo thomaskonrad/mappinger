@@ -1,7 +1,7 @@
 {
-  "name": "angular2-nobullshit-boilerplate",
-  "version": "0.0.1",
-  "description": "Angular2, TypeScript and Webpack no bullshit!",
+  "name": "Mappinger",
+  "version": "0.0.2",
+  "description": "based on angular2-nobullshit-boilerplate",
   "main": "lib/index.ts",
   "scripts": {
     "devserver": "webpack-dev-server --json --progress",
