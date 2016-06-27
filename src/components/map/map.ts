@@ -111,7 +111,7 @@ export class MapComponent implements OnInit {
             "type": "symbol",
             "source": "markers",
             "layout": {
-                "icon-image": "marker-1",
+                "icon-image": "marker-2",
                 "icon-offset": [0,-20]
                 //"text-field": "{title}",
                 "text-font": ["Source Sans Pro Regular", "Arial Unicode MS Bold"],
