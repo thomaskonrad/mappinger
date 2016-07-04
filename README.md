@@ -12,3 +12,8 @@ kick off typescript-compilation (with change-detection) and run a local devserve
 ```
 npm run devserver
 ```
+## Build for Production
+creates a build in /build directory 
+```
+npm run dumpprod
+```
