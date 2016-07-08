@@ -14,8 +14,11 @@ module.exports = {
     },
     output: {
         path: wwwPath,
-        filename: '[name]-[hash:6].js'
+        filename: '[name]-[hash:6].js',
+        sourceMapFilename: '[file].map'
     },
+    debug: true,
+    devtool: 'source-map',
     module: {
         loaders: [{
             test: /\.ts$/,
