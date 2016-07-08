@@ -7,4 +7,8 @@ webpackConfig.plugins.concat([
     new webpack.optimize.UglifyJsPlugin()
 ]);
 
+// remove source-maps
+webpackConfig.debug = false;
+webpackConfig.devtool = 'none';
+
 module.exports = webpackConfig;
