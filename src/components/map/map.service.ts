@@ -15,21 +15,15 @@ export class MapService {
             id: 0
         };
 
-        if (mapboxId < 1000000000000) {
-            osmIdentifier.type = 'way';
-            osmIdentifier.id = mapboxId;
-        } else if (mapboxId < 2000000000000) {
-            osmIdentifier.type = 'way';
-            osmIdentifier.id = mapboxId - 1000000000000;
-        } else if (mapboxId < 3000000000000) {
-            osmIdentifier.type = 'relation';
-            osmIdentifier.id = mapboxId - 2000000000000;
-        } else if (mapboxId < 1000000000000000) {
-            osmIdentifier.type = 'relation';
-            osmIdentifier.id = mapboxId - 3000000000000;
-        } else {
+        let lastDigit = mapboxId % 10;
+        osmIdentifier.id = (mapboxId - lastDigit) / 10;
+
+        if (lastDigit === 0) {
             osmIdentifier.type = 'node';
-            osmIdentifier.id = mapboxId - 1000000000000000;
+        } else if (lastDigit === 1 || lastDigit === 2) {
+            osmIdentifier.type = 'way';
+        } else if (lastDigit === 3 || lastDigit === 4) {
+            osmIdentifier.type = 'relation';
         }
 
         return osmIdentifier;
