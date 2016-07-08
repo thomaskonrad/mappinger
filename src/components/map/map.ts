@@ -37,9 +37,11 @@ export class MapComponent implements OnInit {
         });
 
         // Add Map Load Event Listener
-        window.MapComponentRef = this;
+        let that = this;
         this.map.on('load', this.onMapLoaded);
-        this.map.on('click', this.onMapClick);
+        this.map.on('click', function(event) {
+            that.onMapClick(event, that);
+        });
 
         // Add Controls
         this.map.addControl(new mapboxgl.Navigation({position: 'top-right'}));
@@ -131,31 +133,40 @@ export class MapComponent implements OnInit {
 
     }
 
-    onMapClick(event) {
+    onMapClick(event, mapComponent) {
         // get the map
         let themap = event.target;
         // get the features at the clicked point
         let features = themap.queryRenderedFeatures(event.point);
-        if(features.length > 0) {
-            // take the first feature (foremost?)
-            let feature = features[0];
-            console.log(feature);
+        let selectedFeature;
+
+        for (var feature of features) {
+            if ('id' in feature && feature.id > 1) {
+                selectedFeature = feature;
+            }
+        }
+
+        if (selectedFeature != null) {
+            console.log(selectedFeature);
 
             // get feature type and id
-            let featureTypeAndId = window.MapComponentRef._mapService.getFeatureTypeAndRealId(feature.id);
+            let featureTypeAndId = mapComponent._mapService.getFeatureTypeAndRealId(selectedFeature.id);
 
             // create a SearchResult to pass on to onSelected
             let clickResult = new SearchResult();
             clickResult.osm_type = featureTypeAndId.type;
             clickResult.osm_id = featureTypeAndId.id;
-            clickResult.name = feature.properties.name;
-            clickResult.coordinates = new Coordinates(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
+            clickResult.name = selectedFeature.properties.name;
+            clickResult.coordinates = new Coordinates(
+                selectedFeature.geometry.coordinates[0],
+                selectedFeature.geometry.coordinates[1]
+            );
 
             // call onSelected
-            window.MapComponentRef.onSelected(clickResult, false);
+            mapComponent.onSelected(clickResult, false);
         }
         else {
-            window.MapComponentRef.onUnselect();
+            mapComponent.onUnselect();
         }
     }
 
