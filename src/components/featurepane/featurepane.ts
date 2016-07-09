@@ -15,7 +15,8 @@ import {WikipediaService} from "./wikipedia.service";
     directives: [NgClass]
 })
 export class FeaturePaneComponent implements AfterViewChecked {
-    selectedFeature: Feature;
+    selectedFeature:Feature;
+    isLoading:boolean = false ;
 
     @Input()
     set feature(feature: Feature) {
@@ -32,12 +33,13 @@ export class FeaturePaneComponent implements AfterViewChecked {
     // }
 
     fetchFeatureInfo() {
+        this.isLoading = true;
         this._mapService.fetchFeatureFromOsm(this.selectedFeature.feature_type, this.selectedFeature.osm_id).subscribe((response) => {
             console.log(response);
+            this.isLoading = false;
             if(response.elements.length > 0) {
                 this.selectedFeature.tags = response.elements[0].tags;
                 console.log(this.selectedFeature);
-
                 if ('wikipedia' in this.selectedFeature.tags) {
                     var parts = this.selectedFeature.tags.wikipedia.split(':');
                     this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {

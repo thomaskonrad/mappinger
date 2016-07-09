@@ -6,11 +6,12 @@
             <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
         </div>
 
-        <div class="feature-image" ng-show="selectedFeature.wikipedia_image_url">
+        <div class="feature-image" [class.show]="selectedFeature.wikipedia_image_url">
             <div class="feature-image-inner" style="background-image: url('{{selectedFeature.wikipedia_image_url}}');"></div>
         </div>
-
     </div>
+
+    <div class="loadinger" [class.hidden]="!isLoading"></div>
 
     <div *ngIf="selectedFeature && selectedFeature.opening_hours" class="opening-hours">
         <div ng-switch-when="true" class="text-success">
