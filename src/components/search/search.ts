@@ -124,6 +124,8 @@ export class SearchComponent implements OnInit{
 
         // enter pressed -> select search result
         if(event.keyCode == 13) {
+            // if no Result is selected -> select the first one
+            if(!this.selectedSearchResult && this.searchResultsArray.length > 0) this.selectedSearchResult = this.searchResultsArray[0];
             this.onSelect(this.selectedSearchResult);
         }
     }

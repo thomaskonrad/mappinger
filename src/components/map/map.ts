@@ -66,9 +66,9 @@ export class MapComponent implements OnInit {
         feature.name = searchResult.name;
 
         this.selectedFeature = feature;
-
-        // set map center
+        let map = this.map;
         // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
+        // set map center
         if(jumpto) {
             this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
 
@@ -76,11 +76,11 @@ export class MapComponent implements OnInit {
             window.setTimeout(function() {
                 try {
                     let feature_pane_width = document.querySelector('#feature-pane').offsetWidth;
-                    window.MapComponentRef.map.panBy([-feature_pane_width/2,0], {duration: 0});
+                    map.panBy([-feature_pane_width/2,0], {duration: 0});
                 }  catch (e) {
                     // catch me if you can
                 }
-            }, 10);
+            }, 30);
         }
 
 
@@ -114,7 +114,7 @@ export class MapComponent implements OnInit {
             "source": "markers",
             "layout": {
                 "icon-image": "marker-2",
-                "icon-offset": [0,-20]
+                "icon-offset": [0,-30]
                 //"text-field": "{title}",
                 "text-font": ["Source Sans Pro Regular", "Arial Unicode MS Bold"],
                 "text-offset": [0, 0.8],
@@ -141,13 +141,12 @@ export class MapComponent implements OnInit {
         let selectedFeature;
 
         for (var feature of features) {
-            if ('id' in feature && feature.id > 1) {
+            if ('id' in feature && feature.id > 1 && feature.geometry.type === "Point") {
                 selectedFeature = feature;
             }
         }
 
         if (selectedFeature != null) {
-            console.log(selectedFeature);
 
             // get feature type and id
             let featureTypeAndId = mapComponent._mapService.getFeatureTypeAndRealId(selectedFeature.id);
