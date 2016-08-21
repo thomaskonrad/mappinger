@@ -29,6 +29,8 @@ export class SearchResult {
     osm_type: FeatureType;
     osm_id: number;
     name: string;
+    street: string;
+    housenumber: string;
     coordinates: Coordinates;
     city: string;
     country: string;
@@ -60,9 +62,15 @@ export class SearchResult {
     stringify() {
         let outputFragments:Array<string> = [];
         let outputHtml:string;
+
+        // if SearchResult has no name, but street+housenumber --> use street + housenumber as name
+        if(typeof this.name === "undefined" && typeof this.street !== "undefined" && typeof this.housenumber !== "undefined") this.name = this.street + " " + this.housenumber;
+
+        // add city and country to outputFragments
         if(this.city) outputFragments.push(this.city);
         if(this.country) outputFragments.push(this.country);
 
+        // concat name and fragments
         return this.name + " <small>" + outputFragments.join(', ') + "</small>";
     }
 

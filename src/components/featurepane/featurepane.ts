@@ -47,6 +47,9 @@ export class FeaturePaneComponent implements ngOnInit {
                     });
                 }
             }
+            else {
+                this.isLoading = false;
+            }
         });
     }
 
