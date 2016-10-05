@@ -6,6 +6,7 @@ import {Config} from '../../config';
 import {Feature} from '../commons';
 import {IpGeolocationService} from './ipgeolocation.service';
 import {MapService} from './map.service';
+import {Marker} from './marker';
 
 declare var mapboxgl:any; // Magic
 // declare mapboxgl.Geolocate:any; // Magic
@@ -21,6 +22,7 @@ export class MapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
     ipGeolocation:Coordinates;
+    marker:any;
 
     constructor(private _ipGeolocationService:IpGeolocationService, private _mapService:MapService) {
     }
@@ -66,7 +68,7 @@ export class MapComponent implements OnInit {
         feature.name = searchResult.name;
 
         this.selectedFeature = feature;
-        let map = this.map;
+        let map:any = this.map;
         // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
         // set map center
         if(jumpto) {
@@ -75,57 +77,33 @@ export class MapComponent implements OnInit {
             // move the map half the width of the featurepane to center the marker (we need to wait a bit to do that though)
             window.setTimeout(function() {
                 try {
-                    let feature_pane_width = document.querySelector('#feature-pane').offsetWidth;
-                    map.panBy([-feature_pane_width/2,0], {duration: 0});
+                    let featurePaneElement:HTMLElement = <HTMLElement>document.querySelector('#feature-pane');
+                    let featurePaneElementWidth:number = featurePaneElement.offsetWidth;
+                    map.panBy([-featurePaneElementWidth/2,0], {duration: 0});
                 }  catch (e) {
                     // catch me if you can
                 }
             }, 30);
         }
 
+        // remove old marker 
+        if(this.marker) this.marker.remove();
+        // create new Marker
+        let markerDom = new Marker({imageUrl: "static/marker_48x48.png"});
+        // create new MapBoxGl-Marker and add to Map
+        this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-24, -48]})
+          .setLngLat([searchResult.coordinates.lat, searchResult.coordinates.lon])
+          .addTo(this.map);
+        // add move-in class
+        window.setTimeout(function() {
+            markerDom.element.classList.add("move-in");
+        },10);
 
-        // remove 'markers' layer and source if they have been added before
-        if(typeof this.map.getLayer('markers') !== 'undefined') this.map.removeLayer("markers");
-        if(typeof this.map.getSource('markers') !== 'undefined') this.map.removeSource("markers");
-
-        // add 'markers' Source
-        this.map.addSource("markers", {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [searchResult.coordinates.lat, searchResult.coordinates.lon]
-                    },
-                    "properties": {
-                        "title": searchResult.name,
-                        "marker-symbol": "za-provincial-2" // unused at the moment
-                    }
-                }]
-            }
-        });
-
-        // add 'markers' Layer
-        this.map.addLayer({
-            "id": "markers",
-            "type": "symbol",
-            "source": "markers",
-            "layout": {
-                "icon-image": "marker-2",
-                "icon-offset": [0,-30]
-                //"text-field": "{title}",
-                "text-font": ["Source Sans Pro Regular", "Arial Unicode MS Bold"],
-                "text-offset": [0, 0.8],
-                "text-anchor": "top"
-            }
-        });
 
     }
 
     onUnselect() {
-        this.selectedFeature = false;
+        this.selectedFeature = null;
     }
 
 
@@ -168,5 +146,6 @@ export class MapComponent implements OnInit {
             mapComponent.onUnselect();
         }
     }
+
 
 }

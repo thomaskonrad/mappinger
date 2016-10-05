@@ -85,6 +85,7 @@ $feature-pane-width: 380px;
     right: 0;
     overflow: hidden;
     z-index: 10;
+    transform: translateY(-1px);
 
     &::after {
         display: block;
@@ -118,6 +119,7 @@ $feature-pane-width: 380px;
     list-style: none;
     margin: 0;
     padding: 0 20px;
+    font-size: 1.1rem;
 }
 
 .feature-tags li {

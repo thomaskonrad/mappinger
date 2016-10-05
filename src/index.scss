@@ -14,3 +14,27 @@ small {
     color: #666;
     margin-left: 2px;
 }
+
+/*** sorry for the marker styles here ***/
+/* Marker */
+.marker {
+    width: 50px;
+    height: 50px;
+    -webkit-filter: drop-shadow(0 0 6px #fff);
+}
+
+/* Marker-Inner */
+.marker-inner {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: transform 120ms ease-in-out;
+}
+
+/* Transition for Marker move-in */
+.marker.move-in .marker-inner {
+    opacity: 1;
+    transform: translateY(0px);
+}

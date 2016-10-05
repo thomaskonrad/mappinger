@@ -1,5 +1,6 @@
 /// <reference path="./typings/tsd.d.ts" />
 
+import {enableProdMode} from '@angular/core';
 import {provide} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 import {FORM_PROVIDERS} from 'angular2/common';
@@ -7,6 +8,7 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, APP_BASE_HREF}
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {App} from './components/app';
 
+enableProdMode();
 bootstrap(App, [
     FORM_PROVIDERS,
     HTTP_PROVIDERS,

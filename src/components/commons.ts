@@ -8,8 +8,7 @@ export class Coordinates {
     }
 }
 
-export enum FeatureType
-{
+export enum FeatureType {
     Node = "node",
     Way = "way",
     Relation = "relation",

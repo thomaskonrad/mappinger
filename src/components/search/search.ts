@@ -61,7 +61,8 @@ export class SearchComponent implements OnInit{
 
     ngOnInit() {
         // auto-focus the search-input
-        document.querySelector('.search-component-input').focus();
+        let searchComponentInput:HTMLElement = <HTMLElement>document.querySelector('.search-component-input');
+        searchComponentInput.focus();
 
         // subscribe to changes in the search-input
         this.items = this.searchControl.valueChanges
@@ -86,7 +87,7 @@ export class SearchComponent implements OnInit{
                     return this.currentSearchItems = this._searchService.search(searchTerm, searchParams);
                 }
             )
-            .do( list => this.searchResultsArray = list);
+            .do( list => this.searchResultsArray = <SearchResult[]>list);
     }
 
 

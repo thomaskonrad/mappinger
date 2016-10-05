@@ -7,8 +7,8 @@ import {Coordinates} from '../commons';
 
 export class SearchParameters {
     provider:string;
-    lat:string;
-    lon:string;
+    lat:number;
+    lon:number;
 }
 
 @Injectable()
@@ -23,8 +23,8 @@ export class SearchService {
         if(searchParameters.provider === "komoot") {
 
             params.set('q', term);
-            params.set('lat', searchParameters.lat);    // TODO: get lat/long dynamically
-            params.set('lon', searchParameters.lon);
+            params.set('lat', <string><any>searchParameters.lat);    // weird typescript gotcha, cast to number to any and then to string
+            params.set('lon', <string><any>searchParameters.lon);
             params.set('lang', 'de');                   // TODO: get lang dynamically
             params.set('limit', '7');
 
@@ -55,8 +55,8 @@ export class SearchService {
             // https://search.mapzen.com/v1/autocomplete?api_key=search-XXXXXXX&focus.point.lat=37.7&focus.point.lon=-122.4&text=union square
 
             params.set('api_key', Config.mapzenAccessToken);
-            params.set('focus.point.lat', searchParameters.lat);    // TODO: get lat/long dynamically
-            params.set('focus.point.lon', searchParameters.lon);
+            params.set('focus.point.lat', <string><any>searchParameters.lat);    // TODO: get lat/long dynamically
+            params.set('focus.point.lon', <string><any>searchParameters.lon);
             params.set('text', term);       // TODO: get lang dynamically
 
             return this._http

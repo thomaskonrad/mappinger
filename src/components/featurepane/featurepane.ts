@@ -1,5 +1,4 @@
 import {Component, Input} from 'angular2/core';
-import {ngOnInit} from 'angular2/core';
 import {NgClass} from 'angular2/common';
 import { JSONP_PROVIDERS }  from 'angular2/http';
 import {Feature} from '../commons';
@@ -14,7 +13,7 @@ import {WikipediaService} from "./wikipedia.service";
     providers:[JSONP_PROVIDERS, MapService, NominatimService, WikipediaService],
     directives: [NgClass]
 })
-export class FeaturePaneComponent implements ngOnInit {
+export class FeaturePaneComponent {
     selectedFeature:Feature;
     isLoading:boolean = false ;
 
@@ -29,8 +28,7 @@ export class FeaturePaneComponent implements ngOnInit {
     constructor(private _mapService: MapService, private _nominatimService: NominatimService, private _wikipediaService: WikipediaService) {
     }
 
-    ngOnInit() {
-    }
+
 
     fetchFeatureInfo() {
         this.isLoading = true;
