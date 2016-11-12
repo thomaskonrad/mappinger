@@ -46,8 +46,8 @@ export class MapComponent implements OnInit {
         });
 
         // Add Controls
-        this.map.addControl(new mapboxgl.Navigation({position: 'top-right'}));
-        this.map.addControl(new mapboxgl.Geolocate({position: 'top-right'}));
+        this.map.addControl(new mapboxgl.NavigationControl({position: 'top-right'}));
+        this.map.addControl(new mapboxgl.GeolocateControl({position: 'top-right'}));
 
         this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
             this.map.flyTo({
@@ -86,7 +86,7 @@ export class MapComponent implements OnInit {
             }, 30);
         }
 
-        // remove old marker 
+        // remove old marker
         if(this.marker) this.marker.remove();
         // create new Marker
         let markerDom = new Marker({imageUrl: "static/marker_48x48.png"});
