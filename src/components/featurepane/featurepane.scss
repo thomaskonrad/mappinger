@@ -1,8 +1,8 @@
 /**
  * FeaturePane Component Variables
  */
-$mappinger_green: #00dd70;
-$mappinger_green_dark: #009b20;
+$mappinger-green: #00dd70;
+$mappinger-green-dark: #009b20;
 
 $feature-pane-width: 380px;
 
@@ -29,7 +29,7 @@ $feature-pane-width: 380px;
   width: 100%;
   margin-bottom: 20px;
   overflow: auto;
-  background-color: $mappinger_green;
+  background-color: $mappinger-green;
 }
 
 .feature-title-wrapper {
@@ -127,4 +127,14 @@ $feature-pane-width: 380px;
     border-left: 4px solid #676767;
     padding-left: 15px;
     margin-bottom: 10px;
+}
+
+// Links
+a {
+    &:link, &:visited {
+        color: $mappinger-green;
+    }
+    &:focus, &:hover {
+        color: $mappinger-green-dark;
+    }
 }
