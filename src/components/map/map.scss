@@ -2,8 +2,69 @@
 /* The Map Element */
 #map {
   position:absolute;
-  top:0;
+  top:0px;
   bottom:0;
   left: 0;
   right: 0;
+}
+
+/* Mapbox Button */
+/* needs :host-context because it's dynamically added element. */
+:host-context {
+    .mapboxgl-ctrl-group > button {
+        width: 40px;
+        height: 40px;
+        border: 0;
+    }
+
+    .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-out, .mapboxgl-ctrl-icon.mapboxgl-ctrl-geolocate {
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-in {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAIdJREFUeNrt2DERADAIBMH4N00aDMB3zJ6AFXBPkiRJkiQpqToAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA1QwwAAAAAAAAAAAAAAAACcBzwUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEgSZIkSZIU9AH9E+s8LtkXmwAAAABJRU5ErkJggg==');
+    }
+    .mapboxgl-ctrl-icon.mapboxgl-ctrl-zoom-out {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAAEhJREFUeNrtzDENAAAIAzD8mwYNXEuWVkAHAAAAAAAAAAAAAAAAACBlnwQCgUAgEAgEAoFAIBD0BwAAAAAAAAAAAAAAAAAAIQcK/vSmDMRqSwAAAABJRU5ErkJggg==');
+    }
+    .mapboxgl-ctrl-icon.mapboxgl-ctrl-geolocate {
+        background-image: url('data:image/png;base64,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');
+        background-size: 70%;
+    }
+
+    .mapboxgl-ctrl-group {
+        border-radius: 0px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
+/* Mapbox Marker */
+/* needs :host-context because it's dynamically added element. */
+:host-context {
+
+    /* Marker */
+    .marker {
+        width: 50px;
+        height: 50px;
+        -webkit-filter: drop-shadow(0 0 6px #fff);
+    }
+
+    /* Marker-Inner */
+    .marker-inner {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: transform 120ms ease-in-out;
+    }
+
+    /* Transition for Marker move-in */
+    .marker.move-in .marker-inner {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
 }

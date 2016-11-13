@@ -15,26 +15,16 @@ small {
     margin-left: 2px;
 }
 
-/*** sorry for the marker styles here ***/
-/* Marker */
-.marker {
-    width: 50px;
-    height: 50px;
-    -webkit-filter: drop-shadow(0 0 6px #fff);
-}
 
-/* Marker-Inner */
-.marker-inner {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    transform: translateY(-10px);
-    opacity: 0;
-    transition: transform 120ms ease-in-out;
-}
+/* Hyphenate. See https://css-tricks.com/almanac/properties/h/hyphenate/ */
+.hyphenate {
+ -ms-word-break: break-all;
+     word-break: break-all;
 
-/* Transition for Marker move-in */
-.marker.move-in .marker-inner {
-    opacity: 1;
-    transform: translateY(0px);
+     // Non standard for webkit
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
 }
