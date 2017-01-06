@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http, URLSearchParams, HTTP_PROVIDERS} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx';
 import {Config} from '../../config';
 import {SearchResult} from '../commons';

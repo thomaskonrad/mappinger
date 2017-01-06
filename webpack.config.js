@@ -8,9 +8,9 @@ var path = require('path'),
 module.exports = {
     context: srcPath,
     entry: {
-        'app': path.join(srcPath, 'index.ts'),
-        'vendors': path.join(srcPath, 'vendors.ts'),
-        'style': path.join(srcPath, 'index.scss')
+        'app': path.join(srcPath, 'main.ts'),
+        'style': path.join(srcPath, 'index.scss'),
+        'polyfills': path.join(srcPath, 'polyfills.browser.ts')
     },
     output: {
         path: wwwPath,

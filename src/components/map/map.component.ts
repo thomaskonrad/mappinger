@@ -1,7 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {SearchComponent} from '../search/search';
+import {Component, OnInit} from '@angular/core';
 import {SearchResult, Coordinates} from '../commons';
-import {FeaturePaneComponent} from '../featurepane/featurepane';
 import {Config} from '../../config';
 import {Feature} from '../commons';
 import {IpGeolocationService} from './ipgeolocation.service';
@@ -15,8 +13,7 @@ declare var mapboxgl:any; // Magic
     selector: 'my-map',
     providers: [IpGeolocationService, MapService],
     template: require('./map.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./map.scss')],
-    directives: [SearchComponent, FeaturePaneComponent]
+    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./map.scss')]
 })
 export class MapComponent implements OnInit {
     public map;

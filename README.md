@@ -7,6 +7,11 @@ An open map with the end-user in mind.
 ## Configuration
 rename `src/config.ts.sample` to `src/config.ts` and replace `"YOUR-TOKEN-GOES-HERE"` with your API token from [Mapbox](http://mapbox.com).
 
+## Install typings
+
+npm i -g typings
+typings i
+
 ## Run
 kick off typescript-compilation (with change-detection) and run a local devserver on localhost:8080
 ```

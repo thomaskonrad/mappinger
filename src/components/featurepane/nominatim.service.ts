@@ -1,6 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
-import {URLSearchParams} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http, URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class NominatimService {

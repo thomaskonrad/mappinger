@@ -1,6 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Jsonp, URLSearchParams} from 'angular2/http';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Jsonp, URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class WikipediaService {

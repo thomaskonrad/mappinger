@@ -10,7 +10,10 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "listFiles": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": [
+      "node"
+    ]
   },
   "exclude": [ "node_modules" ]
 }

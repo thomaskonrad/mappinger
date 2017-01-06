@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'node_modules',
                         src: [
-                            'angular2/**',
+                            '@angular/**',
                             'rxjs/**',
                             'es6-shim/es6-shim.min.js',
                             'systemjs/dist/system-polyfills.js',

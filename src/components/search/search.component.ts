@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, Output, OnInit} from 'angular2/core';
-import {Control} from 'angular2/common';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import {SearchService, SearchParameters} from './search.service';
 import {SearchResult, Coordinates} from '../commons';
 import {Observable} from 'rxjs/Observable';
@@ -12,14 +11,13 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'search',
-    directives: [],
     providers: [SearchService],
     template: `
             <div id="search-box" (keyup)="onKeyPress($event)">
                 <input
                     type="text"
                     class="search-component-input shadow"
-                    [ngFormControl]="searchControl"
+                    [formControl]="searchControl"
                     [(ngModel)]='searchTerm'
                     placeholder="Search"/>
                 <ul
@@ -47,7 +45,7 @@ export class SearchComponent implements OnInit{
 
     items: Observable<Array<string>>;
     public currentSearchItems:any;
-    searchControl = new Control();
+    searchControl = new FormControl();
     searchTerm:string;
     selectedSearchResult:SearchResult;
     showResults:boolean = true;

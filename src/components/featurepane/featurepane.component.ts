@@ -1,6 +1,5 @@
-import {Component, Input} from 'angular2/core';
-import {NgClass} from 'angular2/common';
-import { JSONP_PROVIDERS }  from 'angular2/http';
+import {Component, Input} from '@angular/core';
+import {NgClass} from '@angular/common';
 import {Feature} from '../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
@@ -10,8 +9,7 @@ import {WikipediaService} from "./wikipedia.service";
     selector: 'feature-pane',
     template: require('./featurepane.html'),
     styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./featurepane.scss')],
-    providers:[JSONP_PROVIDERS, MapService, NominatimService, WikipediaService],
-    directives: [NgClass]
+    providers:[MapService, NominatimService, WikipediaService]
 })
 export class FeaturePaneComponent {
     selectedFeature:Feature;
@@ -27,8 +25,6 @@ export class FeaturePaneComponent {
 
     constructor(private _mapService: MapService, private _nominatimService: NominatimService, private _wikipediaService: WikipediaService) {
     }
-
-
 
     fetchFeatureInfo() {
         this.isLoading = true;
