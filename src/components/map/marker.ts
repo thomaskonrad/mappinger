@@ -13,8 +13,8 @@ export class Marker {
 
         this.element = document.createElement('div');
         this.element.className = 'marker';
-        // this.element.style.width = (_options.width || this.defaultConfig.width) + 'px';
-        // this.element.style.height = (_options.height || this.defaultConfig.height)+ 'px';
+        this.element.style.width = (_options.width || this.defaultConfig.width) + 'px';
+        this.element.style.height = (_options.height || this.defaultConfig.height)+ 'px';
 
         let innerElement = document.createElement('div');
         innerElement.className = 'marker-inner';
@@ -26,9 +26,11 @@ export class Marker {
         // add to marker
         this.element.appendChild(innerElement);
 
-        this.element.addEventListener('click', function() {
-            window.alert("searchResult.name");
-        });
+        // add event listener
+        // TODO: remove this if not needed
+        // this.element.addEventListener('click', function() {
+        //     console.log(searchResult.name);
+        // });
     }
 
 }
