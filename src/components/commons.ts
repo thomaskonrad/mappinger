@@ -22,6 +22,7 @@ export class Feature {
     public tags: any;
     public opening_hours: any;
     public wikipedia_image_url: string;
+    public preset_name: string;
 }
 
 export class SearchResult {
