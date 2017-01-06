@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import {SearchService, SearchParameters} from './search.service';
 import {SearchResult, Coordinates} from '../commons';
 import {Observable} from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -16,20 +17,20 @@ import 'rxjs/add/operator/switchMap';
             <div id="search-box" (keyup)="onKeyPress($event)">
                 <input
                     type="text"
+                    #searchBox
                     class="search-component-input shadow"
-                    [formControl]="searchControl"
-                    [(ngModel)]='searchTerm'
+                    (keyup)='search(searchBox.value)'
                     placeholder="Search"/>
                 <ul
                     id="search-results"
                     class="shadow"
                     *ngIf="showResults">
-                    <li
-                        *ngFor="#item of items | async"
+                    <div
+                        *ngFor="let item of items | async"
                         [class.selected]="item === selectedSearchResult"
                         (click)="onSelect(item)"
                         [innerHTML]=item.stringify()><small></small>
-                    </li>
+                    </div>
                 </ul>
             </div>
             `,
@@ -45,8 +46,7 @@ export class SearchComponent implements OnInit{
 
     items: Observable<Array<string>>;
     public currentSearchItems:any;
-    searchControl = new FormControl();
-    searchTerm:string;
+    private searchTerms = new Subject<string>();
     selectedSearchResult:SearchResult;
     showResults:boolean = true;
     searchResultsArray:Array<SearchResult>;
@@ -63,7 +63,7 @@ export class SearchComponent implements OnInit{
         searchComponentInput.focus();
 
         // subscribe to changes in the search-input
-        this.items = this.searchControl.valueChanges
+        this.items = this.searchTerms
             .debounceTime(400)
             .distinctUntilChanged()
             .switchMap(searchTerm => {
@@ -88,6 +88,10 @@ export class SearchComponent implements OnInit{
             .do( list => this.searchResultsArray = <SearchResult[]>list);
     }
 
+    search(term: string): void {
+        // Push a search term into the observable stream.
+        this.searchTerms.next(term);
+    }
 
     onSelect(selectedItem:SearchResult) {
         if(selectedItem) {
