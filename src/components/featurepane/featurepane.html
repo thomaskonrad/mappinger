@@ -32,6 +32,13 @@
 
     <!-- tags -->
     <ul *ngIf="selectedFeature && selectedFeature.tags" class="feature-tags hyphenate">
+        <li *ngIf="selectedFeature.tags['addr:street'] || selectedFeature.tags['addr:housenumber'] || selectedFeature.tags['addr:postcode'] || selectedFeature.tags['addr:city']">
+            <span *ngIf="selectedFeature.tags['addr:street']">{{selectedFeature.tags["addr:street"]}}</span>&nbsp;
+            <span *ngIf="selectedFeature.tags['addr:housenumber']">{{selectedFeature.tags["addr:housenumber"]}}</span>
+            <br *ngIf="selectedFeature.tags['addr:postcode'] || selectedFeature.tags['addr:city']"/>
+            <span *ngIf="selectedFeature.tags['addr:postcode']">{{selectedFeature.tags["addr:postcode"]}}</span>&nbsp;
+            <span *ngIf="selectedFeature.tags['addr:city']">{{selectedFeature.tags["addr:city"]}}</span>
+        </li>
         <li *ngIf="selectedFeature.tags.website">Website: <a href="{{selectedFeature.tags.website}}" target="_blank" rel="noopener">{{selectedFeature.tags.website}}</a></li>
         <li *ngIf="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
         <li *ngIf="selectedFeature.tags.phone">Phone: <a href="tel:{{selectedFeature.tags.phone}}" target="_blank">{{selectedFeature.tags.phone}}</a></li>

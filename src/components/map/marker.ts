@@ -2,8 +2,8 @@ export class Marker {
     element: HTMLElement;
 
     private defaultConfig = {
-        width: 48,
-        height: 48
+        width: 38,
+        height: 38
     }
 
     constructor (options:any) {
@@ -21,7 +21,10 @@ export class Marker {
         innerElement.style.width = '100%';
         innerElement.style.height = '100%';
         innerElement.style.height = '100%';
-        if(_options.imageUrl) innerElement.style.backgroundImage = 'url(' + _options.imageUrl + ')';
+        if(_options.imageUrl) {
+            innerElement.style.backgroundImage = 'url(' + _options.imageUrl + ')';
+            innerElement.style.backgroundSize = '100%';
+        }
 
         // add to marker
         this.element.appendChild(innerElement);

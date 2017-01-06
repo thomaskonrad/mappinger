@@ -86,7 +86,7 @@ export class MapComponent implements OnInit {
         // remove old marker
         if(this.marker) this.marker.remove();
         // create new Marker
-        let markerDom = new Marker({imageUrl: "static/marker_48x48.png"});
+        let markerDom = new Marker({imageUrl: "static/marker_76x76.png"});
         // create new MapBoxGl-Marker and add to Map
         this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-24, -48]})
           .setLngLat([searchResult.coordinates.lat, searchResult.coordinates.lon])

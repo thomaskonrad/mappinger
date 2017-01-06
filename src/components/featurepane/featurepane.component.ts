@@ -48,6 +48,12 @@ export class FeaturePaneComponent {
                     });
                 }
 
+                // convert address
+                // TODO: write localized adress parser
+                if ('addr:street' in this.selectedFeature.tags) {
+                    this.selectedFeature.tags.addr_street = this.selectedFeature.tags["addr:street"];
+                }
+
                 let preset = this._presetsService.match(response.elements[0]);
                 console.log(preset);
 
