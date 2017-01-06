@@ -131,6 +131,11 @@ export class SearchComponent implements OnInit{
             if(!this.selectedSearchResult && this.searchResultsArray.length > 0) this.selectedSearchResult = this.searchResultsArray[0];
             this.onSelect(this.selectedSearchResult);
         }
+
+        // esc pressed -> close/hide search results box
+        if(event.keyCode == 27) {
+            this.showResults = false;
+        }
     }
 
 }
