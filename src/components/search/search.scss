@@ -7,14 +7,15 @@
   left: 20px;
   top: 20px;
   z-index: 100;
-
 }
 #search-box > input {
+  width: 100%;
+  box-sizing: border-box;
   font-size: 18px;
   padding: 12px 16px;
   font-weight: 300;
-  width: 100%;
   border: none;
+  z-index: 1;
 
   &:focus {
       outline: none;
@@ -28,6 +29,7 @@
   padding: 0;
   width: 100%;
   list-style: none;
+  z-index: 0;
 }
 #search-results li {
   padding: 8px 10px;
