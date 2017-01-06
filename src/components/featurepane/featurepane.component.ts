@@ -4,16 +4,18 @@ import {Feature} from '../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
+import {PresetsService} from './presets.service';
 
 @Component({
     selector: 'feature-pane',
     template: require('./featurepane.html'),
     styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./featurepane.scss')],
-    providers:[MapService, NominatimService, WikipediaService]
+    providers:[MapService, NominatimService, WikipediaService, PresetsService]
 })
 export class FeaturePaneComponent {
     selectedFeature:Feature;
-    isLoading:boolean = false ;
+    isLoading:boolean = false;
+    featureType:string = 'Unknown';
 
     @Input()
     set feature(feature: Feature) {
@@ -23,7 +25,12 @@ export class FeaturePaneComponent {
         }
     }
 
-    constructor(private _mapService: MapService, private _nominatimService: NominatimService, private _wikipediaService: WikipediaService) {
+    constructor(
+        private _mapService: MapService,
+        private _nominatimService: NominatimService,
+        private _wikipediaService: WikipediaService,
+        private _presetsService: PresetsService
+    ) {
     }
 
     fetchFeatureInfo() {
@@ -39,6 +46,13 @@ export class FeaturePaneComponent {
                     this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
                         this.selectedFeature.wikipedia_image_url = response;
                     });
+                }
+
+                let preset = this._presetsService.match(response.elements[0]);
+                console.log(preset);
+
+                if (preset) {
+                    this.selectedFeature.type = preset.data.name;
                 }
             }
             else {
