@@ -25,12 +25,12 @@ import 'rxjs/add/operator/switchMap';
                     id="search-results"
                     class="shadow"
                     *ngIf="showResults">
-                    <div
+                    <li
                         *ngFor="let item of items | async"
                         [class.selected]="item === selectedSearchResult"
                         (click)="onSelect(item)"
                         [innerHTML]=item.stringify()><small></small>
-                    </div>
+                    </li>
                 </ul>
             </div>
             `,
