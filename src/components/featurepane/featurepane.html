@@ -1,29 +1,36 @@
 <div *ngIf="selectedFeature" id="feature-pane">
 
+    <!-- feature head -->
     <div class="feature-head">
+
+        <!-- title -->
         <div class="feature-title-wrapper" [ngClass]="{'has-image': selectedFeature.wikipedia_image_url}" >
             <h1>{{selectedFeature.name}}</h1>
             <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.type}}</div>
         </div>
 
+        <!-- image -->
         <div class="feature-image" [class.show]="selectedFeature.wikipedia_image_url">
-            <div class="feature-image-inner">
-                <img src="{{selectedFeature.wikipedia_image_url}}"/>
-            </div>
+            <img src="{{selectedFeature.wikipedia_image_url}}"/>
         </div>
+
+        <!-- loading animation -->
+        <div class="loadinger" [class.hidden]="!isLoading"></div>
     </div>
 
-    <div class="loadinger" [class.hidden]="!isLoading"></div>
-
+    <!-- opening hours -->
     <div *ngIf="selectedFeature && selectedFeature.opening_hours" class="opening-hours">
+
         <div ng-switch-when="true" class="text-success">
             Now Open (Closing {{selectedFeature.opening_hours.next_change}} at {{selectedFeature.opening_hours.next_change_date|date : 'shortTime'}})
         </div>
+
         <div ng-switch-when="false" class="text-danger">
             Now Closed (Opening {{selectedFeature.opening_hours.next_change}} at {{selectedFeature.opening_hours.next_change_date|date : 'shortTime'}})
         </div>
     </div>
 
+    <!-- tags -->
     <ul *ngIf="selectedFeature && selectedFeature.tags" class="feature-tags hyphenate">
         <li *ngIf="selectedFeature.tags.website">Website: <a href="{{selectedFeature.tags.website}}" target="_blank" rel="noopener">{{selectedFeature.tags.website}}</a></li>
         <li *ngIf="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
