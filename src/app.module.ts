@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule, JsonpModule } from "@angular/http";
 import { AppComponent }  from './components/app.component';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -9,12 +10,14 @@ import { FeaturePaneComponent } from './components/featurepane/featurepane.compo
 
 
 const appRoutes: Routes = [
-    { path: '/', component: MapComponent }
+    { path: '', component: MapComponent }
 ];
 
 @NgModule({
     imports:      [
         BrowserModule,
+        HttpModule,
+        JsonpModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
