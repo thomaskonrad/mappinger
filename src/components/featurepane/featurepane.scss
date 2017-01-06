@@ -35,8 +35,9 @@ $feature-pane-width: 380px;
 .feature-title-wrapper {
   position: absolute;
   bottom: 0px;
+  right: 0;
+  left: 0;
   padding: 20px;
-  width: 100%;
   z-index: 2;
   overflow: hidden;
 }
@@ -58,6 +59,7 @@ $feature-pane-width: 380px;
   left: 0;
   right: 0;
   z-index: 1;
+  overflow: hidden;
 
   /* stuff for animation: */
   opacity: 0;
@@ -80,12 +82,11 @@ $feature-pane-width: 380px;
 .loadinger {
     position: absolute;
     height: 2px;
-    top: 33vh;
+    bottom: 0;
     left: 0;
     right: 0;
     overflow: hidden;
     z-index: 10;
-    transform: translateY(-1px);
 
     &::after {
         display: block;
