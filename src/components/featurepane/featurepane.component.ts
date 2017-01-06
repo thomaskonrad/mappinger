@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {NgClass} from '@angular/common';
 import {Feature} from '../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
@@ -52,7 +51,7 @@ export class FeaturePaneComponent {
                 console.log(preset);
 
                 if (preset) {
-                    this.selectedFeature.type = preset.data.name;
+                    this.selectedFeature.preset_name = preset.data.name;
                 }
             }
             else {
