@@ -29,15 +29,15 @@ $feature-pane-width: 380px;
   width: 100%;
   margin-bottom: 20px;
   overflow: auto;
-  // background-color: $mappinger-green;
+  background-color: rgba(0,105,52,0.33);
 }
 
 .feature-title-wrapper {
   position: absolute;
-  bottom: 0px;
+  bottom: 20px;
   right: 0;
   left: 20px;
-  padding: 10px 20px 10px 16px;
+  padding: 0 20px 10px 16px;
   z-index: 2;
   border-left: 4px solid #00dd70;
   overflow: hidden;
