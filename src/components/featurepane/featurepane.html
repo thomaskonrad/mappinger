@@ -6,7 +6,7 @@
         <!-- title -->
         <div class="feature-title-wrapper" [ngClass]="{'has-image': selectedFeature.wikipedia_image_url}" >
             <h1>{{selectedFeature.name}}</h1>
-            <div ng-if="selectedFeature.type" class="muted">{{selectedFeature.preset_name}}</div>
+            <div ng-if="selectedFeature.type" class="feature-preset">{{selectedFeature.preset_name}}</div>
         </div>
 
         <!-- image -->
