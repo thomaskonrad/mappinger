@@ -54,7 +54,6 @@ export class FeaturePaneComponent {
                 }
 
                 let preset = this._presetsService.match(response.elements[0]);
-                console.log(preset);
 
                 if (preset) {
                     this.selectedFeature.preset_name = preset.data.name;

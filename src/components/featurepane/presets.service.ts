@@ -5,7 +5,7 @@ import {Http, Response} from '@angular/http';
 export class PresetsService {
 
     private presetData;
-    private fields = {};
+    private fields = new Array<Field>();
     private universal = [];
     private all = new Collection([]);
     //private defaults = { area: this.all, line: this.all, point: this.all, vertex: this.all, relation: this.all };
@@ -53,7 +53,7 @@ export class PresetsService {
         if (this.presetData.fields) {
             for (let id in this.presetData.fields) {
                 let data = this.presetData.fields[id];
-                this.fields[id] = new Field(id, data);
+                this.fields.push(new Field(id, data));
 
                 if (data.universal) {
                     this.universal.push(this.fields[id]);
@@ -132,7 +132,7 @@ export class Preset {
     private id;
     private data;
 
-    constructor(id, data, fields: Array) {
+    constructor(id, data, fields: Array<Field>) {
         this.id = id;
         this.data = data;
 
