@@ -6,8 +6,8 @@
   "main": "src/main.ts",
   "scripts": {
     "devserver": "webpack-dev-server --json --progress",
-    "dumpdev": "rm -rf build/* && webpack --progress --colors -d",
-    "dumpprod": "rm -rf build/* && webpack --progress --colors --config webpack.config.prod.js -p"
+    "build-dev": "rm -rf build/* && webpack --progress --colors -d",
+    "build": "rm -rf build/* && webpack --progress --colors --config webpack.config.prod.js -p"
   },
   "repository": {
     "type": "git",

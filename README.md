@@ -11,7 +11,6 @@ rename `src/config.ts.sample` to `src/config.ts` and replace `"YOUR-TOKEN-GOES-H
 ```
 npm i -g typings
 typings i
-typings install dt~es6-promise dt~es6-collections --global --save
 ```
 
 ## Run
@@ -19,8 +18,15 @@ kick off typescript-compilation (with change-detection) and run a local devserve
 ```
 npm run devserver
 ```
+
+## Build a Dev-Build
+creates a build with dev-webpack-configuration in /build directory
+```
+npm run build-dev
+```
+
 ## Build for Production
 creates a build in /build directory
 ```
-npm run dumpprod
+npm run build
 ```
