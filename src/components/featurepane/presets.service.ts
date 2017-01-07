@@ -123,7 +123,7 @@ export class Field {
         return this.t('label', {'default': this.id});
     }
 
-    placeholder() {
+    getPlaceholder() {
         return this.t('placeholder', {'default': this.placeholder});
     };
 }
