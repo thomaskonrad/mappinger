@@ -9,10 +9,10 @@ export class Coordinates {
 }
 
 export enum FeatureType {
-    Node = "node",
-    Way = "way",
-    Relation = "relation",
-    Unknown
+    Node = <any>"node",
+    Way = <any>"way",
+    Relation = <any>"relation",
+    Unknown = <any>null
 }
 
 export class Feature {
