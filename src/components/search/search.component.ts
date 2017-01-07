@@ -26,7 +26,7 @@ import 'rxjs/add/operator/switchMap';
                     class="shadow"
                     *ngIf="showResults">
                     <li
-                        *ngFor="let item of items | async"
+                        *ngFor="let item of searchResultItems | async"
                         [class.selected]="item === selectedSearchResult"
                         (click)="onSelect(item)"
                         [innerHTML]=item.stringify()><small></small>
@@ -44,9 +44,11 @@ export class SearchComponent implements OnInit{
         this.center = ipGeoposition;
     }
 
-    items: Observable<Array<string>>;
     public currentSearchItems:any;
-    private searchTerms = new Subject<string>();
+    private searchResultItems: Observable<Array<string>>;
+    private searchTermsSubject = new Subject<string>();
+    private searchTerm:String;
+
     selectedSearchResult:SearchResult;
     showResults:boolean = true;
     searchResultsArray:Array<SearchResult>;
@@ -63,7 +65,7 @@ export class SearchComponent implements OnInit{
         searchComponentInput.focus();
 
         // subscribe to changes in the search-input
-        this.items = this.searchTerms
+        this.searchResultItems = this.searchTermsSubject
             .debounceTime(400)
             .distinctUntilChanged()
             .switchMap(searchTerm => {
@@ -90,7 +92,7 @@ export class SearchComponent implements OnInit{
 
     search(term: string): void {
         // Push a search term into the observable stream.
-        this.searchTerms.next(term);
+        this.searchTermsSubject.next(term);
     }
 
     onSelect(selectedItem:SearchResult) {

@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
         // create new Marker
         let markerDom = new Marker({imageUrl: "static/marker_76x76.png"});
         // create new MapBoxGl-Marker and add to Map
-        this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-24, -48]})
+        this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-19, -39]})
           .setLngLat([searchResult.coordinates.lat, searchResult.coordinates.lon])
           .addTo(this.map);
         // add move-in class
