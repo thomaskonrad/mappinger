@@ -4,6 +4,7 @@ import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
 import {PresetsService} from './presets.service';
+import {SimpleOpeningHours} from '../../lib/simple-opening-hours';
 
 @Component({
     selector: 'feature-pane',
@@ -57,6 +58,14 @@ export class FeaturePaneComponent {
 
                 if (preset) {
                     this.selectedFeature.preset_name = preset.data.name;
+                }
+
+                if (this.selectedFeature.tags.opening_hours) {
+                    this.selectedFeature.hasOpeningHours = true;
+                    let oh = new SimpleOpeningHours(this.selectedFeature.tags.opening_hours);
+                    this.selectedFeature.nowOpen = oh.isOpenNow();
+                    this.selectedFeature.openingHoursToday = oh.getOpeningHoursToday();
+
                 }
             }
             else {

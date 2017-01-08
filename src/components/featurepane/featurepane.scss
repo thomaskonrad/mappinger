@@ -143,3 +143,12 @@ a {
         color: $mappinger-green-dark;
     }
 }
+
+// Opening Hours
+.now-open {
+  color: red;
+
+  &.is-open {
+    color: green;
+  }
+}
