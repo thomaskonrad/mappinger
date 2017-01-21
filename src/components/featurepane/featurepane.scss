@@ -161,3 +161,45 @@ a {
     color: $mappinger-green;
   }
 }
+
+
+
+
+/**
+  * Media Queries 
+  */
+
+/* Medium Size Devices < 750px */
+@media all and (max-width: 750px) {
+    #feature-pane {
+      top: auto;
+      right: 0;
+      width: auto;
+    }
+
+    .feature-head {
+      height: 10vh;
+      min-height: 0;
+      margin-bottom: 0;
+      padding: 16px 0;
+    }
+
+    .feature-title-wrapper {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      padding-top: 6px;
+    }
+    .feature-title-wrapper.has-image {
+      background: none;
+      left: auto;
+      bottom: auto;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    .feature-tags {
+      padding: 16px 0 6px 0;
+    }
+}
