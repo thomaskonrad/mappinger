@@ -20,7 +20,9 @@ export class Feature {
     public osm_id: number;
     public name: string;
     public tags: any;
-    public opening_hours: any;
+    public hasOpeningHours: boolean = false;
+    public nowOpen: boolean;
+    public openingHoursToday: string;
     public wikipedia_image_url: string;
     public preset_name: string;
 }
