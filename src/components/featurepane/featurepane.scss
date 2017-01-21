@@ -43,17 +43,20 @@ $feature-pane-width: 380px;
   overflow: hidden;
 }
 .feature-title-wrapper.has-image {
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
   left: 0px;
   border-left: 0;
+  bottom: 0px;
+  padding-top: 50px;
+  padding-bottom: 10px;
 }
 .feature-title-wrapper h1 {
   margin-bottom: 0;
   margin-top: 0;
   transition: text-shadow 500ms ease-out;
 }
-.feature-title-wrapper.has-image h1 {
-  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+.feature-title-wrapper.has-image h1, .feature-title-wrapper.has-image .feature-preset {
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .feature-image {
