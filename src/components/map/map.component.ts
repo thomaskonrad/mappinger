@@ -18,6 +18,7 @@ declare var mapboxgl:any; // Magic
 export class MapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
+    showFeaturePane:boolean;
     ipGeolocation:Coordinates;
     marker:any;
 
@@ -58,6 +59,8 @@ export class MapComponent implements OnInit {
     }
 
     onSelected(searchResult: SearchResult, jumpto:Boolean = true) {
+  
+        let map:any = this.map;
 
         let feature = new Feature();
         feature.feature_type = searchResult.osm_type;
@@ -65,7 +68,8 @@ export class MapComponent implements OnInit {
         feature.name = searchResult.name;
 
         this.selectedFeature = feature;
-        let map:any = this.map;
+        this.showFeaturePane = true;
+
         // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
         // set map center
         if(jumpto) {
@@ -83,24 +87,29 @@ export class MapComponent implements OnInit {
             }, 30);
         }
 
+        this.addMarker(searchResult.coordinates);
+    }
+
+
+    addMarker(coordinates:Coordinates) {
         // remove old marker
         if(this.marker) this.marker.remove();
         // create new Marker
         let markerDom = new Marker({imageUrl: "static/marker_76x76.png"});
+
         // create new MapBoxGl-Marker and add to Map
         this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-19, -39]})
-          .setLngLat([searchResult.coordinates.lat, searchResult.coordinates.lon])
+          .setLngLat([coordinates.lat, coordinates.lon])
           .addTo(this.map);
+        
         // add move-in class
         window.setTimeout(function() {
             markerDom.element.classList.add("move-in");
         },10);
-
-
     }
 
     onUnselect() {
-        this.selectedFeature = null;
+        this.showFeaturePane = false;
     }
 
 
