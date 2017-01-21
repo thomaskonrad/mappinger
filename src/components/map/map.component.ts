@@ -76,7 +76,7 @@ export class MapComponent implements OnInit {
                 try {
                     let featurePaneElement:HTMLElement = <HTMLElement>document.querySelector('#feature-pane');
                     let featurePaneElementWidth:number = featurePaneElement.offsetWidth;
-                    map.panBy([-featurePaneElementWidth/2,0], {duration: 0});
+                    if(featurePaneElementWidth != window.innerWidth) map.panBy([-featurePaneElementWidth/2,0], {duration: 0});
                 }  catch (e) {
                     // catch me if you can
                 }
