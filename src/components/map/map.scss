@@ -9,8 +9,13 @@
 }
 
 /* Mapbox Button */
-/* needs :host-context because it's dynamically added element. */
-:host-context {
+/* needs /deep/ because it's dynamically added element. */
+/deep/ {
+
+    .mapboxgl-ctrl-top-right {
+        top: 10px;
+    }
+
     .mapboxgl-ctrl-group > button {
         width: 40px;
         height: 40px;
@@ -41,8 +46,8 @@
 
 
 /* Mapbox Marker */
-/* needs :host-context because it's dynamically added element. */
-:host-context {
+/* needs /deep/ because it's dynamically added element. */
+/deep/ {
 
     /* Marker */
     .marker {
@@ -66,5 +71,10 @@
         opacity: 1;
         transform: translateY(0px);
     }
-
 }
+
+
+
+
+
+
