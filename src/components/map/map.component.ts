@@ -109,7 +109,7 @@ export class MapComponent implements OnInit {
     }
 
     onUnselect() {
-        this.showFeaturePane = false;
+        //this.showFeaturePane = false;
     }
 
 
