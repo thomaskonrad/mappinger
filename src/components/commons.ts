@@ -25,6 +25,10 @@ export class Feature {
     public openingHoursToday: string;
     public wikipedia_image_url: string;
     public preset_name: string;
+
+    public getOpenStreetMapLink(): string {
+        return "https://www.openstreetmap.org/" + encodeURIComponent(this.feature_type.toString()) + "/" + encodeURIComponent(this.osm_id.toString());
+    }
 }
 
 export class SearchResult {
