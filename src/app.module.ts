@@ -10,7 +10,8 @@ import { FeaturePaneComponent } from './components/featurepane/featurepane.compo
 
 
 const appRoutes: Routes = [
-    { path: '', component: MapComponent }
+    { path: '', redirectTo: '/map', pathMatch: 'full' },
+    { path: 'map', component: MapComponent }
 ];
 
 @NgModule({
