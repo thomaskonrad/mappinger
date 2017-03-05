@@ -4,14 +4,15 @@ import { HttpModule, JsonpModule } from "@angular/http";
 import { AppComponent }  from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SlippyMapComponent} from './map/slippy-map/slippy-map.component';
-import { SearchComponent } from './map/search/search.component';
-import { FeaturePaneComponent } from './map/featurepane/featurepane.component';
+import { MapModule } from './map/map.module';
 
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'map', pathMatch: 'full' },
-    { path: 'map', component: SlippyMapComponent },
+    {
+        path: 'map',
+        loadChildren: () => MapModule
+    },
     { path: '**', redirectTo: 'map' }
 ];
 
@@ -23,14 +24,12 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes, { useHash: true })
     ],
     declarations: [
-        AppComponent,
-        SlippyMapComponent,
-        SearchComponent,
-        FeaturePaneComponent
+        AppComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ],
     bootstrap:    [ AppComponent ]
 })
+
 export class AppModule { }

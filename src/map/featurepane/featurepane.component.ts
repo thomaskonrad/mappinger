@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {Feature} from '../../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
@@ -26,11 +27,16 @@ export class FeaturePaneComponent {
     }
 
     constructor(
+        route: ActivatedRoute,
         private _mapService: MapService,
         private _nominatimService: NominatimService,
         private _wikipediaService: WikipediaService,
         private _presetsService: PresetsService
     ) {
+        route.params.subscribe( (p) => {
+            let id = p['id'];
+            
+        })
     }
 
     fetchFeatureInfo() {
