@@ -1,17 +1,17 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from "@angular/http";
-import { AppComponent }  from './components/app.component';
+import { AppComponent }  from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MapComponent } from './components/map/map.component';
-import { SearchComponent } from './components/search/search.component';
-import { FeaturePaneComponent } from './components/featurepane/featurepane.component';
+import { SlippyMapComponent} from './map/slippy-map/slippy-map.component';
+import { SearchComponent } from './map/search/search.component';
+import { FeaturePaneComponent } from './map/featurepane/featurepane.component';
 
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'map', pathMatch: 'full' },
-    { path: 'map', component: MapComponent },
+    { path: 'map', component: SlippyMapComponent },
     { path: '**', redirectTo: 'map' }
 ];
 
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     ],
     declarations: [
         AppComponent,
-        MapComponent,
+        SlippyMapComponent,
         SearchComponent,
         FeaturePaneComponent
     ],

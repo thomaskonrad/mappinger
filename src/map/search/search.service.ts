@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx';
 import {Config} from '../../config';
-import {SearchResult} from '../commons';
-import {Coordinates} from '../commons';
+import {SearchResult} from '../../commons';
+import {Coordinates} from '../../commons';
 
 export class SearchParameters {
     provider:string;

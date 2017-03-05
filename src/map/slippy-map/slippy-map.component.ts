@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SearchResult, Coordinates} from '../commons';
+import {SearchResult, Coordinates} from '../../commons';
 import {Config} from '../../config';
-import {Feature} from '../commons';
+import {Feature} from '../../commons';
 import {IpGeolocationService} from './ipgeolocation.service';
 import {MapService} from './map.service';
 import {Marker} from './marker';
@@ -12,10 +12,10 @@ declare var mapboxgl:any; // Magic
 @Component({
     selector: 'my-map',
     providers: [IpGeolocationService, MapService],
-    template: require('./map.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./map.scss')]
+    template: require('./slippy-map.html'),
+    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./slippy-map.scss')]
 })
-export class MapComponent implements OnInit {
+export class SlippyMapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
     showFeaturePane:boolean;

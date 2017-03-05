@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Feature} from '../commons';
+import {Feature} from '../../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
