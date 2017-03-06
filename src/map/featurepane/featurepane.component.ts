@@ -34,8 +34,16 @@ export class FeaturePaneComponent {
         private _presetsService: PresetsService
     ) {
         route.params.subscribe( (p) => {
-            let id = p['id'];
-            
+            // The place ID looks like "w212496461". Partition it in "w" and "212496461".
+            let id:string = p['id'];
+            let nodeType:string = id.substring(0, 1);
+            let nodeId:number = parseInt(id.substring(1, id.length));
+
+            this.selectedFeature = new Feature();
+            this.selectedFeature.feature_type = Feature.getFeatureTypeBySingleLetter(nodeType);
+            this.selectedFeature.osm_id = nodeId;
+
+            this.fetchFeatureInfo();
         })
     }
 
@@ -46,6 +54,8 @@ export class FeaturePaneComponent {
             this.isLoading = false;
 
             if(response.elements.length > 0) {
+                this.selectedFeature.name = response.elements[0].tags.name;
+
                 this.selectedFeature.tags = response.elements[0].tags;
                 if ('wikipedia' in this.selectedFeature.tags) {
                     var parts = this.selectedFeature.tags.wikipedia.split(':');

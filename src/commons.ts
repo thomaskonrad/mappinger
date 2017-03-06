@@ -29,6 +29,30 @@ export class Feature {
     public getOpenStreetMapLink(): string {
         return "https://www.openstreetmap.org/" + encodeURIComponent(this.feature_type.toString()) + "/" + encodeURIComponent(this.osm_id.toString());
     }
+
+    public static getFeatureTypeBySingleLetter(letter:string):FeatureType {
+        if (letter.toLowerCase() == 'n') {
+            return FeatureType.Node;
+        } else if (letter.toLowerCase() == 'w') {
+            return FeatureType.Way;
+        } else if (letter.toLowerCase() == 'r') {
+            return FeatureType.Relation;
+        }
+
+        return FeatureType.Unknown;
+    }
+
+    public getFeatureTypeLetter():string {
+        if (this.feature_type == FeatureType.Node) {
+            return 'n';
+        } else if (this.feature_type == FeatureType.Way) {
+            return 'w';
+        } else if (this.feature_type == FeatureType.Relation) {
+            return 'r';
+        }
+
+        return 'u';
+    }
 }
 
 export class SearchResult {
