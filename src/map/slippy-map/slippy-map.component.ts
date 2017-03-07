@@ -64,7 +64,6 @@ export class SlippyMapComponent implements OnInit {
     }
 
     onSelected(searchResult: SearchResult, jumpto:Boolean = true) {
-  
         let map:any = this.map;
 
         let feature = new Feature();
@@ -96,7 +95,7 @@ export class SlippyMapComponent implements OnInit {
 
         // Navigate to /map/place/w123
 
-        this._router.navigate(['/map/place', feature.getFeatureTypeLetter() + feature.osm_id]);
+        this._router.navigate(['/map/place', feature.getFeatureTypeLetter() + feature.osm_id + "-" + feature.name]);
     }
 
 
