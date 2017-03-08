@@ -5,7 +5,7 @@
         <base href="/"/>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <title>{%=o.htmlWebpackPlugin.options.pkg.name %}</title>
+        <title><%=o.htmlWebpackPlugin.options.pkg.name %></title>
 
         <!-- favicons -->
         <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
@@ -30,8 +30,8 @@
 
         <script>
             window.mappinger = {};
-            mappinger.name = "{%= o.htmlWebpackPlugin.options.pkg.name %}";
-            mappinger.version = "{%= o.htmlWebpackPlugin.options.pkg.version %}";
+            mappinger.name = "<%= o.htmlWebpackPlugin.options.pkg.name %>";
+            mappinger.version = "<%= o.htmlWebpackPlugin.options.pkg.version %>";
         </script>
 
     </head>
@@ -40,8 +40,6 @@
             <div style="text-align:center;margin-top:20vh">Loading the world – hang on a sec, it's huge!</div>
         </app>
 
-        {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-        <script src="/{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-        {% } %}
+
     </body>
 </html>

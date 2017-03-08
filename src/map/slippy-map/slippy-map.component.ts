@@ -14,7 +14,7 @@ declare var mapboxgl:any; // Magic
     selector: 'my-map',
     providers: [IpGeolocationService, MapService],
     template: require('./slippy-map.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./slippy-map.scss')]
+    styles: [require('!raw-loader!autoprefixer?browsers=last 2 versions!sass-loader!./slippy-map.scss')]
 })
 export class SlippyMapComponent implements OnInit {
     public map;

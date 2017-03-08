@@ -10,7 +10,7 @@ import {SimpleOpeningHours} from '../../lib/simple-opening-hours';
 @Component({
     selector: 'feature-pane',
     template: require('./featurepane.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./featurepane.scss')],
+    styles: [require('!raw-loader!autoprefixer?browsers=last 2 versions!sass-loader!./featurepane.scss')],
     providers:[MapService, NominatimService, WikipediaService, PresetsService]
 })
 export class FeaturePaneComponent {

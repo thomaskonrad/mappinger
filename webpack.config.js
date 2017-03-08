@@ -4,6 +4,7 @@ var path = require('path'),
     pkg = require('./package.json'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     CopyWebpackPlugin = require('copy-webpack-plugin');
+    LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 module.exports = {
     context: srcPath,
@@ -17,31 +18,33 @@ module.exports = {
         filename: '[name]-[hash:6].js',
         sourceMapFilename: '[file].map'
     },
-    debug: true,
     devtool: 'source-map',
     module: {
         loaders: [{
             test: /\.ts$/,
-            loader: 'ts',
+            loader: 'ts-loader',
             exclude: [
                 /node_modules/
             ]
         }, {
             test: /\.json$/,
-            loader: "json"
+            loader: "json-loader"
         }, {
             test: /\.html$/,
-            loader: 'raw'
+            loader: 'raw-loader'
         }, {
             test: /\.scss$/,
-            loader: "style!css!autoprefixer?browsers=last 2 versions!sass"
+            loader: "raw-loader!autoprefixer?browsers=last 2 versions!sass-loader"
         }],
         noParse: [/angular2\/bundles\/.+/],
     },
     resolve: {
-        extensions: ['', '.ts', '.js', '.html', '.scss']
+        extensions: ['.ts', '.js', '.html', '.scss']
     },
     plugins: [
+        new LoaderOptionsPlugin({
+            debug: true
+        }),
         new CopyWebpackPlugin([
             {from: 'static', to: 'static' }
         ]),
