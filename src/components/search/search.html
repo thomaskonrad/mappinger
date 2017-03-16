@@ -1,0 +1,19 @@
+<div id="search-box" (keyup)="onKeyPress($event)">
+    <input
+        type="text"
+        #searchBox
+        class="search-component-input shadow"
+        (keyup)='search(searchBox.value)'
+        placeholder="What are you looking for?"/>
+    <ul
+        id="search-results"
+        class="shadow"
+        *ngIf="showResults">
+        <li
+            *ngFor="let item of searchResultItems | async"
+            [class.selected]="item === selectedSearchResult"
+            (click)="onSelect(item)"
+            [innerHTML]=item.stringify()><small></small>
+        </li>
+    </ul>
+</div>

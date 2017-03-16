@@ -13,27 +13,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
     selector: 'search',
     providers: [SearchService],
-    template: `
-            <div id="search-box" (keyup)="onKeyPress($event)">
-                <input
-                    type="text"
-                    #searchBox
-                    class="search-component-input shadow"
-                    (keyup)='search(searchBox.value)'
-                    placeholder="Search"/>
-                <ul
-                    id="search-results"
-                    class="shadow"
-                    *ngIf="showResults">
-                    <li
-                        *ngFor="let item of searchResultItems | async"
-                        [class.selected]="item === selectedSearchResult"
-                        (click)="onSelect(item)"
-                        [innerHTML]=item.stringify()><small></small>
-                    </li>
-                </ul>
-            </div>
-            `,
+    template: require('./search.html'),
     styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./search.scss')],
 })
 export class SearchComponent implements OnInit{
