@@ -1,3 +1,6 @@
+@import './../commons.scss';
+
+
 /**
  * Search Component Styles
  */
@@ -7,6 +10,22 @@
   left: 20px;
   top: 20px;
   z-index: 100;
+  
+  &::after {
+    display: block;
+    content: "\f21f";
+    background-color: $color-primary;
+    text-align: center;
+    font-family: "Ionicons";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    font-size: 1.4rem;
+  }
 }
 #search-box > input {
   width: 100%;
@@ -21,6 +40,25 @@
       outline: none;
       box-shadow: 0 0 10px rgba(58, 58, 58, 0.6);
   }
+
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #666;
+    font-style: italic;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color: #666;
+    font-style: italic;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: #666;
+    font-style: italic;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: #666;
+    font-style: italic;
+  }
+
+  
 }
 #search-results {
   display: block;
