@@ -1,16 +1,19 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from "@angular/http";
-import { AppComponent }  from './components/app.component';
+import { AppComponent }  from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MapComponent } from './components/map/map.component';
-import { SearchComponent } from './components/search/search.component';
-import { FeaturePaneComponent } from './components/featurepane/featurepane.component';
+import { MapModule } from './map/map.module';
 
 
 const appRoutes: Routes = [
-    { path: '', component: MapComponent }
+    { path: '', redirectTo: 'map', pathMatch: 'full' },
+    {
+        path: 'map',
+        loadChildren: () => MapModule
+    },
+    { path: '**', redirectTo: 'map' }
 ];
 
 @NgModule({
@@ -18,17 +21,15 @@ const appRoutes: Routes = [
         BrowserModule,
         HttpModule,
         JsonpModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes, { useHash: true })
     ],
     declarations: [
-        AppComponent,
-        MapComponent,
-        SearchComponent,
-        FeaturePaneComponent
+        AppComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ],
     bootstrap:    [ AppComponent ]
 })
+
 export class AppModule { }

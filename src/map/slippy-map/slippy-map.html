@@ -1,10 +1,11 @@
 <mapbox-gl-map></mapbox-gl-map>
 <div id="map"></div>
-<feature-pane *ngIf="showFeaturePane"
+<!--feature-pane *ngIf="showFeaturePane"
         [feature]="selectedFeature"
         [isLoading]="isLoading"
         >
-</feature-pane>
+</feature-pane-->
+<router-outlet></router-outlet>
 <search
         (onSelected)="onSelected($event)"
         [centerGeolocation]="ipGeolocation">

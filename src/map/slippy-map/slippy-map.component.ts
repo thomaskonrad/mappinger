@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SearchResult, Coordinates} from '../commons';
+import {Router, ActivatedRoute} from '@angular/router';
+import {SearchResult, Coordinates} from '../../commons';
 import {Config} from '../../config';
-import {Feature} from '../commons';
+import {Feature} from '../../commons';
 import {IpGeolocationService} from './ipgeolocation.service';
 import {MapService} from './map.service';
 import {Marker} from './marker';
@@ -12,17 +13,21 @@ declare var mapboxgl:any; // Magic
 @Component({
     selector: 'my-map',
     providers: [IpGeolocationService, MapService],
-    template: require('./map.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./map.scss')]
+    template: require('./slippy-map.html'),
+    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./slippy-map.scss')]
 })
-export class MapComponent implements OnInit {
+export class SlippyMapComponent implements OnInit {
     public map;
     selectedFeature:Feature;
     showFeaturePane:boolean;
     ipGeolocation:Coordinates;
     marker:any;
 
-    constructor(private _ipGeolocationService:IpGeolocationService, private _mapService:MapService) {
+    constructor(
+        private _router: Router,
+        private _route: ActivatedRoute,
+        private _ipGeolocationService:IpGeolocationService,
+        private _mapService:MapService) {
     }
 
     ngOnInit() {
@@ -59,7 +64,6 @@ export class MapComponent implements OnInit {
     }
 
     onSelected(searchResult: SearchResult, jumpto:Boolean = true) {
-  
         let map:any = this.map;
 
         let feature = new Feature();
@@ -69,6 +73,8 @@ export class MapComponent implements OnInit {
 
         this.selectedFeature = feature;
         this.showFeaturePane = true;
+
+        this.addMarker(searchResult.coordinates);
 
         // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
         // set map center
@@ -87,7 +93,9 @@ export class MapComponent implements OnInit {
             }, 30);
         }
 
-        this.addMarker(searchResult.coordinates);
+        // Navigate to /map/place/w123
+
+        this._router.navigate(['/map/place', feature.getFeatureTypeLetter() + feature.osm_id + "-" + feature.name]);
     }
 
 

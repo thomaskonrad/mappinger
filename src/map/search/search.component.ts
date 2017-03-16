@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {SearchService, SearchParameters} from './search.service';
-import {SearchResult, Coordinates} from '../commons';
+import {SearchResult, Coordinates} from '../../commons';
 import {Observable} from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';

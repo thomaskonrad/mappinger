@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Feature} from '../commons';
+import { ActivatedRoute } from '@angular/router';
+import {Feature} from '../../commons';
 import {MapService} from './map.service';
 import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
@@ -26,11 +27,37 @@ export class FeaturePaneComponent {
     }
 
     constructor(
+        route: ActivatedRoute,
         private _mapService: MapService,
         private _nominatimService: NominatimService,
         private _wikipediaService: WikipediaService,
         private _presetsService: PresetsService
     ) {
+        route.params.subscribe( (p) => {
+            // The place ID looks like "w212496461-Stephansdom". Partition it in "w", "212496461", and "Stephansdom".
+            let id:string = p['id'];
+
+            // Split the string at the first occurrence of "-".
+            let parts:Array<string> = id.split(/-(.+)/);
+            let nodeTypeAndId = parts[0]; // "w212496461"
+            let nodeName = parts[1]; // Stephansdom
+
+            let nodeType:string = nodeTypeAndId.substring(0, 1); // "w"
+            let nodeId:number = parseInt(nodeTypeAndId.substring(1, id.length)); // 212496461
+
+            // Check whether the node type and OSM ID are valid (name is optional).
+            if (['n', 'w', 'r'].indexOf(nodeType) > -1 && !isNaN(nodeId)) {
+                // Create a Feature object and call the method to fetch the place info from OSM.
+                this.selectedFeature = new Feature();
+                this.selectedFeature.feature_type = Feature.getFeatureTypeBySingleLetter(nodeType);
+                this.selectedFeature.osm_id = nodeId;
+                this.selectedFeature.name = nodeName;
+
+                this.fetchFeatureInfo();
+            } else {
+                // Invalid place ID. Fail silently for now.
+            }
+        })
     }
 
     fetchFeatureInfo() {
@@ -40,6 +67,8 @@ export class FeaturePaneComponent {
             this.isLoading = false;
 
             if(response.elements.length > 0) {
+                this.selectedFeature.name = response.elements[0].tags.name;
+
                 this.selectedFeature.tags = response.elements[0].tags;
                 if ('wikipedia' in this.selectedFeature.tags) {
                     var parts = this.selectedFeature.tags.wikipedia.split(':');
