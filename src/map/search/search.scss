@@ -1,4 +1,4 @@
-@import './../commons.scss';
+@import './../../commons.scss';
 
 
 /**
@@ -14,24 +14,23 @@
   &::after {
     display: block;
     content: "\f21f";
-    background-color: $color-primary;
     text-align: center;
     font-family: "Ionicons";
     position: absolute;
     top: 0;
     right: 0;
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    color: #fff;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    color: $color-primary;
     font-size: 1.4rem;
   }
 }
 #search-box > input {
   width: 100%;
   box-sizing: border-box;
-  font-size: 18px;
-  padding: 12px 16px;
+  font-size: 17px;
+  padding: 14px 16px;
   font-weight: 300;
   border: none;
   z-index: 1;
@@ -57,9 +56,9 @@
     color: #666;
     font-style: italic;
   }
-
-  
 }
+
+
 #search-results {
   display: block;
   background-color: #fff;
@@ -70,7 +69,7 @@
   z-index: 0;
 }
 #search-results li {
-  padding: 8px 10px;
+  padding: 9px 20px;
   border-bottom: 1px solid #dedede;
 }
 #search-results li.selected {
