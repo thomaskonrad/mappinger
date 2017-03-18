@@ -1,91 +1,45 @@
+@import "./../../commons.scss";
+
+
+
+$feature-pane-width: 340px;
+
+
 /**
- * FeaturePane Component Variables
+ *
+ * FeaturePane Component Styles
+ *
  */
 
-// https://color.adobe.com/create/color-wheel/?copy=true&base=2&rule=Complementary&selected=3&name=Copy%20of%20Sims%20Household&mode=rgb&rgbvalues=0,0.5666666666666667,0.2871794871793251,0.09999999999999998,1,0.5561085972848104,0,0.8666666666666667,0.4392156862745098,0.5666666666666667,0.06533831908832326,0,0.8666666666666667,0.09992919389978852,0&swatchOrder=0,1,2,3,4
-
-$mappinger-green: #00dd70;
-$mappinger-green-dark: #009049;
-$mappinger-green-dark-transparent: rgba(0,144,73,0.33);
-$mappinger-red: #DD1900;
-$mappinger-red-dark: #901100;
-
-$feature-pane-width: 380px;
-
 /**
- * FeaturePane Component Styles
+ * FeaturePane General 
  */
 #feature-pane {
   position: absolute;
   z-index: 99;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: $feature-pane-width;
-  background-color: rgba(34,34,34,0.9);
-  color: #fff;
-  box-shadow: 0 0 20px rgba(0,0,0,0.33);
-  transition: opacity 1s ease-out;
-}
-
-.feature-head {
-  position: relative;
-  height: 33vh;
-  min-height: 240px;
-  width: 100%;
-  margin-bottom: 20px;
-  overflow: auto;
-  background-color: $mappinger-green-dark-transparent;
-}
-
-.feature-body {
-  padding: 0 20px;
-}
-
-.feature-title-wrapper {
-  position: absolute;
-  bottom: 20px;
-  right: 0;
   left: 20px;
-  padding: 0 20px 10px 16px;
-  z-index: 2;
-  border-left: 4px solid $mappinger-green;
-  overflow: hidden;
+  top: 88px;
+  width: $feature-pane-width;
+  color: #222;
 }
-.feature-title-wrapper.has-image {
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
-  left: 0px;
-  border-left: 0;
-  bottom: 0px;
-  padding-top: 50px;
-  padding-bottom: 10px;
-}
-.feature-title-wrapper h1 {
-  margin-bottom: 0;
-  margin-top: 0;
-  transition: text-shadow 500ms ease-out;
-}
-.feature-title-wrapper.has-image h1, .feature-title-wrapper.has-image .feature-preset {
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+.feature-pane-inner {
+  box-shadow: 0 0 20px rgba(0,0,0,0.33);
+  background-color: #fff;
 }
 
+/**
+ * FeaturePane Image
+ */
 .feature-image {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  overflow: hidden;
-
-  /* stuff for animation: */
-  opacity: 0;
   display: block;
+  width: 100%;
+  height: 20vh;
+  opacity: 0;
   transition: opacity 500ms ease-out;
-}
 
-.feature-image.show {
-  opacity: 1;
+  &.show {
+    opacity: 1;
+  }
 }
 
 .feature-image img {
@@ -95,66 +49,100 @@ $feature-pane-width: 380px;
   height: 100%;
 }
 
-// loading bar
+
+
+
+
+/**
+ * FeaturePane Body - wraps all content below the image 
+ */
+.feature-body {
+  position: relative;
+  padding: 20px;
+}
+
+.feature-body h1 {
+  font-size: 26px;
+  font-weight: 500;
+  margin: 0;
+}
+
+
+.feature-title-wrapper .feature-preset {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.feature-body hr {
+  margin: 1em 0;
+}
+
+
+
+
+
+/**
+ * Loading Animation Bar – youtube style loader
+ */
 .loadinger {
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 10;
+
+  &::after {
     position: absolute;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    z-index: 10;
+    width: 70%;
+    top: 0;
+    height: 100%;
+    display: block;
+    content: "";
+    background-color: $mappinger-red-dark;
+    transform: translate3d(0,0,0);
+    animation: loadinger-animation 800ms cubic-bezier(0.68, 0.01, 0.26, 1.02) 0ms infinite;
+  }
 
-    &::after {
-        display: block;
-        content: "";
-        height: 100%;
-        background-color: #e83838;
-        width: 70%;
-        position: absolute;
-        top: 0;
-        transform: translate3d(0,0,0);
-        animation: loadinger-animation 800ms cubic-bezier(0.68, 0.01, 0.26, 1.02) 0ms infinite;
-    }
-
-    &.hidden {
-        display: none;
-    }
+  &.hidden {
+      display: none;
+  }
 }
 
 @keyframes loadinger-animation {
-  0% {
-    transform: translate3d(-$feature-pane-width*0.7, 0, 0) scaleX(0.7);
-  }
-  100% {
-    transform: translate3d($feature-pane-width, 0, 0) scaleX(1);
-  }
+  0%    {  transform: translate3d(-$feature-pane-width*0.7, 0, 0) scaleX(0.7); }
+  100%  {  transform: translate3d($feature-pane-width, 0, 0) scaleX(1); }
 }
 
 
-// Feature Tags
+
+/**
+ * Feature Tags / Details
+ */
+
 .feature-tags {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    // font-size: 1.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .feature-tags li {
-    padding: 0;
-    border-left: 4px solid #676767;
-    padding-left: 15px;
-    margin-bottom: 10px;
+  padding: 0;
+  margin-bottom: 10px;
 }
 
 .osm-link {
-  font-size: 0.8rem;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.7rem;
 }
 
 // Links
 a {
     &:link, &:visited {
-        color: $mappinger-green;
+        color: $mappinger-green-dark;
     }
     &:focus, &:hover {
         color: $mappinger-green-dark;
@@ -166,48 +154,127 @@ a {
   color: $mappinger-red;
 
   &.is-open {
-    color: $mappinger-green;
+    color: $mappinger-green-dark;
   }
 }
 
 
+/**
+ * Feature Actions
+ */
+
+.feature-actions {
+  // flexbox stuff
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+
+  position: relative;
+  z-index: -1;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.33);
+
+}
+
+.feature-action {
+  // flexbox stuff
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+
+  position: relative;
+  height: 50px;
+  background-color: $mappinger-green-dark;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.23);
+}
+
+// reverse z-index stack for 6 elements
+@for $i from 1 through 6 {
+  .feature-action:nth-child(#{$i}) {
+    z-index: -#{$i};
+  }
+}
+
+.feature-action .icon {
+  font-size: 1.4rem;
+  position: relative;
+  top: 3px;
+}
+.feature-action label {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.feature-action--disabled {
+  background-color: #ccc;
+}
+
 
 
 /**
-  * Media Queries 
-  */
+ *
+ * Media Queries 
+ *
+ */
 
+// TODO: rewrite smartphone layout
 /* Medium Size Devices < 750px */
 @media all and (max-width: 750px) {
-    #feature-pane {
-      top: auto;
-      right: 0;
-      width: auto;
-    }
+  #feature-pane {
+    top: auto;
+    right: 0;
+    width: auto;
+  }
 
-    .feature-head {
-      height: 10vh;
-      min-height: 0;
-      margin-bottom: 0;
-      padding: 16px 0;
-    }
+  .feature-head {
+    height: 10vh;
+    min-height: 0;
+    margin-bottom: 0;
+    padding: 16px 0;
+  }
 
-    .feature-title-wrapper {
-      position: relative;
-      bottom: auto;
-      left: auto;
-      right: auto;
-      padding-top: 6px;
-    }
-    .feature-title-wrapper.has-image {
-      background: none;
-      left: auto;
-      bottom: auto;
-      padding-top: 6px;
-      padding-bottom: 6px;
-    }
+  .feature-title-wrapper {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding-top: 6px;
+  }
+  .feature-title-wrapper.has-image {
+    background: none;
+    left: auto;
+    bottom: auto;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
 
-    .feature-tags {
-      padding: 16px 0 6px 0;
-    }
+  .feature-tags {
+    padding: 16px 0 6px 0;
+  }
 }
