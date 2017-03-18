@@ -6,6 +6,9 @@ import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
 import {PresetsService} from './presets.service';
 import {SimpleOpeningHours} from '../../lib/simple-opening-hours';
+import { DOCUMENT } from '@angular/platform-browser';
+
+
 
 @Component({
     selector: 'feature-pane',
@@ -17,6 +20,7 @@ export class FeaturePaneComponent {
     selectedFeature:Feature;
     isLoading:boolean = false;
     featureType:string = 'Unknown';
+    platform = require('platform');
 
     @Input()
     set feature(feature: Feature) {
@@ -57,6 +61,7 @@ export class FeaturePaneComponent {
             } else {
                 // Invalid place ID. Fail silently for now.
             }
+
         })
     }
 
@@ -103,6 +108,60 @@ export class FeaturePaneComponent {
         });
     }
 
+
+    saveFeature():void {
+        // TODO
+    }
+
+
+    /**
+     * Share or Copy to clipboard (depends on what's available) 
+     * On Chrome: uses Web Share API if available. // TODO when we get the token
+     * On other: copy to clipboad for now and show toast message
+     * @returns boolean true if copy succeeded
+     */
+    shareFeature():boolean {
+        if(document.queryCommandSupported('copy')) {
+            this.copyText(window.location.href); 
+
+            // TODO: show a toast-message to the user
+            
+            return true;
+        }
+        else return false;
+    }
+        
+    /**
+     * copies a text to clipboard
+     * @param text the text to copy to clipboard
+     */
+    copyText(text:string):void {
+     
+        var element = document.createElement('DIV');
+        element.textContent = text;
+        document.body.appendChild(element);
+        this.selectElementText(element, document);
+        document.execCommand('copy');
+        element.remove();
+    }
+
+    /**
+     * select a text by using a DOM element
+     * @param element the pseudo-DOM-element for copying
+     * @param document the document. needed for some ng-reason
+     */
+    selectElementText(element:any, document:any):void {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(element);
+            range.select();
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(element);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+        }
+    }
 
 
 }

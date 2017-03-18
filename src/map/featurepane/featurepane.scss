@@ -2,7 +2,7 @@
 
 
 
-$feature-pane-width: 340px;
+$featurepane-width: 340px;
 
 
 /**
@@ -14,15 +14,15 @@ $feature-pane-width: 340px;
 /**
  * FeaturePane General 
  */
-#feature-pane {
+#featurepane {
   position: absolute;
   z-index: 99;
   left: 20px;
   top: 88px;
-  width: $feature-pane-width;
+  width: $featurepane-width;
   color: #222;
 }
-.feature-pane-inner {
+.featurepane-inner {
   box-shadow: 0 0 20px rgba(0,0,0,0.33);
   background-color: #fff;
 }
@@ -111,8 +111,8 @@ $feature-pane-width: 340px;
 }
 
 @keyframes loadinger-animation {
-  0%    {  transform: translate3d(-$feature-pane-width*0.7, 0, 0) scaleX(0.7); }
-  100%  {  transform: translate3d($feature-pane-width, 0, 0) scaleX(1); }
+  0%    {  transform: translate3d(-$featurepane-width*0.7, 0, 0) scaleX(0.7); }
+  100%  {  transform: translate3d($featurepane-width, 0, 0) scaleX(1); }
 }
 
 
@@ -125,6 +125,7 @@ $feature-pane-width: 340px;
   list-style: none;
   margin: 0;
   padding: 0;
+  font-size: 0.9rem;
 }
 
 .feature-tags li {
@@ -208,6 +209,10 @@ $feature-pane-width: 340px;
   color: #fff;
   text-align: center;
   box-shadow: 0 0 20px rgba(0,0,0,0.23);
+
+  &:active {
+    background-color: darken($mappinger-green-dark, 5%);
+  }
 }
 
 // reverse z-index stack for 6 elements
@@ -246,7 +251,7 @@ $feature-pane-width: 340px;
 // TODO: rewrite smartphone layout
 /* Medium Size Devices < 750px */
 @media all and (max-width: 750px) {
-  #feature-pane {
+  #featurepane {
     top: auto;
     right: 0;
     width: auto;

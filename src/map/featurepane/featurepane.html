@@ -1,11 +1,13 @@
-<div *ngIf="selectedFeature" id="feature-pane">
+<div *ngIf="selectedFeature" id="featurepane">
 
-    <div class="feature-pane-inner">
-        <!-- feature image -->
+    <div class="featurepane-inner">
+
+        <!-- Feature Image -->
         <div class="feature-image" [class.show]="selectedFeature.wikipedia_image_url" *ngIf="selectedFeature.wikipedia_image_url">
             <img alt="Wikipedia image for {{selectedFeature.name}}" src="{{selectedFeature.wikipedia_image_url}}"/>
         </div>
 
+        <!-- Feature Body -->
         <div class="feature-body">
 
             <!-- title -->
@@ -19,7 +21,6 @@
             <!-- loading animation -->
             <div class="loadinger" [class.hidden]="!isLoading"></div>
 
-        
             <!-- tags -->
             <ul *ngIf="selectedFeature && selectedFeature.tags" class="feature-tags hyphenate">
                 <li *ngIf="selectedFeature.tags['addr:street'] || selectedFeature.tags['addr:housenumber'] || selectedFeature.tags['addr:postcode'] || selectedFeature.tags['addr:city']">
@@ -39,8 +40,9 @@
             </ul>
 
             <a class="osm-link" href="{{ selectedFeature.getOpenStreetMapLink() }}" rel="noopener" target="_blank">Edit on OpenStreetMap</a>
-        </div>
-    </div>
+        </div><!-- /.feature-body -->
+    </div><!-- /.featurepane-inner -->
+
 
     <!-- Feature Action Buttons -->
     <div class="feature-actions" *ngIf="selectedFeature && selectedFeature.tags">
@@ -70,15 +72,15 @@
         </a>
 
         <!-- Save -->
-        <div class="feature-action feature-action--save">
+        <div class="feature-action feature-action--save" (click)="saveFeature()">
             <span class="icon ion-star"></span>
             <label>Save</label>
         </div>
 
         <!-- share/copy -->
-        <div class="feature-action feature-action--share">
+        <div class="feature-action feature-action--share" (click)="shareFeature()">
             <span class="icon ion-share"></span>
             <label>share</label>
         </div>
-    </div>
-</div>
+    </div><!-- /.feature-actions -->
+</div><!-- /#featurepane -->
