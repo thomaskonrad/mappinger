@@ -140,7 +140,7 @@ $feature-pane-width: 340px;
 }
 
 // Links
-a {
+.feature-body a {
     &:link, &:visited {
         color: $mappinger-green-dark;
     }

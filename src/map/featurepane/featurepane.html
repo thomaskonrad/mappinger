@@ -44,6 +44,7 @@
 
     <!-- Feature Action Buttons -->
     <div class="feature-actions" *ngIf="selectedFeature && selectedFeature.tags">
+
         <!-- Navigation -->
         <!-- <div class="feature-action feature-action--navigate feature-action--disabled">
             <span class="icon ion-navigate"></span>
@@ -51,16 +52,22 @@
         </div> -->
         
         <!-- Website -->
-        <div class="feature-action feature-action--website" *ngIf="selectedFeature.tags.website">
+        <a class="feature-action feature-action--website" *ngIf="selectedFeature.tags.website" href="{{selectedFeature.tags.website}}" target="_blank" rel="noopener">
             <span class="icon ion-android-globe"></span>
             <label>Website</label>
-        </div>
+        </a>
+
+        <!-- Email -->
+        <a class="feature-action feature-action--email" *ngIf="selectedFeature.tags.email" href="mailto:{{selectedFeature.tags.email}}" target="_blank">
+            <span class="icon ion-ios-telephone"></span>
+            <label>Email</label>
+        </a>
 
         <!-- Call -->
-        <div class="feature-action feature-action--call" *ngIf="selectedFeature.tags.phone">
+        <a class="feature-action feature-action--call" *ngIf="selectedFeature.tags.phone" href="tel:{{selectedFeature.tags.phone}}" target="_blank">
             <span class="icon ion-ios-telephone"></span>
             <label>Call</label>
-        </div>
+        </a>
 
         <!-- Save -->
         <div class="feature-action feature-action--save">
@@ -68,7 +75,7 @@
             <label>Save</label>
         </div>
 
-        <!-- share -->
+        <!-- share/copy -->
         <div class="feature-action feature-action--share">
             <span class="icon ion-share"></span>
             <label>share</label>
