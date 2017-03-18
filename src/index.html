@@ -3,11 +3,20 @@
 
     <head>
         <base href="/"/>
+        <meta charset="utf-8">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        
+        <link rel="canonical" href="https://mappinger.org">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>{%=o.htmlWebpackPlugin.options.pkg.name %}</title>
 
-        <!-- favicons -->
+        <!-- favicons and status bar -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="{%=o.htmlWebpackPlugin.options.pkg.name %}">
         <link rel="apple-touch-icon" sizes="57x57" href="static/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="static/favicons/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="static/favicons/apple-icon-72x72.png">
@@ -21,6 +30,11 @@
         <link rel="icon" type="image/png" sizes="32x32" href="static/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="static/favicons/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
+
+
+        <!-- TODO add manifest here 
+        <link rel="manifest" href="/manifest.json">
+        -->
 
         <script src='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
