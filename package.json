@@ -25,7 +25,7 @@
     "@angular/router": "~3.4.1",
     "es6-shim": "^0.33.13",
     "node-sass": "^3.4.1",
-    "reflect-metadata": "0.1.2",
+    "reflect-metadata": "^0.1.9",
     "zone.js": "^0.7.2",
     "core-js": "^2.4.1",
     "rxjs": "^5.0.1"
