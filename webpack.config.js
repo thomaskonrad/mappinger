@@ -3,14 +3,13 @@ var path = require('path'),
     wwwPath = path.join(__dirname, 'build'),
     pkg = require('./package.json'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    CopyWebpackPlugin = require('copy-webpack-plugin');
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
     LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 module.exports = {
     context: srcPath,
     entry: {
         'app': path.join(srcPath, 'main.ts'),
-        'style': path.join(srcPath, 'index.scss'),
         'polyfills': path.join(srcPath, 'polyfills.browser.ts')
     },
     output: {
@@ -20,22 +19,25 @@ module.exports = {
     },
     devtool: 'source-map',
     module: {
-        loaders: [{
-            test: /\.ts$/,
-            loader: 'ts-loader',
-            exclude: [
-                /node_modules/
-            ]
-        }, {
-            test: /\.json$/,
-            loader: "json-loader"
-        }, {
-            test: /\.html$/,
-            loader: 'raw-loader'
-        }, {
-            test: /\.scss$/,
-            loader: "raw-loader!autoprefixer?browsers=last 2 versions!sass-loader"
-        }],
+        loaders: [
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                exclude: [
+                    /node_modules/
+                ]
+            }, {
+                test: /\.json$/,
+                loader: "json-loader"
+            }, {
+                test: /\.html$/,
+                loader: 'raw-loader'
+            }, {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loader: 'raw-loader!sass-loader'
+            }
+        ],
         noParse: [/angular2\/bundles\/.+/],
     },
     resolve: {

@@ -34,7 +34,6 @@
     "@types/core-js": "^0.9.34",
     "@types/jasmine": "^2.5.35",
     "@types/node": "^6.0.45",
-    "typescript": "^2.1.4",
     "autoprefixer-loader": "^3.1.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.21.0",
@@ -44,12 +43,13 @@
     "json-loader": "^0.5.3",
     "path": "^0.4.9",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^3.1.1",
+    "sass-loader": "^3.2.3",
     "style-loader": "^0.13.0",
+    "ts-helpers": "1.1.2",
     "ts-loader": "^0.6.0",
+    "typescript": "^2.1.4",
     "util": "^0.10.3",
     "webpack": "2.2.1",
-    "webpack-dev-server": "~2.4.1",
-    "ts-helpers": "1.1.2"
+    "webpack-dev-server": "~2.4.1"
   }
 }

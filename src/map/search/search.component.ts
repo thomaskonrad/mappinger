@@ -34,7 +34,7 @@ import 'rxjs/add/operator/switchMap';
                 </ul>
             </div>
             `,
-    styles: [require('!raw-loader!autoprefixer?browsers=last 2 versions!sass-loader!./search.scss')],
+    styles: [require('./search.scss')],
 })
 export class SearchComponent implements OnInit{
 
