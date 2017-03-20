@@ -3,13 +3,13 @@ var path = require('path'),
     wwwPath = path.join(__dirname, 'build'),
     pkg = require('./package.json'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    CopyWebpackPlugin = require('copy-webpack-plugin');
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
+    LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 module.exports = {
     context: srcPath,
     entry: {
         'app': path.join(srcPath, 'main.ts'),
-        'style': path.join(srcPath, 'index.scss'),
         'polyfills': path.join(srcPath, 'polyfills.browser.ts')
     },
     output: {
@@ -17,31 +17,36 @@ module.exports = {
         filename: '[name]-[hash:6].js',
         sourceMapFilename: '[file].map'
     },
-    debug: true,
     devtool: 'source-map',
     module: {
-        loaders: [{
-            test: /\.ts$/,
-            loader: 'ts',
-            exclude: [
-                /node_modules/
-            ]
-        }, {
-            test: /\.json$/,
-            loader: "json"
-        }, {
-            test: /\.html$/,
-            loader: 'raw'
-        }, {
-            test: /\.scss$/,
-            loader: "style!css!autoprefixer?browsers=last 2 versions!sass"
-        }],
+        loaders: [
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader',
+                exclude: [
+                    /node_modules/
+                ]
+            }, {
+                test: /\.json$/,
+                loader: "json-loader"
+            }, {
+                test: /\.html$/,
+                loader: 'raw-loader'
+            }, {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loader: 'raw-loader!sass-loader'
+            }
+        ],
         noParse: [/angular2\/bundles\/.+/],
     },
     resolve: {
-        extensions: ['', '.ts', '.js', '.html', '.scss']
+        extensions: ['.ts', '.js', '.html', '.scss']
     },
     plugins: [
+        new LoaderOptionsPlugin({
+            debug: true
+        }),
         new CopyWebpackPlugin([
             {from: 'static', to: 'static' }
         ]),

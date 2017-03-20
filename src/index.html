@@ -7,11 +7,11 @@
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        
+
         <link rel="canonical" href="https://mappinger.org">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{%=o.htmlWebpackPlugin.options.pkg.name %}</title>
+        <title>Mappinger</title>
 
         <!-- favicons and status bar -->
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,7 +31,6 @@
         <link rel="icon" type="image/png" sizes="96x96" href="static/favicons/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
 
-
         <!-- TODO add manifest here 
         <link rel="manifest" href="/manifest.json">
         -->
@@ -45,18 +44,13 @@
 
         <script>
             window.mappinger = {};
-            mappinger.name = "{%= o.htmlWebpackPlugin.options.pkg.name %}";
-            mappinger.version = "{%= o.htmlWebpackPlugin.options.pkg.version %}";
+            mappinger.name = "<%= o.htmlWebpackPlugin.options.pkg.name %>";
+            mappinger.version = "<%= o.htmlWebpackPlugin.options.pkg.version %>";
         </script>
-
     </head>
     <body>
         <app>
             <div style="text-align:center;margin-top:20vh">Loading the world – hang on a sec, it's huge!</div>
         </app>
-
-        {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-        <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-        {% } %}
     </body>
 </html>

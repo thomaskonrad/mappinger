@@ -14,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
     selector: 'search',
     providers: [SearchService],
     template: require('./search.html'),
-    styles: [require('!raw!autoprefixer?browsers=last 2 versions!sass!./search.scss')],
+    styles: [require('./search.scss')],
 })
 export class SearchComponent implements OnInit{
 
