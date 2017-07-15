@@ -6,6 +6,9 @@ import {NominatimService} from './nominatim.service';
 import {WikipediaService} from "./wikipedia.service";
 import {PresetsService} from './presets.service';
 import {SimpleOpeningHours} from '../../lib/simple-opening-hours';
+import {MessageService} from '../message.service';
+import { Message } from '../message';
+import { Coordinates } from '../../commons';
 
 
 @Component({
@@ -34,7 +37,8 @@ export class FeaturePaneComponent {
         private _mapService: MapService,
         private _nominatimService: NominatimService,
         private _wikipediaService: WikipediaService,
-        private _presetsService: PresetsService
+        private _presetsService: PresetsService,
+        private _messageService: MessageService
     ) {
         route.params.subscribe( (p) => {
             // The place ID looks like "w212496461-Stephansdom". Partition it in "w", "212496461", and "Stephansdom".
@@ -71,9 +75,13 @@ export class FeaturePaneComponent {
             this.isLoading = false;
 
             if(response.elements.length > 0) {
-                this.selectedFeature.name = response.elements[0].tags.name;
+                console.log(response);
 
-                this.selectedFeature.tags = response.elements[0].tags;
+                let feature = response.elements[0];
+
+                this.selectedFeature.name = feature.tags.name;
+
+                this.selectedFeature.tags = feature.tags;
                 if ('wikipedia' in this.selectedFeature.tags) {
                     var parts = this.selectedFeature.tags.wikipedia.split(':');
                     this._wikipediaService.getMainImageUrl(parts[0], parts[1]).subscribe((response) => {
@@ -100,6 +108,26 @@ export class FeaturePaneComponent {
                     this.selectedFeature.openingHoursToday = oh.getOpeningHoursToday();
 
                 }
+
+                let lat, lon;
+
+                if (feature.center) {
+                    lat = feature.center.lat;
+                    lon = feature.center.lon;
+                } else {
+                    lat = feature.lat;
+                    lon = feature.lon;
+                }
+
+                // Emit a message that a feature was selected.
+                this._messageService.sendMessage(
+                    new Message(
+                        Message.MESSAGE_TYPE_FEATURE_SELECTED,
+                        {
+                            coordinates: new Coordinates(lat, lon)
+                        }
+                    )
+                );
             }
             else {
                 this.isLoading = false;

@@ -7,6 +7,8 @@ import { SlippyMapComponent} from './slippy-map/slippy-map.component';
 import { SearchComponent } from './search/search.component';
 import { FeaturePaneComponent } from './featurepane/featurepane.component';
 
+import { MessageService } from './message.service';
+
 
 @NgModule({
     imports:      [
@@ -19,6 +21,8 @@ import { FeaturePaneComponent } from './featurepane/featurepane.component';
         SlippyMapComponent,
         SearchComponent,
         FeaturePaneComponent
+    ],providers: [
+        MessageService
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

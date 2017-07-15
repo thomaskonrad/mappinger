@@ -6,6 +6,9 @@ import {Feature} from '../../commons';
 import {IpGeolocationService} from './ipgeolocation.service';
 import {MapService} from './map.service';
 import {Marker} from './marker';
+import {Subscription} from 'rxjs/Subscription';
+import {MessageService} from '../message.service';
+import {Message} from '../message';
 
 declare var mapboxgl:any; // Magic
 // declare mapboxgl.Geolocate:any; // Magic
@@ -22,12 +25,24 @@ export class SlippyMapComponent implements OnInit {
     showFeaturePane:boolean;
     ipGeolocation:Coordinates;
     marker:any;
+    subscription: Subscription;
 
     constructor(
         private _router: Router,
         private _route: ActivatedRoute,
         private _ipGeolocationService:IpGeolocationService,
-        private _mapService:MapService) {
+        private _mapService:MapService,
+        private _messageService: MessageService
+    ) {
+        this.subscription = this._messageService.getMessage().subscribe(
+            message => {
+                if (message.messageType == Message.MESSAGE_TYPE_FEATURE_SELECTED) {
+                    console.log(message.payload.coordinates);
+                    this.jumpTo(message.payload.coordinates);
+                    this.addMarker(message.payload.coordinates);
+                }
+            }
+        );
     }
 
     ngOnInit() {
@@ -76,38 +91,55 @@ export class SlippyMapComponent implements OnInit {
 
         this.addMarker(searchResult.coordinates);
 
-        // TODO: dynamically define zoom-level: if a amenity -> goto 17, if city etc use a lower value
-        // set map center
-        if(jumpto) {
-            this.map.jumpTo({center: new mapboxgl.LngLat(searchResult.coordinates.lat, searchResult.coordinates.lon), zoom: 17});
-
-            // move the map half the width of the featurepane to center the marker (we need to wait a bit to do that though)
-            window.setTimeout(function() {
-                try {
-                    let featurePaneElement:HTMLElement = <HTMLElement>document.querySelector('#feature-pane');
-                    let featurePaneElementWidth:number = featurePaneElement.offsetWidth;
-                    if(featurePaneElementWidth != window.innerWidth) map.panBy([-featurePaneElementWidth/2,0], {duration: 0});
-                }  catch (e) {
-                    // catch me if you can
-                }
-            }, 30);
-        }
-
         // Navigate to /map/place/w123
-
         this._router.navigate(['/map/place', feature.getFeatureTypeLetter() + feature.osm_id + "-" + feature.name]);
     }
 
+    jumpTo(coordinates:Coordinates) {
+        let currentBounds = this.map.getBounds();
+        let sw = currentBounds._sw;
+        let ne = currentBounds._ne;
+
+        // Are the coordinates passed within the current view bounds?
+        if (
+            this.map.getZoom() > 14 &&
+            coordinates.lon > sw.lng && coordinates.lat > sw.lat &&
+                coordinates.lon < ne.lng && coordinates.lat < ne.lat
+        ) {
+            return;
+        }
+
+        this.map.flyTo({
+            center: new mapboxgl.LngLat(coordinates.lon, coordinates.lat),
+            zoom: 17,
+            speed: 5
+        });
+    }
 
     addMarker(coordinates:Coordinates) {
-        // remove old marker
-        if(this.marker) this.marker.remove();
+        if (this.marker) {
+            let markerLngLat = this.marker.getLngLat();
+
+            let comparisonDigits = 4;
+
+            // If the marker is already on the to-be-selected feature, don't set a new one.
+            if (
+                markerLngLat.lng.toFixed(comparisonDigits) == coordinates.lon.toFixed(comparisonDigits)
+                && markerLngLat.lat.toFixed(comparisonDigits) == coordinates.lat.toFixed(comparisonDigits)
+            ) {
+                return;
+            }
+
+            // Remove old marker
+            this.marker.remove();
+        }
+
         // create new Marker
         let markerDom = new Marker({imageUrl: "static/marker_76x76.png"});
 
         // create new MapBoxGl-Marker and add to Map
         this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-19, -39]})
-          .setLngLat([coordinates.lat, coordinates.lon])
+          .setLngLat([coordinates.lon, coordinates.lat])
           .addTo(this.map);
         
         // add move-in class
@@ -149,8 +181,8 @@ export class SlippyMapComponent implements OnInit {
             clickResult.osm_id = featureTypeAndId.id;
             clickResult.name = selectedFeature.properties.name;
             clickResult.coordinates = new Coordinates(
-                selectedFeature.geometry.coordinates[0],
-                selectedFeature.geometry.coordinates[1]
+                selectedFeature.geometry.coordinates[1],
+                selectedFeature.geometry.coordinates[0]
             );
 
             // call onSelected
