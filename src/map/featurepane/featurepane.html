@@ -1,3 +1,5 @@
+<div class="loadinger" [class.hidden]="!isLoading"></div>
+
 <div *ngIf="selectedFeature" id="featurepane"  [ngClass]="{'has-image': selectedFeature.wikipedia_image_url}">
 
     <!-- FeaturePane Head: contains image/placeholder and Title -->
