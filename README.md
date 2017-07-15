@@ -2,7 +2,8 @@
 An open map with the end-user in mind.
 
 ## Prerequisites
-(tbd)
+
+ - NodeJS v6.x
 
 ## Configuration
 rename `src/config.ts.sample` to `src/config.ts` and replace `"YOUR-TOKEN-GOES-HERE"` with your API token from [Mapbox](http://mapbox.com).
