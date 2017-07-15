@@ -1,8 +1,11 @@
 @import "./../../commons.scss";
 
 
-
+/**
+ * Variables
+ */
 $featurepane-width: 340px;
+
 
 
 /**
@@ -11,6 +14,7 @@ $featurepane-width: 340px;
  *
  */
 
+
 /**
  * FeaturePane General 
  */
@@ -18,23 +22,36 @@ $featurepane-width: 340px;
   position: absolute;
   z-index: 99;
   left: 20px;
-  top: 88px;
+  top: 80px;
   width: $featurepane-width;
   color: #222;
   border-bottom: 5px solid $mappinger-green-dark;
-}
-.featurepane-inner {
   box-shadow: 0 0 20px rgba(0,0,0,0.33);
   background-color: #fff;
 }
 
+
+/**
+ * header
+ */
+.header {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  min-height: 20vh; 
+  width: 100%;
+  background-color: $mappinger-green-dark;
+}
+
+
 /**
  * FeaturePane Image
  */
-.feature-image {
+.image {
+  position: absolute;
   display: block;
   width: 100%;
-  height: 20vh;
+  height: 100%; 
   opacity: 0;
   transition: opacity 500ms ease-out;
 
@@ -43,7 +60,7 @@ $featurepane-width: 340px;
   }
 }
 
-.feature-image img {
+.image img {
   object-fit: cover;
   object-position: 50% 50%;
   width: 100%;
@@ -51,6 +68,48 @@ $featurepane-width: 340px;
 }
 
 
+
+/**
+ * Feature Title 
+ */
+// wrapper for positioning
+.title-wrapper {
+  position: relative;
+  padding: 20px 20px 10px 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title-wrapper h1, .title-wrapper h2 {
+  margin: 0;
+  color: #fff;
+}
+.title-wrapper h1 {
+  font-size: 1.8rem;
+}
+.title-wrapper h2 {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+
+/** 
+ * FeaturePane has an image styles
+ */
+#featurepane.has-image {
+
+  .header {
+    min-height: 33vh;
+  }
+
+  .title-wrapper {
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
+  }
+
+  .title-wrapper h1, .title-wrapper h2 {
+    text-shadow: 1px 1px 11px rgba(0, 0, 0, 0.81);
+  }
+}
 
 
 
@@ -69,52 +128,9 @@ $featurepane-width: 340px;
 }
 
 
-.feature-title-wrapper .feature-preset {
-  font-weight: 300;
-  font-style: italic;
-}
-
-.feature-body hr {
-  margin: 1em 0;
-}
 
 
 
-
-
-/**
- * Loading Animation Bar – youtube style loader
- */
-.loadinger {
-  position: absolute;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: 10;
-
-  &::after {
-    position: absolute;
-    width: 70%;
-    top: 0;
-    height: 100%;
-    display: block;
-    content: "";
-    background-color: $mappinger-red-dark;
-    transform: translate3d(0,0,0);
-    animation: loadinger-animation 800ms cubic-bezier(0.68, 0.01, 0.26, 1.02) 0ms infinite;
-  }
-
-  &.hidden {
-      display: none;
-  }
-}
-
-@keyframes loadinger-animation {
-  0%    {  transform: translate3d(-$featurepane-width*0.7, 0, 0) scaleX(0.7); }
-  100%  {  transform: translate3d($featurepane-width, 0, 0) scaleX(1); }
-}
 
 
 /* Hyphenate. See https://css-tricks.com/almanac/properties/h/hyphenate/ */
@@ -185,35 +201,5 @@ $featurepane-width: 340px;
 // TODO: rewrite smartphone layout
 /* Medium Size Devices < 750px */
 @media all and (max-width: 750px) {
-  #featurepane {
-    top: auto;
-    right: 0;
-    width: auto;
-  }
-
-  .feature-head {
-    height: 10vh;
-    min-height: 0;
-    margin-bottom: 0;
-    padding: 16px 0;
-  }
-
-  .feature-title-wrapper {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    padding-top: 6px;
-  }
-  .feature-title-wrapper.has-image {
-    background: none;
-    left: auto;
-    bottom: auto;
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  .feature-tags {
-    padding: 16px 0 6px 0;
-  }
+  
 }
