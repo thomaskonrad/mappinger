@@ -67,15 +67,15 @@ export class SlippyMapComponent implements OnInit {
         this.map.addControl(new mapboxgl.NavigationControl({position: 'top-right'}));
         this.map.addControl(new mapboxgl.GeolocateControl({position: 'top-right'}));
 
-        // this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
-        //     this.map.flyTo({
-        //         center: result,
-        //         zoom: 11,
-        //         speed: 3
-        //     });
-        //
-        //     this.ipGeolocation = new Coordinates(result[1], result[0]);
-        // });
+        this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
+            this.map.flyTo({
+                center: result,
+                zoom: 11,
+                speed: 3
+            });
+
+            this.ipGeolocation = new Coordinates(result[1], result[0]);
+        });
     }
 
     onSelected(searchResult: SearchResult, jumpto:Boolean = true) {
