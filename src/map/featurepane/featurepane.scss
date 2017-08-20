@@ -238,5 +238,47 @@ $featurepane-width: 340px;
 // TODO: rewrite smartphone layout
 /* Medium Size Devices < 750px */
 @media all and (max-width: 750px) {
-  
+
+  // position featurepane at the very bottom of screen
+  #featurepane {
+    left: 0px;
+    top: auto;
+    bottom: 0px;
+    right: 0;
+    width: auto;
+  }
+
+
+  // set lower min-height for header
+  .header {
+    min-height: 5vh; 
+  }
+
+  #featurepane.has-image .header {
+    min-height: 16vh;
+  }
+
+
+  .title-wrapper {
+    padding: 10px;
+  }
+  .title-wrapper h1 {
+    font-size: 1.5rem;
+  } 
+
+  .title-wrapper h2 {
+    font-size: 1rem;
+  }
+
+
+  .feature-body {
+    padding: 10px;
+    padding-bottom: 20px;
+  }
+
+  .feature-tags li {
+    margin-bottom: 0.3em;
+  }
+
+
 }
