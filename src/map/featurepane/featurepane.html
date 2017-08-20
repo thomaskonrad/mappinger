@@ -34,8 +34,8 @@
                 <span *ngIf="selectedFeature.tags['addr:city']">{{selectedFeature.tags["addr:city"]}}</span>
             </li>
             <li *ngIf="selectedFeature.hasOpeningHours">
-                <span [ngClass]="{'now-open': true, 'is-open': selectedFeature.nowOpen}">{{ selectedFeature.nowOpen ? 'Now Open' : 'Now Closed' }}</span>,
-                <span *ngIf="selectedFeature.openingHoursToday != ''">Today {{ selectedFeature.openingHoursToday }}</span>
+                <span [ngClass]="{'now-open': true, 'is-open': selectedFeature.nowOpen}">{{ selectedFeature.nowOpen ? 'Now Open' : 'Now Closed' }}</span>
+                <span *ngIf="selectedFeature.openingHoursToday != ''">, Today {{ selectedFeature.openingHoursToday }}</span>
             </li>
             <li *ngIf="selectedFeature.tags.website" class="hyphenate">Website: <a href="{{selectedFeature.tags.website}}" target="_blank" rel="noopener">{{selectedFeature.tags.website}}</a></li>
             <li *ngIf="selectedFeature.tags.email">E-Mail: <a href="mailto:{{selectedFeature.tags.email}}" target="_blank">{{selectedFeature.tags.email}}</a></li>
