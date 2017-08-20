@@ -138,7 +138,7 @@ export class SlippyMapComponent implements OnInit {
         let markerDom = new Marker({imageUrl: "static/marker_76x76.png"});
 
         // create new MapBoxGl-Marker and add to Map
-        this.marker = new mapboxgl.Marker(markerDom.element, {offset: [-19, -39]})
+        this.marker = new mapboxgl.Marker(markerDom.element, {offset: [0,-19]})
           .setLngLat([coordinates.lon, coordinates.lat])
           .addTo(this.map);
         
