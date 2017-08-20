@@ -235,7 +235,6 @@ $featurepane-width: 340px;
  *
  */
 
-// TODO: rewrite smartphone layout
 /* Medium Size Devices < 750px */
 @media all and (max-width: 750px) {
 
@@ -260,7 +259,7 @@ $featurepane-width: 340px;
 
 
   .title-wrapper {
-    padding: 10px;
+    padding: 20px 10px;
   }
   .title-wrapper h1 {
     font-size: 1.5rem;

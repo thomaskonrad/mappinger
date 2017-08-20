@@ -73,6 +73,17 @@
 
 
 
+/* Medium Size Devices < 750px */
+@media all and (max-width: 750px) {
+    /deep/ {
+        .mapboxgl-ctrl-group > button {
+            width: 30px;
+            height: 30px;
+            border: 0;
+        }
+    }        
+
+}
 
 
 
