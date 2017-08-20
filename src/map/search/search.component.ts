@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit{
 
         // subscribe to changes in the search-input
         this.searchResultItems = this.searchTermsSubject
-            .debounceTime(400)
+            .debounceTime(200)
             .distinctUntilChanged()
             .switchMap(searchTerm => {
                     // show results
