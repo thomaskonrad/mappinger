@@ -11,7 +11,6 @@ import {MessageService} from '../message.service';
 import {Message} from '../message';
 
 declare var mapboxgl:any; // Magic
-// declare mapboxgl.Geolocate:any; // Magic
 
 @Component({
     selector: 'my-map',
@@ -26,6 +25,7 @@ export class SlippyMapComponent implements OnInit {
     ipGeolocation:Coordinates;
     marker:any;
     subscription: Subscription;
+    preventIpGeolocationFlyTo:boolean = false;
 
     constructor(
         private _router: Router,
@@ -37,6 +37,7 @@ export class SlippyMapComponent implements OnInit {
         this.subscription = this._messageService.getMessage().subscribe(
             message => {
                 if (message.messageType == Message.MESSAGE_TYPE_FEATURE_SELECTED) {
+                    this.preventIpGeolocationFlyTo = true;
                     console.log(message.payload.coordinates);
                     this.jumpTo(message.payload.coordinates);
                     this.addMarker(message.payload.coordinates);
@@ -46,6 +47,7 @@ export class SlippyMapComponent implements OnInit {
     }
 
     ngOnInit() {
+
         mapboxgl.accessToken = Config.mapboxAccessToken;
         this.map = new mapboxgl.Map({
             container: 'map', // container id
@@ -68,11 +70,14 @@ export class SlippyMapComponent implements OnInit {
         this.map.addControl(new mapboxgl.GeolocateControl({position: 'top-right'}));
 
         this._ipGeolocationService.getIpGeolocation().subscribe((result) => {
-            this.map.flyTo({
-                center: result,
-                zoom: 11,
-                speed: 3
-            });
+            // fly to IP Geoposition (only if it is has not been disabled before by a Feature-Selected-Message)
+            if(!this.preventIpGeolocationFlyTo) {   
+                this.map.flyTo({
+                    center: result,
+                    zoom: 11,
+                    speed: 3
+                });
+            }
 
             this.ipGeolocation = new Coordinates(result[1], result[0]);
         });

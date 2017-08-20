@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class MapService {
-
+    httpRequest;
     constructor(private _http: Http) {
 
     }
@@ -42,9 +42,11 @@ export class MapService {
 
         let params: URLSearchParams = new URLSearchParams();
         params.set('data', query);
-
-        return this._http.get('https://overpass-api.de/api/interpreter', {
+        if(this.httpRequest) this.httpRequest.unsubscribe();
+        this.httpRequest = this._http.get('https://overpass-api.de/api/interpreter', {
             search: params
-        }).map(res => res.json());//.map(res => res.data.elements[0]);
+        });
+        
+        this.httpRequest.map(res => res.json());//.map(res => res.data.elements[0]);
     };
 }
